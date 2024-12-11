@@ -1,0 +1,96 @@
+import matplotlib.pyplot as plt
+import networkx as nx
+
+def visualize_dict_structure_tree(d, graph=None, parent="Root", level=0, max_depth=None):
+    """
+    Recursively adds dictionary keys to the graph for visualization in a tree layout.
+    Adds an option to cut off visualization at a certain depth (max_depth).
+    """
+    if graph is None:
+        graph = nx.DiGraph()  # Directed graph for hierarchy
+    
+    # If max_depth is specified, stop adding nodes beyond this level
+    if max_depth is not None and level > max_depth:
+        return graph
+
+    for key, value in d.items():
+        node_id = key  # Use the key directly as the node id (no depth in name)
+
+        # Connect the node to its parent (Root for the first level)
+        graph.add_edge(parent, node_id)
+
+        # If the value is a dictionary, recursively visualize its structure
+        if isinstance(value, dict):
+            visualize_dict_structure_tree(value, graph=graph, parent=node_id, level=level+1, max_depth=max_depth)
+        else:
+            # Add leaf node for non-dictionary value
+            value_node_id = f"{key}_value"
+            graph.add_edge(node_id, value_node_id)
+
+    return graph
+
+
+def calculate_node_depths(graph, root="Root"):
+    """
+    Calculates the depth of each node in the graph based on its distance from the root.
+    """
+    return dict(nx.single_source_shortest_path_length(graph, root))
+
+
+def display_graph_tree(graph, k=0.5, max_depth=None):
+    """
+    Display the dictionary structure graph using matplotlib in a tree-like layout.
+    Adds stronger repulsion (k) to avoid node occlusion and keeps the depth in check.
+    Colors nodes by depth and decreases node size with each level.
+    """
+    pos = nx.spring_layout(graph, k=k, seed=42)  # Spring layout with more repulsion
+    
+    # Calculate the depth of each node
+    node_depths = calculate_node_depths(graph)
+    
+    # Set node sizes and colors based on depth
+    max_level = max(node_depths.values())
+    node_sizes = [2000 * (0.8 ** node_depths[node]) for node in graph.nodes()]  # Decrease size by depth
+    node_colors = [plt.cm.viridis(node_depths[node] / max_level) for node in graph.nodes()]  # Color by depth
+
+    plt.figure(figsize=(12, 8))
+    
+    # Draw nodes, edges, and labels
+    nx.draw(
+        graph, pos, with_labels=True, node_size=node_sizes, node_color=node_colors,
+        font_size=10, font_weight="bold", font_family="Arial", edge_color='gray',
+        width=2, alpha=0.9, linewidths=1, arrows=False
+    )
+
+    # Add a title
+    title = "Nested Dictionary Visualization"
+    if max_depth is not None:
+        title += f" (Max Depth: {max_depth})"
+    plt.title(title, fontsize=15, fontweight='bold')
+    
+    # Show the final visualization
+    plt.show()
+
+
+
+if __name__ == '__main__':
+    # Example usage
+    nested_dict = {
+        "key1": {
+            "subkey1": {
+                "subsubkey1": "value1",
+                "subsubkey2": "value2"
+            },
+            "subkey2": "value3"
+        },
+        "key2": "value4",
+        "key3": {
+            "subkey3": "value5"
+        }
+    }
+
+    # Create the graph with the root node and cutoff at max depth 2
+    graph = visualize_dict_structure_tree(nested_dict, max_depth=2)
+
+    # Display the tree layout with stronger node repulsion, coloring by depth, and variable node size
+    display_graph_tree(graph, k=0.8, max_depth=2)
