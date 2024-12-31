@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 import numpy as np
 import pandas as pd
 import torch
@@ -7,6 +9,8 @@ from matplotlib import pyplot as plt
 import plotly.io as pio
 import plotly.express as px
 import plotly.graph_objects as go
+
+from geomechinterp.informat.entropy import get_uncertainty
 
 
 def plot_pca_reps(concept_dirs, labels, title="PCA Projection of Concept Vectors"):
@@ -137,5 +141,56 @@ def plot_word_change(beta_values, words, runs, labels, figsize=(30, 10)):
         size=20,
     )
     plt.xlabel("Beta")
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_uncertainty(
+    logits, model, true_tokens: List[str] = None, annotate_tokens: bool = False
+):
+    entropy, max_prob, max_indices = get_uncertainty(logits)
+    fig, axs = plt.subplots(1, 2, figsize=(12, 5))
+
+    if annotate_tokens:
+        predicted_tokens = model.to_str_tokens(max_indices)
+
+    axs[0].plot(entropy, color="blue")
+    axs[0].set_title("Entropy")
+    axs[0].set_xlabel("Steps")
+    axs[0].set_ylabel("Entropy Value")
+
+    axs[1].plot(max_prob, color="orange")
+    axs[1].set_title("Max Probability")
+    axs[1].set_xlabel("Steps")
+    axs[1].set_ylabel("Max Probability Value")
+    axs[1].set_ylim(0, 1.2)  # Extend y-axis to 1.2
+
+    # Annotate with tokens at each step
+    if annotate_tokens:
+        for i, token in enumerate(predicted_tokens):
+            # Add predicted tokens
+            axs[1].annotate(
+                token,
+                (i, max_prob[i]),
+                textcoords="offset points",
+                xytext=(0, 10),
+                ha="center",
+            )
+
+            # Add true tokens at y=1.1 if available
+            if true_tokens and i < len(true_tokens):
+                # Add true token annotation
+                axs[1].annotate(
+                    true_tokens[i],
+                    (i, 1.1),
+                    textcoords="offset points",
+                    xytext=(0, 10),
+                    ha="center",
+                )
+                # Draw dashed line connecting true and predicted tokens
+                axs[1].plot(
+                    [i, i], [max_prob[i], 1.1], color="red", linestyle="--", alpha=0.3
+                )
+
     plt.tight_layout()
     plt.show()

@@ -1,9 +1,11 @@
 # Implementation of balanced Forman curvature and SDRF (Stochastic Discrete Ricci Flow) algorithms
 # Taken from https://github.com/jctops/understanding-oversquashing/blob/main/gdl/src/gdl/curvature/numba.py
 
-from numba import jit, prange
 import numpy as np
+import networkx as nx
+from numba import jit, prange
 import torch
+from tqdm import tqdm
 
 from torch_geometric.utils import (
     to_networkx,
@@ -11,17 +13,25 @@ from torch_geometric.utils import (
 )
 
 
-def softmax(a, tau=1):
-    """Compute softmax values with temperature parameter tau"""
-    exp_a = np.exp(a * tau)
-    return exp_a / exp_a.sum()
+def balanced_forman_curvature(A, C=None):
+    """Wrapper function to calculate balanced Forman curvature"""
+    N = A.shape[0]
+    A2 = np.matmul(A, A)
+    d_in = A.sum(axis=0)
+    d_out = A.sum(axis=1)
+    if C is None:
+        C = np.zeros((N, N))
+
+    _balanced_forman_curvature(A, A2, d_in, d_out, N, C)
+    return C
 
 
+@jit(nopython=True)
 def _curvature_single_edge(A, A2, d_in, d_out, i, j, N):
     """Calculate curvature for a single edge (i, j)"""
     # Skip if no edge exists
     if A[i, j] == 0:
-        return 0, 0
+        return 0, 0, 0, 0
 
     # Get max and min of in/out degrees
     if d_in[i] > d_out[j]:
@@ -32,7 +42,7 @@ def _curvature_single_edge(A, A2, d_in, d_out, i, j, N):
         d_min = d_in[i]
 
     if d_max * d_min == 0:
-        return 0, 0
+        return 0, 0, 0, 0
 
     # Calculate contribution from 4-cycles
 
@@ -71,12 +81,15 @@ def _balanced_forman_curvature(A, A2, d_in, d_out, N, C):
         N: Number of nodes
         C: Output curvature matrix
     """
+    # use visual tracker of for loop progress
+
     for i in prange(N):
         for j in prange(N):
             d_max, d_min, sharp_ij, lambda_ij = _curvature_single_edge(
                 A, A2, d_in, d_out, i, j, N
             )
-
+            if d_max * d_min == 0:
+                continue
             # Calculate final curvature combining degree terms and 4-cycle terms
             C[i, j] = (
                 (2 / d_max)
@@ -90,17 +103,10 @@ def _balanced_forman_curvature(A, A2, d_in, d_out, N, C):
     return C
 
 
-def balanced_forman_curvature(A, C=None):
-    """Wrapper function to calculate balanced Forman curvature"""
-    N = A.shape[0]
-    A2 = np.matmul(A, A)
-    d_in = A.sum(axis=0)
-    d_out = A.sum(axis=1)
-    if C is None:
-        C = np.zeros((N, N))
-
-    _balanced_forman_curvature(A, A2, d_in, d_out, N, C)
-    return C
+def softmax(a, tau=1):
+    """Compute softmax values with temperature parameter tau"""
+    exp_a = np.exp(a * tau)
+    return exp_a / exp_a.sum()
 
 
 @jit(nopython=True)
@@ -120,14 +126,14 @@ def _balanced_forman_post_delta(
         i_neighbors, j_neighbors: Lists of neighbor nodes to consider
         dim_i, dim_j: Dimensions of output matrix
     """
-    for I in prange(dim_i):
-        for J in prange(dim_j):
-            i = i_neighbors[I]
-            j = j_neighbors[J]
+    for row_idx in prange(dim_i):
+        for col_idx in prange(dim_j):
+            i = i_neighbors[row_idx]
+            j = j_neighbors[col_idx]
 
             # Skip invalid edges
             if (i == j) or (A[i, j] != 0):
-                D[I, J] = -1000
+                D[row_idx, col_idx] = -1000
                 break
 
             # Update degrees after potential edge addition
@@ -137,7 +143,7 @@ def _balanced_forman_post_delta(
                 d_out_y += 1
 
             if d_in_x * d_out_y == 0:
-                D[I, J] = 0
+                D[row_idx, col_idx] = 0
                 break
 
             if d_in_x > d_out_y:
@@ -191,14 +197,14 @@ def _balanced_forman_post_delta(
                         lambda_ij = TMP
 
             # Calculate final curvature delta
-            D[I, J] = (
+            D[row_idx, col_idx] = (
                 (2 / d_max)
                 + (2 / d_min)
                 - 2
                 + (2 / d_max + 1 / d_min) * A2_x_y * A[x, y]
             )
             if lambda_ij > 0:
-                D[I, J] += sharp_ij / (d_max * lambda_ij)
+                D[row_idx, col_idx] += sharp_ij / (d_max * lambda_ij)
 
 
 def balanced_forman_post_delta(A, x, y, i_neighbors, j_neighbors, D=None):
@@ -292,16 +298,16 @@ def sdrf(
                     (D - C[x, y])[x_neighbors.index(i), y_neighbors.index(j)]
                 )
 
-            k, l = candidates[
+            k, end_node = candidates[
                 np.random.choice(
                     range(len(candidates)), p=softmax(np.array(improvements), tau=tau)
                 )
             ]
-            G.add_edge(k, l)
+            G.add_edge(k, end_node)
             if is_undirected:
-                A[k, l] = A[l, k] = 1
+                A[k, end_node] = A[end_node, k] = 1
             else:
-                A[k, l] = 1
+                A[k, end_node] = 1
         else:
             can_add = False
             if not remove_edges:
@@ -323,3 +329,15 @@ def sdrf(
                     break
 
     return from_networkx(G)
+
+
+import networkx as nx
+
+if __name__ == "__main__":
+    # test on random graph from networkx
+    # G = nx.gnp_random_graph(20, 0.5)
+    G = nx.grid_2d_graph(10, 10)
+    A = nx.to_numpy_array(G)
+    print(A)
+    C = balanced_forman_curvature(A)
+    print(C)

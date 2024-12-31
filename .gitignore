@@ -1,2 +1,13 @@
-geomechinterp/__pycache__/*
+/geomechinterp/__pycache__/*
+/geomechinterp/data/*
+/geomechinterp/scripts/profile_html/*
+
+/lib/*
 *.pyc
+*.html
+*.svg
+*.png
+.DS_Store
+*.prof
+*.pkl
+*.pth.tar
