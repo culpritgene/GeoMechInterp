@@ -1,7 +1,8 @@
 import random
 import itertools
 import re
-from typing import List, Callable, Dict
+import numpy
+from typing import Callable
 from geomechinterp.causal.base_functions import all_binary_checks
 from .truth_table_cache import truth_table_cache
 
@@ -16,9 +17,9 @@ class IndependentFeatureWrapper:
     """If Global Control is None we choose control uniformly at random
     Otherwise global control can be set to 0 or 1."""
 
-    def __init__(self, feature_fn, global_control=None):
-        self.feature_fn = feature_fn
-        self.global_control = global_control
+    def __init__(self, feature_fn: Callable, global_control: int = None):
+        self.feature_fn: Callable = feature_fn
+        self.global_control: int = global_control
 
     def __call__(self, s: str, s_prev: str = None, position: int = None):
         # ugly hack to make s_prev and position arguments,
@@ -29,57 +30,34 @@ class IndependentFeatureWrapper:
             return self.feature_fn(s, self.global_control)
 
     def __repr__(self):
-        reprs_str = f"IndependentFeature(function={self.feature_fn.__name__}, global_control={self.global_control})"
+        reprs_str = (
+            f"IndependentFeature(function={self.feature_fn.__name__}, "
+            f"global_control={self.global_control})"
+        )
         if self.global_control is None:
             reprs_str += " (stochastic)"
         else:
             reprs_str += " (deterministic)"
         return reprs_str
 
+    def __hash__(self):
+        return hash((self.feature_fn.__name__, self.global_control))
 
-# class DependentFeatureWrapper:
-#     def __init__(
-#         self,
-#         control_features: List[str],
-#         all_binary_features: Dict[str, Callable],
-#         truth_table_values: List[int],
-#     ):
-#         """
-#         Initialize with control features and truth table values
+    def to_json(self):
+        return {
+            "type": "IndependentFeatureWrapper",
+            "function": self.feature_fn.__name__,
+            "global_control": (
+                int(self.global_control) if self.global_control is not None else None
+            ),
+        }
 
-#         Args:
-#             control_features: List of feature names this depends on
-#             all_binary_features: Dict mapping feature names to their functions
-#             truth_table_values: List of output values for truth table
-#         """
-#         self.control_features = control_features
-#         self.all_binary_features = all_binary_features
-
-#         # Create cache key from control features and values
-#         self.cache_key = (tuple(sorted(control_features)), tuple(truth_table_values))
-
-#         # Get or create truth table
-#         cached_table = truth_table_cache.get_table(self.cache_key)
-#         if cached_table is None:
-#             truth_table = np.array(truth_table_values, dtype=np.int8)
-#             truth_table_cache.store_table(self.cache_key, truth_table)
-
-#     def __call__(self, s: str, c: int) -> int:
-#         """Evaluate the dependent feature"""
-#         # Get control values
-#         control_vals = []
-#         for cf in self.control_features:
-#             control_fn = self.all_binary_features[cf]
-#             control_vals.append(control_fn(s))
-
-#         # Convert control values to index into truth table
-#         control_idx = 0
-#         for i, val in enumerate(control_vals):
-#             control_idx += val * (2**i)
-
-#         # Get truth table from cache
-#         truth_table = truth_table_cache.get_table(self.cache_key)
-#         return truth_table[control_idx]
+    @classmethod
+    def from_json(cls, data, base_functions):
+        return cls(
+            feature_fn=base_functions[data["function"]],
+            global_control=data["global_control"],
+        )
 
 
 class DependentFeatureWrapper:
@@ -89,10 +67,15 @@ class DependentFeatureWrapper:
 
     all_binary_checks = all_binary_checks
 
-    def __init__(self, feature_fn, control_features, truth_table_values):
-        self.feature_fn = feature_fn
-        self.control_features = control_features
-        self.truth_table_values = truth_table_values
+    def __init__(
+        self,
+        feature_fn: Callable,
+        control_features: list[str],
+        truth_table_values: list[int],
+    ):
+        self.feature_fn: Callable = feature_fn
+        self.control_features: list[str] = control_features
+        self.truth_table_values: list[int] = truth_table_values
 
     def __call__(self, s: str, s_prev: str = "", position: int = None):
         control_vals = []  # list of control values
@@ -110,18 +93,59 @@ class DependentFeatureWrapper:
                     control_vals.append(all_binary_checks[cf](s))
         control_idx = 0
         for i, v in enumerate(control_vals):
+            # truth table vvvv|vvvv
+            # controls 101
+            # index 1*2^0 + 0*2^1 + 1*2^2 = 1 + 0 + 4 = 5
+            # controls 111
+            # index 1*2^0 + 1*2^1 + 1*2^2 = 1 + 2 + 4 = 7
             control_idx += v * (2**i)
         return self.feature_fn(s, c=self.truth_table_values[control_idx])
 
     def __repr__(self):
         controls = ", ".join(self.control_features)
         tt = "[" + ", ".join(str(x) for x in self.truth_table_values) + "]"
-        return f"DependentFeature(function={self.feature_fn.__name__}, controls=[{controls}], truth_table={tt})"
+        return (
+            f"DependentFeature(function={self.feature_fn.__name__}, "
+            f"controls=[{controls}], truth_table={tt})"
+        )
+
+    def __hash__(self):
+        return hash(
+            (
+                self.feature_fn.__name__,
+                tuple(self.control_features),
+                tuple(
+                    None if isinstance(x, numpy.ma.core.MaskedConstant) else x
+                    for x in self.truth_table_values
+                ),
+            )
+        )
+
+    def to_json(self):
+        return {
+            "type": "DependentFeatureWrapper",
+            "function": self.feature_fn.__name__,
+            "control_features": self.control_features,
+            "truth_table_values": [int(x) for x in self.truth_table_values],
+        }
+
+    @classmethod
+    def from_json(cls, data, base_functions):
+        return cls(
+            feature_fn=base_functions[data["function"]],
+            control_features=data["control_features"],
+            truth_table_values=data["truth_table_values"],
+        )
 
 
 class DisplayChain(itertools.chain):
-    def __init__(self, functions):
-        self.functions = functions
+    def __init__(
+        self,
+        functions: list[IndependentFeatureWrapper | DependentFeatureWrapper],
+    ):
+        self.functions: list[IndependentFeatureWrapper | DependentFeatureWrapper] = (
+            functions
+        )
 
     def __iter__(self):
         return iter(self.functions)
@@ -131,6 +155,9 @@ class DisplayChain(itertools.chain):
             [f.__name__ if hasattr(f, "__name__") else str(f) for f in self.functions]
         )
         return f"Chain of functions:\n{repr_str}"
+
+    def __hash__(self):
+        return hash(tuple(self.functions))
 
     def __call__(self, *args, **kwargs):
         for f in self.functions:
@@ -147,6 +174,24 @@ class DisplayChain(itertools.chain):
 
     def __getitem__(self, index):
         return self.functions[index]
+
+    def to_json(self):
+        return {
+            "type": "DisplayChain",
+            "functions": [f.to_json() for f in self.functions],
+        }
+
+    @classmethod
+    def from_json(cls, data, base_functions):
+        wrapper_map = {
+            "IndependentFeatureWrapper": IndependentFeatureWrapper,
+            "DependentFeatureWrapper": DependentFeatureWrapper,
+        }
+        functions = [
+            wrapper_map[f["type"]].from_json(f, base_functions)
+            for f in data["functions"]
+        ]
+        return cls(functions)
 
 
 def check_non_prev_before_prev(reflections: list[str]) -> bool:

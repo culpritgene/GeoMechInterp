@@ -11,3 +11,4 @@
 *.prof
 *.pkl
 *.pth.tar
+*.json

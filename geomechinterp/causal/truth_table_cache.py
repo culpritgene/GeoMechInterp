@@ -12,7 +12,9 @@ class TruthTableCache:
             cls._instance._cache = {}
             # Pre-generate truth tables for 1-3 inputs
             for n in range(4):
-                cls._instance._cache[n] = generate_truth_tables(n)
+                cls._instance._cache[n] = generate_truth_tables(
+                    n, exclude_non_causal=False
+                )
         return cls._instance
 
     def get_table(self, key: Tuple) -> np.ndarray:

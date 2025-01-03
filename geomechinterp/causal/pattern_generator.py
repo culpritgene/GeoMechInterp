@@ -7,7 +7,7 @@ from tqdm import tqdm
 from geomechinterp.causal.hasse import (
     get_all_possible_hasse_diagrams,
     unflatten_to_causal_triangle,
-    generate_truth_tables,
+    filter_truth_tables,
 )
 from geomechinterp.causal.utils import (
     check_causal_validity,
@@ -138,8 +138,8 @@ def get_all_possible_causal_patterns_labeled(
 
 def realize_causal_pattern(
     pattern: list[tuple[str, list[str]]],
+    use_stochastic_features: bool = False,
     all_binary_generators: dict[str, Callable] = all_binary_generators,
-    pinned_features: dict[str, int or None] = None,
 ) -> list[DisplayChain]:
     """
     Takes a causal pattern description and returns all possible realizations of that pattern
@@ -147,17 +147,19 @@ def realize_causal_pattern(
 
     Args:
         pattern: List of tuples where each tuple contains (feature, controlling_features)
+        use_stochastic_features: Whether to use stochastic features, with 50% probability of being 0 or 1
         all_binary_features: Dict mapping feature names to their generating functions
-        pinned_features: Dict mapping feature names to fixed values (0, 1) or None for random
 
     Returns:
         List of functions that each generate a valid sequence following the causal pattern
     """
-    if pinned_features is None:
-        pinned_features = {}
+    # Get all possible truth tables for each feature based on number of controlling features
+    independent_pattern_functions: list[list[Callable]] = []
+    independent_global_controls: list[list[int]] = []
+    indep_pattern_names: list[str] = []
+    pattern_functions: list[list[Callable]] = []
 
-    pattern_functions = []
-
+    independent_controls = [None, 0, 1] if use_stochastic_features else [0, 1]
     # For each feature in the pattern
     # example pattern = [('position_parity', ()), ('ab', ()), ('case', ('ab', 'position_parity')))]
     # first tuple argument is the "active feature"
@@ -165,86 +167,85 @@ def realize_causal_pattern(
     # loop below inserts particular realizations of control
     # since all features are binary, we just iterate *over all possible truth tables*
     for feature, controls in pattern:
-        if (
-            NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature)
-            not in all_binary_generators.keys()
-        ):
-            if feature != POSITION_PARITY_FEATURE:
-                raise ValueError(
-                    f"Feature '{feature}' not found in all_binary_features"
-                )
+        function_realizations: List[Callable[[str, str, int], str]] = []
 
-        base_fn = all_binary_generators.get(
-            NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature), None
-        )
+        # Get base function for this feature
+        _check_feature_func(feature, all_binary_generators)
+        base_fn = all_binary_generators[NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature)]
 
+        # If no controls, just use base function
         if not controls:
             if feature == POSITION_PARITY_FEATURE:
-                continue
-            elif NON_ACTIVE_FEATURE_SUFFIX_RE.match(feature):
+                # position_parity is ignored - it is switched on generation anyway
                 continue
             else:
-                sub_realizations = []
-                for ctrl_val in [0, 1, None]:
-                    sub_realizations.append(
-                        IndependentFeatureWrapper(base_fn, ctrl_val)
+                # overwise add base function
+                for global_control in independent_controls:
+                    function_realizations.append(
+                        IndependentFeatureWrapper(base_fn, global_control)
                     )
-                pattern_functions.append(sub_realizations)
-                continue
+            indep_pattern_names.append(feature)
+            independent_pattern_functions.append(function_realizations)
+            independent_global_controls.append(independent_controls)
 
-        # Partition controls into pinned vs non-constant
-        pinned_dict = {}
-        nonconst_list = []
-        for c in controls:
-            if c in pinned_features:
-                val = pinned_features[c]
-                if val is not None and val in (0, 1):
-                    pinned_dict[c] = val
-                else:
-                    nonconst_list.append(c)
-            else:
-                nonconst_list.append(c)
+    # generate all possible combinations of independent pattern functions
+    all_indep_combinations = list(product(*independent_pattern_functions))
+    all_indep_global_controls = list(product(*independent_global_controls))
 
-        n_controls = len(nonconst_list)
-        if n_controls == 0:
-            sub_realizations = []
-            for out_val in [0, 1, None]:
-                if out_val is None:
+    for indep_combination, indep_global_control in zip(
+        all_indep_combinations, all_indep_global_controls
+    ):
+        dependent_pattern_func_cont = []
+        for feature, controls in pattern:
+            function_realizations: List[Callable[[str, str, int], str]] = []
 
-                    def fn_random_factory(fn=base_fn):
-                        def fn_random(s, _):
-                            import random
+            # Get base function for this feature
+            _check_feature_func(feature, all_binary_generators)
+            base_fn = all_binary_generators[
+                NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature)
+            ]
+            if controls:
+                # If function *is* dependent on other features
+                # Get all possible truth tables for this number of controls
+                n_controls = len(controls)
+                truth_tables = truth_table_cache.get_table(n_controls)
 
-                            return fn(s, random.randint(0, 1))
+                # Sort controls according to indep_combination
+                control_sequence = [
+                    (
+                        indep_global_control[indep_pattern_names.index(control)]
+                        if control in indep_pattern_names
+                        else None
+                    )
+                    for control in controls
+                ]
+                # Filter out truth tables that are not used by
+                truth_tables = filter_truth_tables(truth_tables, control_sequence)
 
-                        return fn_random
+                # Create a function for each possible truth table
+                for tt in truth_tables:
+                    function_realizations.append(
+                        DependentFeatureWrapper(base_fn, controls, tt)
+                    )
 
-                    sub_realizations.append(fn_random_factory())
-                else:
+                dependent_pattern_func_cont.append(function_realizations)
+        dependent_pattern_func_cont = list(product(*dependent_pattern_func_cont))
+        for dep_combination in dependent_pattern_func_cont:
+            pattern_functions.append(indep_combination + dep_combination)
 
-                    def fn_const_factory(val, fn=base_fn):
-                        def fn_const(s, _):
-                            return fn(s, val)
+    return [
+        DisplayChain(list(function_sequence)) for function_sequence in pattern_functions
+    ]
 
-                        return fn_const
 
-                    sub_realizations.append(fn_const_factory(out_val))
-            pattern_functions.append(sub_realizations)
-        else:
-            all_tt = truth_table_cache.get_table(n_controls)
-            sub_realizations = []
-            for tt in all_tt:
-                wrapper = DependentFeatureWrapper(
-                    base_fn=base_fn,
-                    controls=nonconst_list,
-                    truth_table=tt,
-                    pinned_controls=pinned_dict,
-                )
-                sub_realizations.append(wrapper)
-            pattern_functions.append(sub_realizations)
-
-    all_combinations = list(product(*pattern_functions))
-    return [DisplayChain(list(combo)) for combo in all_combinations]
+def _check_feature_func(feature: str, all_binary_generators: dict) -> bool:
+    if (
+        NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature)
+        not in all_binary_generators.keys()
+    ):
+        if feature != POSITION_PARITY_FEATURE:
+            raise ValueError(f"Feature '{feature}' not found in all_binary_features")
+    return True
 
 
 def process_single_function(args):
@@ -267,11 +268,14 @@ def process_pattern(
     group_of_features: list[str],
     causal_pattern: list[tuple[str, list[str]]],
     pattern_length: int = 7,
+    use_stochastic_features: bool = False,
     all_binary_generators: dict = all_binary_generators,
 ) -> dict:
     results = {}
     all_realized_functions = realize_causal_pattern(
-        causal_pattern, all_binary_generators=all_binary_generators
+        causal_pattern,
+        all_binary_generators=all_binary_generators,
+        use_stochastic_features=use_stochastic_features,
     )
     for realized_function in all_realized_functions:
         pattern = generate_pattern(realized_function, pattern_length=pattern_length)
@@ -292,6 +296,7 @@ def process_pattern(
 def generate_all_patterns_and_generators(
     selected_features: list[str],
     all_binary_generators: dict = all_binary_generators,
+    use_stochastic_features: bool = False,
     max_controls: int = 3,
     verbose: bool = False,
 ) -> dict:
@@ -320,22 +325,21 @@ def generate_all_patterns_and_generators(
     if verbose:
         logging.info(f"Found {len(all_causal_patterns)} unique causal patterns")
 
-    all_patterns_and_generators = {}
-    total_count = 0
+    all_generators = set()
     for causal_pattern, sequence_of_features in tqdm(all_causal_patterns):
-        results = process_pattern(
-            group_of_features=sequence_of_features,
-            causal_pattern=causal_pattern,
+        results = realize_causal_pattern(
+            causal_pattern,
             all_binary_generators=all_binary_generators,
+            use_stochastic_features=use_stochastic_features,
         )
-        all_patterns_and_generators.update(results)
-        total_count += len(results)
+        all_generators.update(results)
         if verbose:
-            if total_count // 25000 > (total_count - len(results)) // 25000:
-                logging.info(
-                    f"Processed over {(total_count // 25000) * 25000} patterns"
-                )
-    return all_patterns_and_generators
+            if (
+                len(all_generators) // 250000
+                > (len(all_generators) - len(results)) // 250000
+            ):
+                logging.info(f"Processed over {len(all_generators)} patterns")
+    return all_generators
 
 
 def generate_pattern(

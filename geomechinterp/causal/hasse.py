@@ -145,8 +145,15 @@ def generate_truth_tables(N, exclude_non_causal=True):
     if not exclude_non_causal:
         return truth_tables
 
+    return filter_non_causal_truth_tables(input_combinations, truth_tables)
+
+
+def filter_non_causal_truth_tables(
+    input_combinations, truth_tables: np.ndarray
+) -> np.ndarray:
     # Filtering to keep only causal functions
     causal_truth_tables = []
+    N = truth_tables.shape[1]
 
     for table in truth_tables:
         is_causal = True
@@ -190,3 +197,97 @@ def apply_truth_table(truth_table: np.ndarray, inputs: np.ndarray) -> int:
     ).astype(int)
     # Use the indices to get the output from the truth table
     return truth_table[indices]
+
+
+def filter_truth_tables(
+    truth_tables: np.ndarray, global_controls: list[int | None]
+) -> np.ndarray:
+    """
+    Filter truth tables based on global controls.
+
+    Args:
+        truth_tables: Array of truth tables, shape (2^2^N, 2^N)
+        global_controls: List of global control values (0, 1, or None)
+
+    Returns:
+        Filtered truth tables
+    """
+    # truth table is a 2^N x N matrix
+    # but this is a stack of such tables, 2^2^N x 2^N in size
+    # first column is split 0/1 in the middle
+    # second column is split 0/1 on 1/4 and 3/4
+    # third column is split 0/1 on 1/8, 3/8, 5/8, 7/8
+    # and so on, we have FFT-style split
+    # global controls are in 0|1|None
+    # create indexing based on each global control
+    # if global control is None, we keep all
+    # we keep, depending on the index of the global control:
+    # first half for 0-index global control equal 0
+    # second half for 0-index global control equal 1
+    # first half of each 1/2 for 1-index global control equal 0
+    # second half of each 1/2 for 1-index global control equal 1
+    # first half of each 1/4 for 2-index global control equal 0
+    # second half of each 1/4 for 2-index global control equal 1
+    # and so on, we do this for each global control
+    n_controls = len(global_controls)
+    n_rows, n_cols = truth_tables.shape
+
+    # Verify input dimensions
+    assert n_controls == int(
+        np.log2(n_cols)
+    ), "Number of global controls must match log2 of truth table columns"
+
+    # Build mask for filtering
+    mask = np.ones(n_cols, dtype=bool)
+    for i, control in enumerate(global_controls):
+        if control is not None:
+            # Calculate pattern length for this control level
+            repeat_count = n_cols // 2 ** (i + 1)
+
+            # Create base pattern [0,1] repeated appropriately
+            base_pattern = np.repeat([0, 1] * (2**i), repeats=repeat_count).astype(bool)
+
+            # Flip pattern if control is 0 (since default pattern assumes control=1)
+            if control == 0:
+                base_pattern = ~base_pattern
+
+            # Combine with overall mask
+            mask = mask & base_pattern
+
+    truncated_truth_tables = truth_tables[:, mask]
+    # now we select indices of unique truncated rows
+    unique_rows, unique_indices = np.unique(
+        truncated_truth_tables, axis=0, return_index=True
+    )
+
+    selected_truth_tables = truth_tables[unique_indices]
+
+    selected_truth_tables = np.ma.masked_array(
+        selected_truth_tables,
+        mask=np.repeat(~mask[np.newaxis, :], selected_truth_tables.shape[0], axis=0),
+    )
+    return selected_truth_tables
+
+
+def test_filter_truth_tables():
+    # Test case 1: Single control
+    tt1 = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+    assert np.array_equal(
+        filter_truth_tables(tt1, [0, None]), np.array([[0, 0], [0, 1]])
+    )
+    assert np.array_equal(
+        filter_truth_tables(tt1, [1, None]), np.array([[1, 0], [1, 1]])
+    )
+
+    # Test case 2: Two controls with None
+    tt2 = np.array([[0, 0], [0, 1], [1, 0], [1, 1], [0, 0], [0, 1], [1, 0], [1, 1]])
+    assert np.array_equal(
+        filter_truth_tables(tt2, [0, None]), np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+    )
+    assert np.array_equal(
+        filter_truth_tables(tt2, [None, 1]), np.array([[0, 1], [1, 1], [0, 1], [1, 1]])
+    )
+
+
+if __name__ == "__main__":
+    test_filter_truth_tables()
