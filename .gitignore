@@ -1,7 +1,7 @@
-/geomechinterp/__pycache__/*
-/geomechinterp/data/*
+/geomechinterp/__pycache__/
+__pycache__/
+/geomechinterp/data/
 /geomechinterp/scripts/profile_html/*
-
 /lib/*
 *.pyc
 *.html
