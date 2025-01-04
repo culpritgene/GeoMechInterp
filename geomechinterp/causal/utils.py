@@ -138,7 +138,7 @@ class DependentFeatureWrapper:
         )
 
 
-class DisplayChain(itertools.chain):
+class DisplayChain:
     def __init__(
         self,
         functions: list[IndependentFeatureWrapper | DependentFeatureWrapper],
@@ -158,6 +158,11 @@ class DisplayChain(itertools.chain):
 
     def __hash__(self):
         return hash(tuple(self.functions))
+
+    def __eq__(self, other):
+        if not isinstance(other, DisplayChain):
+            return False
+        return self.__hash__() == other.__hash__()
 
     def __call__(self, *args, **kwargs):
         for f in self.functions:

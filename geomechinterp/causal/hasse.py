@@ -128,7 +128,7 @@ def sample_hasse_diagram_binary(
 
 
 @lru_cache(maxsize=5)  # Cache results for N=1 to 12 (though 12 will blow up memory)
-def generate_truth_tables(N, exclude_non_causal=True):
+def generate_truth_tables(N, exclude_non_causal=False):
     assert N < 5, "lets not blow up for now"
     num_combinations = 2**N
     num_functions = 2**num_combinations
@@ -145,11 +145,67 @@ def generate_truth_tables(N, exclude_non_causal=True):
     if not exclude_non_causal:
         return truth_tables
 
-    return filter_non_causal_truth_tables(input_combinations, truth_tables)
+    return filter_non_causal_truth_tables_binary(truth_tables)
 
 
-def filter_non_causal_truth_tables(
-    input_combinations, truth_tables: np.ndarray
+def filter_non_causal_truth_tables_binary(truth_tables: np.ndarray) -> np.ndarray:
+    # Filtering to keep only causal functions
+    causal_truth_tables = []
+    N = int(np.log2(truth_tables.shape[1]))  # Number of input variables
+
+    for table in truth_tables:
+        is_causal = True
+        for var_idx in range(N):
+            # For each variable, check if output changes when we flip just that bit
+            # For a causal function, flipping any input bit should change the output
+            # for at least one configuration of other inputs
+            output_changed = False
+
+            # Create masks for all possible configurations of other variables
+            other_vars_configs = np.arange(2 ** (N - 1))
+            for config in other_vars_configs:
+                # Create two input configurations that differ only in var_idx
+                input_0 = np.array([(config >> i) & 1 for i in range(N - 1)])
+                input_1 = input_0.copy()
+
+                # Insert 0 and 1 for var_idx
+                full_input_0 = np.insert(input_0, var_idx, 0)
+                full_input_1 = np.insert(input_1, var_idx, 1)
+
+                # Convert binary arrays to indices
+                idx_0 = int(sum([bit * (2**i) for i, bit in enumerate(full_input_0)]))
+                idx_1 = int(sum([bit * (2**i) for i, bit in enumerate(full_input_1)]))
+
+                # Check if output changes, handling masked arrays
+                val_0 = (
+                    table[idx_0].item()
+                    if hasattr(table[idx_0], "item")
+                    else table[idx_0]
+                )
+                val_1 = (
+                    table[idx_1].item()
+                    if hasattr(table[idx_1], "item")
+                    else table[idx_1]
+                )
+
+                if val_0 != val_1:
+                    output_changed = True
+                    break
+
+            if not output_changed:
+                is_causal = False
+                break
+
+        if is_causal:
+            causal_truth_tables.append(table)
+
+    if len(causal_truth_tables) == 0:
+        return np.array([])
+    return np.stack(causal_truth_tables)
+
+
+def filter_non_causal_truth_tables_block_symmetry(
+    truth_tables: np.ndarray,
 ) -> np.ndarray:
     # Filtering to keep only causal functions
     causal_truth_tables = []
@@ -158,18 +214,31 @@ def filter_non_causal_truth_tables(
     for table in truth_tables:
         is_causal = True
         for var_idx in range(N):
-            input_combinations_flipped = input_combinations.copy()
-            input_combinations_flipped[:, var_idx] = (
-                1 - input_combinations_flipped[:, var_idx]
-            )
+            # For each variable, check symmetries at different scales
+            # e.g. for N=3: check 1/2=2/2
+            #  OR 1/4=2/4 AND 3/4=4/4
+            #  OR 1/8=2/8 AND 3/8=4/8 AND 5/8=6/8 AND 7/8=8/8
+            #  etc
             output_changed = False
-            for i, original_input in enumerate(input_combinations):
-                flipped_index = np.where(
-                    (input_combinations == input_combinations_flipped[i]).all(axis=1)
-                )[0][0]
-                if table[i] != table[flipped_index]:
+
+            # Calculate number of blocks at this level
+            num_blocks = 2**var_idx
+            block_size = len(table) // num_blocks
+
+            # Check each block
+            for block in range(num_blocks):
+                start = block * block_size
+                mid = start + block_size // 2
+                end = start + block_size
+
+                # Compare first half with second half
+                first_half = table[start:mid]
+                second_half = table[mid:end]
+
+                if not np.array_equal(first_half, second_half):
                     output_changed = True
                     break
+
             if not output_changed:
                 is_causal = False
                 break

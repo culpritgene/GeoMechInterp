@@ -91,3 +91,23 @@ all_binary_checks = {
     "><": qm_check,
     "][": bracket_check,
 }
+
+ALL_SYMBOLS = [
+    "a",
+    "b",
+    "A",
+    "B",
+    " ",
+    "+",
+    "-",
+    "?",
+    "!",
+    "[",
+    "]",
+    "<",
+    ">",
+    "1",
+    "2",
+]
+
+EXTRA_SYMBOLS = [".", ",", "c", "C", "d", "D", "e", "E", "f", "F"]

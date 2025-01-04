@@ -8,6 +8,7 @@ from geomechinterp.causal.hasse import (
     get_all_possible_hasse_diagrams,
     unflatten_to_causal_triangle,
     filter_truth_tables,
+    filter_non_causal_truth_tables_binary,
 )
 from geomechinterp.causal.utils import (
     check_causal_validity,
@@ -23,7 +24,7 @@ from geomechinterp.causal.base_functions import (
     all_binary_generators,
     all_binary_features,
 )
-from multiprocessing import Pool
+from multiprocessing import Pool, Manager
 from .truth_table_cache import truth_table_cache
 
 logging.basicConfig(level=logging.INFO)
@@ -136,9 +137,167 @@ def get_all_possible_causal_patterns_labeled(
     return all_causal_edge_lists, deduplicated_by_perm
 
 
+def get_possible_controls(
+    prefix_funcs: list[Callable], control_features: list[str]
+) -> list[int]:
+    """Get possible control values for a set of control features given prefix functions."""
+    possible_controls = set(range(2 ** len(control_features)))
+    test_str = "a"  # Any test string will do since we just need control values
+
+    # For each possible control combination
+    for control_idx in range(2 ** len(control_features)):
+        control_vals = []
+        # Get control values from prefix functions
+        for cf in control_features:
+            for f in prefix_funcs:
+                if (
+                    isinstance(f, IndependentFeatureWrapper)
+                    and f.feature_fn.__name__ == cf
+                ):
+                    control_vals.append(f(test_str))
+                elif (
+                    isinstance(f, DependentFeatureWrapper)
+                    and f.feature_fn.__name__ == cf
+                ):
+                    control_vals.append(f(test_str))
+
+        # If any control value is fixed and doesn't match truth table index, remove it
+        control_idx_bin = format(control_idx, f"0{len(control_features)}b")
+        for i, val in enumerate(control_vals):
+            if val is not None and int(control_idx_bin[i]) != val:
+                possible_controls.discard(control_idx)
+                break
+
+    return list(possible_controls)
+
+
+def add_dependent_feature(
+    prefix_funcs: list[Callable],
+    feature: str,
+    controls: list[str],
+    base_fn: Callable,
+    remove_non_causal_truth_tables: bool = True,
+) -> list[list[Callable]]:
+    """Recursively add dependent feature to function chain."""
+    if not controls:
+        return [prefix_funcs]
+
+    n_controls = len(controls)
+    truth_tables = truth_table_cache.get_table(n_controls)
+    possible_controls = get_possible_controls(prefix_funcs, controls)
+
+    # Filter truth tables based on possible controls
+    valid_truth_tables = []
+    for tt in truth_tables:
+        valid = True
+        for control_idx in range(2**n_controls):
+            if control_idx not in possible_controls and tt[control_idx] is not None:
+                valid = False
+                break
+        if valid:
+            valid_truth_tables.append(tt)
+
+    valid_truth_tables = np.stack(valid_truth_tables)
+    if remove_non_causal_truth_tables:
+        # print("valid_truth_tables: ", valid_truth_tables)
+        valid_truth_tables = filter_non_causal_truth_tables_binary(valid_truth_tables)
+
+    result = []
+    for tt in valid_truth_tables:
+        new_func = DependentFeatureWrapper(base_fn, controls, tt)
+        result.append(prefix_funcs + [new_func])
+
+    return result
+
+
+def realize_causal_pattern_with_pruning(
+    pattern: list[tuple[str, list[str]]],
+    use_stochastic_features: bool = False,
+    remove_non_causal_truth_tables: bool = True,
+    all_binary_generators: dict[str, Callable] = all_binary_generators,
+) -> list[DisplayChain]:
+    """
+    Takes a causal pattern description and returns all possible realizations of that pattern
+    as functions that generate sequences according to the causal dependencies.
+
+    Args:
+        pattern: List of tuples where each tuple contains (feature, controlling_features)
+        use_stochastic_features: Whether to use stochastic features, with 50% probability
+            of being 0 or 1
+        all_binary_features: Dict mapping feature names to their generating functions
+
+    Returns:
+        List of functions that each generate a valid sequence following the causal pattern
+    """
+
+    # Initialize independent features
+    pattern = _check_pattern_structure(pattern)
+    independent_pattern_functions: list[list[Callable]] = []
+    independent_global_controls: list[list[int]] = []
+    indep_pattern_names: list[str] = []
+    pattern_functions: list[list[Callable]] = []
+
+    independent_controls = [None, 0, 1] if use_stochastic_features else [0, 1]
+
+    # Handle independent features first
+    for feature, controls in pattern:
+        if not controls:
+            if feature == POSITION_PARITY_FEATURE:
+                continue
+
+            _check_feature_func(feature, all_binary_generators)
+            base_fn = all_binary_generators[
+                NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature)
+            ]
+
+            function_realizations = []
+            for global_control in independent_controls:
+                function_realizations.append(
+                    IndependentFeatureWrapper(base_fn, global_control)
+                )
+            indep_pattern_names.append(feature)
+            independent_pattern_functions.append(function_realizations)
+            independent_global_controls.append(independent_controls)
+
+    # Generate independent feature combinations
+    all_indep_combinations = list(product(*independent_pattern_functions))
+
+    # For each independent combination, recursively add dependent features
+    for indep_combination in all_indep_combinations:
+        current_chains = [list(indep_combination)]
+
+        # Add each dependent feature recursively
+        for feature, controls in pattern:
+            if controls:
+                _check_feature_func(feature, all_binary_generators)
+                base_fn = all_binary_generators[
+                    NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", feature)
+                ]
+
+                new_chains = []
+                for chain in current_chains:
+                    new_chains.extend(
+                        add_dependent_feature(
+                            chain,
+                            feature,
+                            controls,
+                            base_fn,
+                            remove_non_causal_truth_tables,
+                        )
+                    )
+                current_chains = new_chains
+
+        pattern_functions.extend(current_chains)
+
+    return [
+        DisplayChain(list(function_sequence)) for function_sequence in pattern_functions
+    ]
+
+
 def realize_causal_pattern(
     pattern: list[tuple[str, list[str]]],
     use_stochastic_features: bool = False,
+    remove_non_causal_truth_tables: bool = True,
     all_binary_generators: dict[str, Callable] = all_binary_generators,
 ) -> list[DisplayChain]:
     """
@@ -154,6 +313,7 @@ def realize_causal_pattern(
         List of functions that each generate a valid sequence following the causal pattern
     """
     # Get all possible truth tables for each feature based on number of controlling features
+    pattern = _check_pattern_structure(pattern)
     independent_pattern_functions: list[list[Callable]] = []
     independent_global_controls: list[list[int]] = []
     indep_pattern_names: list[str] = []
@@ -222,6 +382,9 @@ def realize_causal_pattern(
                 # Filter out truth tables that are not used by
                 truth_tables = filter_truth_tables(truth_tables, control_sequence)
 
+                if remove_non_causal_truth_tables:
+                    truth_tables = filter_non_causal_truth_tables_binary(truth_tables)
+
                 # Create a function for each possible truth table
                 for tt in truth_tables:
                     function_realizations.append(
@@ -236,6 +399,25 @@ def realize_causal_pattern(
     return [
         DisplayChain(list(function_sequence)) for function_sequence in pattern_functions
     ]
+
+
+def _check_pattern_structure(pattern: list[tuple[str, list[str]]]) -> bool:
+    assert isinstance(pattern, (tuple, list)), "pattern must be a tuple or list"
+    assert len(pattern) > 0, "Pattern must be non-empty"
+    assert isinstance(
+        pattern[0], (tuple, list)
+    ), f"each control subpattern must be a tuple or list, got: {pattern[0]} instead"
+    assert isinstance(
+        pattern[0][0], str
+    ), f"first element of each control subpattern must be a string, got: {pattern[0][0]} instead"
+    for i, (feature, controls) in enumerate(pattern):
+        if not isinstance(controls, (tuple, list)):
+            logging.warning(
+                f"second element of each control subpattern must be a tuple or list, got: {controls} instead; wrapping in tuple"
+            )
+            pattern[i] = (feature, tuple([controls]))
+
+    return pattern
 
 
 def _check_feature_func(feature: str, all_binary_generators: dict) -> bool:
@@ -276,6 +458,7 @@ def process_pattern(
         causal_pattern,
         all_binary_generators=all_binary_generators,
         use_stochastic_features=use_stochastic_features,
+        remove_non_causal_truth_tables=True,
     )
     for realized_function in all_realized_functions:
         pattern = generate_pattern(realized_function, pattern_length=pattern_length)
@@ -291,6 +474,11 @@ def process_pattern(
         }
         results[pattern] = pattern_and_generator
     return results
+
+
+def worker(args):
+    # Define worker function at module level to allow pickling
+    return realize_causal_pattern(*args)
 
 
 def generate_all_patterns_and_generators(
@@ -325,20 +513,41 @@ def generate_all_patterns_and_generators(
     if verbose:
         logging.info(f"Found {len(all_causal_patterns)} unique causal patterns")
 
-    all_generators = set()
-    for causal_pattern, sequence_of_features in tqdm(all_causal_patterns):
-        results = realize_causal_pattern(
-            causal_pattern,
-            all_binary_generators=all_binary_generators,
-            use_stochastic_features=use_stochastic_features,
+    # Create arguments for parallel processing
+    process_args = []
+    for causal_pattern, sequence_of_features in all_causal_patterns:
+        process_args.append(
+            (
+                causal_pattern,
+                use_stochastic_features,
+            )
         )
-        all_generators.update(results)
-        if verbose:
-            if (
-                len(all_generators) // 250000
-                > (len(all_generators) - len(results)) // 250000
-            ):
-                logging.info(f"Processed over {len(all_generators)} patterns")
+
+    # Process patterns in parallel using tqdm progress bar
+    all_generators = set()
+    last_logged_size = 0
+    with Manager() as manager:
+        # Create a tqdm instance in the manager
+        tqdm_instance = tqdm(total=len(process_args))
+        tqdm_lock = manager.Lock()
+
+        # Create the pool and process with progress updates
+        with Pool() as pool:
+            for results in pool.imap_unordered(worker, process_args):
+                with tqdm_lock:
+                    tqdm_instance.update()
+                all_generators.update(results)
+
+                # Log every 500k new generators
+                current_size = len(all_generators)
+                if current_size >= last_logged_size + 500000:
+                    logging.info(
+                        f"Found {current_size} (non-unique) generators so far..."
+                    )
+                    last_logged_size = current_size
+
+        tqdm_instance.close()
+
     return all_generators
 
 

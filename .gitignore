@@ -3,6 +3,13 @@ __pycache__/
 /geomechinterp/data/
 /geomechinterp/scripts/profile_html/*
 /lib/*
+wandb/
+mlruns/
+logs/
+gpt_rope_custom/
+tokenized_train/
+tokenized_test/
+tokenized_val/
 *.pyc
 *.html
 *.svg
