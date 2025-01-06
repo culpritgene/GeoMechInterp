@@ -3,7 +3,7 @@ import itertools
 import re
 import numpy
 from typing import Callable
-from geomechinterp.causal.base_functions import all_binary_checks
+from geomechinterp.causal.base_functions import all_binary_checks, all_binary_generators
 from .truth_table_cache import truth_table_cache
 
 
@@ -187,7 +187,7 @@ class DisplayChain:
         }
 
     @classmethod
-    def from_json(cls, data, base_functions):
+    def from_json(cls, data, base_functions=all_binary_generators):
         wrapper_map = {
             "IndependentFeatureWrapper": IndependentFeatureWrapper,
             "DependentFeatureWrapper": DependentFeatureWrapper,
