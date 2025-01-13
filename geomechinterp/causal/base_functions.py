@@ -82,6 +82,17 @@ all_binary_generators = {
     "][": bracket_f,
 }
 
+all_binary_generators_func_names = {
+    "position_parity_check": position_parity_check,  # no control!
+    "ab_f": ab_f,
+    "case_f": case_f,
+    "f12_f": f12_f,
+    "plus_minus_f": plus_minus_f,
+    "qm_f": qm_f,
+    "bracket_f": bracket_f,
+}
+
+
 all_binary_checks = {
     "position_parity": position_parity_check,
     "ab": ab_check,

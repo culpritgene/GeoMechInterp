@@ -28,26 +28,39 @@ def symbol_tokenizer(doc):
 
 class SymbolTokenizer(PreTrainedTokenizerBase):
     def __init__(
-        self, vocab: list[str], multiprocessing: bool = False, max_length: int = 72
+        self,
+        vocab: list[str] = ALL_SYMBOLS + EXTRA_SYMBOLS,
+        multiprocessing: bool = False,
+        max_length: int = 72,
     ):
         self.vocab = vocab
         self.pad_token = "(PAD)"
         self.unk_token = "(UNK)"
         self.bos_token = "(BOS)"
         self.eos_token = "(EOS)"
+        self.multiprocessing = multiprocessing
+        self.max_length = max_length
+        self.model_input_names = ["input_ids", "attention_mask"]
+        self.skip_special_tokens = False
+        super().__init__()
+        self.__post_init__()
+
+    def __post_init__(self):
         self.vocab.append(self.pad_token)
         self.vocab.append(self.unk_token)
         self.vocab.append(self.bos_token)
         self.vocab.append(self.eos_token)
-        self.token_to_id = {symbol: idx for idx, symbol in enumerate(vocab)}
+        self.token_to_id = {symbol: idx for idx, symbol in enumerate(self.vocab)}
         self.id_to_token = {idx: symbol for symbol, idx in self.token_to_id.items()}
-        self.multiprocessing = multiprocessing
-        self.max_length = max_length
+        self.special_tokens_ids = {
+            self.pad_token: self.token_to_id[self.pad_token],
+            self.unk_token: self.token_to_id[self.unk_token],
+            self.bos_token: self.token_to_id[self.bos_token],
+            self.eos_token: self.token_to_id[self.eos_token],
+        }
         # Create spacy pipeline
         self.nlp = spacy.blank("en")
         self.nlp.add_pipe("symbol_tokenizer", name="symbol_tokenizer", first=True)
-        self.model_input_names = ["input_ids", "attention_mask"]
-        super().__init__()
 
     def encode(
         self, text: str | list[str], padding: bool = False
@@ -86,7 +99,14 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
             token_ids = token_ids[:max_length]  # Truncate if longer
         return token_ids
 
-    def decode(self, token_ids: list[int] | list[list[int]]) -> str | list[str]:
+    def decode(
+        self,
+        token_ids: list[int] | list[list[int]],
+        skip_special_tokens: bool = True,
+        **kwargs,
+    ) -> str | list[str]:
+        # NOTE: kwargs are ignored, mimicking HF tokenizer
+        self.skip_special_tokens = skip_special_tokens
         # Handle single sequence case
         if isinstance(token_ids[0], int):
             return self._decode_single(token_ids)
@@ -101,6 +121,10 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
 
     def _decode_single(self, token_ids: list[int]) -> str:
         # Convert IDs back to symbols and join
+        if self.skip_special_tokens:
+            token_ids = [
+                idx for idx in token_ids if idx not in self.special_tokens_ids.values()
+            ]
         return "".join(self.id_to_token.get(idx, "[UNK]") for idx in token_ids)
 
     def __call__(
@@ -126,8 +150,9 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
 
 
 class DataCollator(DataCollatorMixin):
-    def __init__(self, dataset):
+    def __init__(self, dataset, device: str | None = None):
         self.dataset = dataset
+        self.device = device
         super().__init__()
 
     def __call__(self, features):
@@ -135,6 +160,8 @@ class DataCollator(DataCollatorMixin):
         for feature in features:
             batch.append(feature["input_ids"])
         batch = {"input_ids": torch.tensor(batch), "labels": torch.tensor(batch)}
+        if self.device:
+            batch = {k: v.to(self.device) for k, v in batch.items()}
         return batch
 
 
