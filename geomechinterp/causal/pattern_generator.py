@@ -9,6 +9,7 @@ from geomechinterp.causal.hasse import (
     unflatten_to_causal_triangle,
     filter_truth_tables,
     filter_non_causal_truth_tables_binary,
+    classify_truth_table,
 )
 from geomechinterp.causal.utils import (
     check_causal_validity,
@@ -20,12 +21,11 @@ from geomechinterp.causal.utils import (
     POSITION_PARITY_FEATURE,
 )
 
-from geomechinterp.causal.base_functions import (
-    all_binary_generators,
-    all_binary_features,
-)
+from geomechinterp.causal.base_functions import all_binary_generators
 from multiprocessing import Pool, Manager
-from .truth_table_cache import truth_table_cache
+from geomechinterp.causal.truth_table_cache import truth_table_cache
+from geomechinterp.graph.utils import dag_to_wl_hash
+from geomechinterp.utils import one_hot_encode_columns
 
 logging.basicConfig(level=logging.INFO)
 
@@ -594,3 +594,237 @@ def generate_pattern(
             pattern += " " + current_s
             prev_s = current_s
         return pattern.strip(" ")
+
+
+import pandas as pd
+
+# Suppose we know how to map function names like 'plus_minus_f' -> the short feature label '+-'
+FUNCTION_NAME_TO_FEATURE = {
+    "plus_minus_f": "+-",
+    "ab_f": "ab",
+    "case_f": "case",
+    "f12_f": "12",
+    # add others if needed
+}
+
+# A universal set of possible features:
+ALL_KNOWN_FEATURES = ["position_parity", "ab", "case", "+-", "12", "><", "?!", "]["]
+
+
+def extract_features_from_dataset_entry(entry: dict) -> dict:
+    """
+    Given one dataset entry, return a dictionary of higher-level features:
+    {
+      'num_functions': ...,
+      'num_edges': ...,
+      'presence_position_parity': 0 or 1,
+      'presence_ab': 0 or 1,
+      ...
+      'count_constant_0': # of TT labeled as 'constant_0',
+      'count_constant_1': ...,
+      'count_balanced': ...,
+      'count_other': ...
+    }
+    """
+
+    # 1) Basic info
+    generator_dict = entry["generator"]
+    generator = DisplayChain.from_json(generator_dict)
+    functions = generator_dict.get("functions", [])
+    seq_of_features = entry.get("sequence_of_features", [])
+
+    # 2) num_functions
+    num_funcs = len(functions)
+
+    # 3) Count edges in the DAG
+    #    Summation of len(control_features) for each function
+    edge_count = 0
+
+    # We might also track the set of "function feature names" encountered
+    function_feature_set = set()
+    num_independent_functions = 0
+    max_controls = 0
+
+    tt_by_size_ = {2: {}, 4: {}, 8: {}, 16: {}}
+    for fn in functions:
+        # Identify the short feature name from the function
+        fn_name = fn.get("function", "")
+        short_feat = FUNCTION_NAME_TO_FEATURE.get(fn_name, fn_name)
+        function_feature_set.add(short_feat)
+
+        c_feats = fn.get("control_features", [])
+        if not c_feats or c_feats is None:
+            num_independent_functions += 1
+            continue
+
+        edge_count += len(c_feats)
+        max_controls = max(max_controls, len(c_feats))
+
+        tt_values = fn.get("truth_table_values", None)
+
+        # IndependentFeatures will not have truth tables attached
+        if tt_values is not None:
+            tt_size = len(tt_values)
+            tt_size_dict = tt_by_size_[tt_size]
+            tt_size_dict["count"] = tt_size_dict.get("count", 0) + 1
+            # return string flags characterizing truth table
+            tt_flags = classify_truth_table(tt_values)
+            # store counts for each non empty flag grouped by tt size
+            for flag in tt_flags:
+                tt_size_dict[flag] = tt_size_dict.get("count", 0) + 1
+
+    tt_by_size = {}
+    for tt_size, tt_by_size_feats in tt_by_size_.items():
+        str_prefix = f"tt_size_{tt_size}"
+        for tt_flag, tt_flag_count in tt_by_size_feats.items():
+            tt_by_size[str_prefix + "_" + tt_flag] = tt_flag_count
+
+    # 4) presence/absence for particular features
+    feature_presence = {}
+    for feat in ALL_KNOWN_FEATURES:
+        # If the feature is in sequence_of_features OR in the function_feature_set
+        val = 1 if (feat in seq_of_features or feat in function_feature_set) else 0
+        feature_presence[f"presence_{feat}"] = val
+
+    # consider DAG abstract structure
+    dag = generator.dag
+    equivalence_class_hash = dag_to_wl_hash(dag)
+    labeled_graph_hash = dag_to_wl_hash(dag, strip_node_labels=False)
+
+    # abstract adjacency matrix
+    # 5) Consolidate all features into a single dict
+    #    Flatten tt_counts
+    features_dict = {
+        "num_functions": num_funcs,
+        "num_edges": edge_count,
+        "num_indep_funcs": num_independent_functions,
+        "stochastic": int(entry.get("stochastic", False)),
+        **feature_presence,
+        "max_control": max_controls,
+        "dag_equivalence_class": equivalence_class_hash,
+        "labeled_graph_hash": labeled_graph_hash,
+        **tt_by_size,
+    }
+
+    return features_dict
+
+
+def build_features_dataframe(
+    dataset: list[dict],
+    one_hot_hash_features: bool = True,
+    take_top_freq_cats: int | float | None = 0.85,
+    drop_constant_columns: bool = True,
+) -> pd.DataFrame:
+    """
+    one_hot_hash_features - dummify hashes representing dag structure
+    take_top_freq_cats - if not None, take top freq categories and dummify only them
+        if int - threshold by count
+        if float - threshold by quantile
+        if None - do not pre-filter
+
+    dataset: a list of entries, each with keys like:
+      {
+         'text': <string>,
+         'generator': {...},
+         'stochastic': bool,
+         'sequence_of_features': [ ... ],
+         ...
+      }
+    Returns a DataFrame, each row is a single dataset entry,
+    columns are the extracted meta-features.
+    """
+
+    all_rows = []
+    for entry in dataset:
+        feats = extract_features_from_dataset_entry(entry)
+        all_rows.append(feats)
+
+    df = pd.DataFrame(all_rows)
+    # df = df.reindex(columns=all_rows[0].keys(), fill_value=np.nan)
+
+    if one_hot_hash_features:
+        # dummify hash features using sklearn
+        df = one_hot_encode_columns(
+            df,
+            columns=["dag_equivalence_class", "labeled_graph_hash"],
+            threshold=take_top_freq_cats,
+            rename_dummies=True,
+        )
+
+    # fill missing values with 0
+    df.fillna(0, inplace=True)
+    if drop_constant_columns:
+        df = df.drop(columns=[col for col in df.columns if df[col].nunique() == 1])
+    return df
+
+
+# ------------------- Example usage -------------------
+if __name__ == "__main__":
+    # Suppose 'my_dataset' is a list of entries in the format you showed:
+    my_dataset = [
+        {
+            "text": "+a +a +b -b +a ...",
+            "generator": {
+                "functions": [
+                    {
+                        "control_features": ["ab_prev", "position_parity"],
+                        "function": "plus_minus_f",
+                        "global_control": None,
+                        "truth_table_values": [0, 1, 1, 1],
+                        "type": "DependentFeatureWrapper",
+                    },
+                    {
+                        "control_features": ["+-", "ab_prev", "position_parity"],
+                        "function": "ab_f",
+                        "global_control": None,
+                        "truth_table_values": [0, 1, 0, 1, 0, 1, 0, 0],
+                        "type": "DependentFeatureWrapper",
+                    },
+                    {
+                        "control_features": ["+-", "ab", "position_parity"],
+                        "function": "case_f",
+                        "global_control": None,
+                        "truth_table_values": [0, 1, 0, 0, 1, 0, 1, 0],
+                        "type": "DependentFeatureWrapper",
+                    },
+                ],
+                "type": "DisplayChain",
+            },
+            "stochastic": False,
+            "sequence_of_features": ["position_parity", "ab_prev", "ab", "case", "+-"],
+        },
+        {
+            "text": "+a +a -A +a -A +a -A ...",
+            "generator": {
+                "functions": [
+                    {
+                        "control_features": ["ab_prev", "position_parity"],
+                        "function": "plus_minus_f",
+                        "global_control": None,
+                        "truth_table_values": [1, 1, 1, 0],
+                        "type": "DependentFeatureWrapper",
+                    },
+                    {
+                        "control_features": ["+-", "ab_prev", "position_parity"],
+                        "function": "ab_f",
+                        "global_control": None,
+                        "truth_table_values": [1, 1, 0, 1, 0, 1, 1, 0],
+                        "type": "DependentFeatureWrapper",
+                    },
+                    {
+                        "control_features": ["+-", "ab", "ab_prev"],
+                        "function": "case_f",
+                        "global_control": None,
+                        "truth_table_values": [1, 0, 0, 0, 1, 1, 1, 0],
+                        "type": "DependentFeatureWrapper",
+                    },
+                ],
+                "type": "DisplayChain",
+            },
+            "stochastic": False,
+            "sequence_of_features": ["position_parity", "ab_prev", "ab", "case", "+-"],
+        },
+    ]
+
+    df_features = build_features_dataframe(my_dataset)
+    print(df_features)

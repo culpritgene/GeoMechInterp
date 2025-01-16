@@ -194,3 +194,47 @@ def plot_uncertainty(
 
     plt.tight_layout()
     plt.show()
+
+
+def plot_pca_activations(
+    pca_result: np.ndarray,
+    clusters: np.ndarray | None = None,
+    title: str = "PCA of Accumulated Activations",
+):
+    # get colors for arbitrary number of clusters
+    cluster_to_color = {i: f"C{i}" for i in range(len(np.unique(clusters)))}
+    plt.figure(figsize=(10, 6))
+    scatter = plt.scatter(
+        pca_result[:, 0],
+        pca_result[:, 1],
+        c=[cluster_to_color[c] for c in clusters] if clusters is not None else None,
+        alpha=0.5,
+    )
+    if clusters is not None:
+        plt.colorbar(scatter, label="Clustering Colors")
+    plt.title(title)
+    plt.xlabel("PCA Component 1")
+    plt.ylabel("PCA Component 2")
+    plt.show()
+
+
+def plot_tsne_activations(
+    tsne_result: np.ndarray,
+    clusters: np.ndarray | None = None,
+    title: str = "t-SNE of Accumulated Activations",
+):
+    # get colors for arbitrary number of clusters
+    cluster_to_color = {i: f"C{i}" for i in range(len(np.unique(clusters)))}
+    plt.figure(figsize=(10, 6))
+    scatter = plt.scatter(
+        tsne_result[:, 0],
+        tsne_result[:, 1],
+        c=[cluster_to_color[c] for c in clusters] if clusters is not None else None,
+        alpha=0.5,
+    )
+    if clusters is not None:
+        plt.colorbar(scatter, label="Clustering Colors")
+    plt.title(title)
+    plt.xlabel("t-SNE Component 1")
+    plt.ylabel("t-SNE Component 2")
+    plt.show()

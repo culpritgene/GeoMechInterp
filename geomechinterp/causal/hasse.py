@@ -1,4 +1,5 @@
 import random
+from typing import Literal
 import numpy as np
 from itertools import product
 from functools import lru_cache
@@ -209,44 +210,71 @@ def filter_non_causal_truth_tables_block_symmetry(
 ) -> np.ndarray:
     # Filtering to keep only causal functions
     causal_truth_tables = []
-    N = truth_tables.shape[1]
 
     for table in truth_tables:
-        is_causal = True
-        for var_idx in range(N):
-            # For each variable, check symmetries at different scales
-            # e.g. for N=3: check 1/2=2/2
-            #  OR 1/4=2/4 AND 3/4=4/4
-            #  OR 1/8=2/8 AND 3/8=4/8 AND 5/8=6/8 AND 7/8=8/8
-            #  etc
-            output_changed = False
+        tt_syms = truth_table_block_symmetries(table, mode="all")
 
-            # Calculate number of blocks at this level
-            num_blocks = 2**var_idx
-            block_size = len(table) // num_blocks
-
-            # Check each block
-            for block in range(num_blocks):
-                start = block * block_size
-                mid = start + block_size // 2
-                end = start + block_size
-
-                # Compare first half with second half
-                first_half = table[start:mid]
-                second_half = table[mid:end]
-
-                if not np.array_equal(first_half, second_half):
-                    output_changed = True
-                    break
-
-            if not output_changed:
-                is_causal = False
-                break
-
-        if is_causal:
+        # presence of any symmetry in tt is considered to be non-causal
+        if not any(tt_syms):
             causal_truth_tables.append(table)
 
     return np.stack(causal_truth_tables)
+
+
+def truth_table_block_symmetries(
+    table: np.ndarray, mode: Literal["any", "all"] = "all"
+) -> bool | list[int]:
+    """For each variable, check symmetries at different scales
+
+    mode 'all' considers total symmetry across all branches.
+    for N=3 and mode "all":
+    first sym : 1/2=2/2
+    second sym: 1/4=2/4 AND 3/4=4/4
+    third sym : 1/8=2/8 AND 3/8=4/8 AND 5/8=6/8 AND 7/8=8/8
+
+    mode 'any' considers presence of any *conditional symmetry*,
+    hence is much more permissive than 'all'.
+    for N=3 and mode "any":
+    first sym : 1/2=2/2
+    second sym: 1/4=2/4 OR 3/4=4/4
+    third sym : 1/8=2/8 OR 3/8=4/8 OR 5/8=6/8 OR 7/8=8/8
+    """
+    N = np.log2(len(table))
+    if round(N) != N:
+        raise ValueError("Size of Truth Table must be a power of 2!")
+    N = int(N)
+    block_symmetries = []
+
+    if mode == "any":
+        op = any
+    else:
+        op = all
+
+    for var_idx in range(N):
+        # Calculate number of blocks at this level
+        num_blocks = 2**var_idx
+        block_size = len(table) // num_blocks
+
+        equal_blocks = []
+        # Check each block
+        for block in range(num_blocks):
+            start = block * block_size
+            mid = start + block_size // 2
+            end = start + block_size
+
+            # Compare first half with second half
+            first_half = table[start:mid]
+            second_half = table[mid:end]
+
+            if np.array_equal(first_half, second_half):
+                equal_blocks.append(1)
+
+        if op(equal_blocks):
+            block_symmetries.append(1)
+        else:
+            block_symmetries.append(0)
+
+    return block_symmetries
 
 
 def apply_truth_table(truth_table: np.ndarray, inputs: np.ndarray) -> int:
@@ -336,6 +364,77 @@ def filter_truth_tables(
         mask=np.repeat(~mask[np.newaxis, :], selected_truth_tables.shape[0], axis=0),
     )
     return selected_truth_tables
+
+
+def classify_tt_size_4(tt: list[int]):
+    """
+    Classifies a 2x2 truth table (binary string of length 4) into its corresponding logic gate.
+
+    Parameters:
+    - tt (str): A binary string of length 4 representing the truth table (e.g., '0001').
+
+    Returns:
+    - str: The name of the logic gate.
+    """
+    tts_classifier = {
+        "0000": "constant_0",  # Always outputs 0
+        "1111": "constant_1",  # Always outputs 1
+        "0010": "A_AND_NOT_B",  # True when A=1 and B=0
+        "0001": "AND",  # True only when all inputs are 1
+        "0011": "A",  # Output equals first input
+        "0100": "NOT_A_AND_B",  # True when A=0 and B=1
+        "0101": "B",  # Output equals second input
+        "0110": "XOR",  # True when inputs are different
+        "0111": "OR",  # True when any input is 1
+        "1000": "NOR",  # True when both inputs are 0
+        "1001": "XNOR",  # True when inputs are same
+        "1010": "NOT_B",  # Negation of second input
+        "1011": "A_OR_NOT_B",  # True when A=1 or B=0
+        "1100": "NOT_A",  # Negation of first input
+        "1101": "NOT_A_OR_B",  # True when A=0 or B=1
+        "1110": "NAND",  # False only when both inputs are 1
+    }
+    assert len(tt) == 4, "tt must be of length 4"
+    assert all(s in [0, 1] for s in tt), "tt must be a binary string"
+    tt_str = "".join([str(s) for s in tt])
+    return tts_classifier.get(tt_str, "UNKNOWN")
+
+
+def classify_truth_table(
+    tt: list[int], full_class_for_size_4: bool = True
+) -> list[str]:
+    """
+    Example approach:
+    Extract symmetry-based truth-tables attributes
+    such as it being balanced, or 1/2 symmetric, etc.
+    Returns list of String Flags.
+    """
+
+    if len(tt) == 4 and full_class_for_size_4:
+        return [classify_tt_size_4(tt)]
+
+    tt_flags = []
+    # tt symmetries in size log2(len(tt)) e.g. [1,1,0]
+    # first 1 means first half == second half
+    # second 1 means 1/4 = 2/4 AND 3/4 = 4/4
+    tt_symmetries = truth_table_block_symmetries(tt, mode="all")
+    for i, sym in enumerate(tt_symmetries):
+        if sym:
+            tt_flags.append(f"tt_sym_{i}")
+
+    # trivial cases
+    length = len(tt)
+    if all(x == 0 for x in tt):
+        tt_flags.append("constant_0")
+    if all(x == 1 for x in tt):
+        tt_flags.append("constant_1")
+
+    # half 0s, half 1s
+    count_ones = sum(tt)
+    if count_ones * 2 == length:
+        tt_flags.append("balanced")
+
+    return tt_flags
 
 
 def test_filter_truth_tables():

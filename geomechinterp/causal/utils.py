@@ -3,7 +3,10 @@ import itertools
 import re
 import numpy
 from typing import Callable
-from geomechinterp.causal.base_functions import all_binary_checks, all_binary_generators
+from geomechinterp.causal.base_functions import (
+    all_binary_checks,
+    all_binary_generators_func_names,
+)
 from .truth_table_cache import truth_table_cache
 
 
@@ -180,6 +183,19 @@ class DisplayChain:
     def __getitem__(self, index):
         return self.functions[index]
 
+    @property
+    def dag(self):
+        """Returns list of tuples (function_name, [control_features])"""
+        result = []
+        for f in self.functions:
+            if isinstance(f, IndependentFeatureWrapper):
+                result.append((f.feature_fn.__name__, []))
+            else:  # DependentFeatureWrapper
+                result.append((f.feature_fn.__name__, f.control_features))
+        # sort by the number of controls, with independent features first
+        # result.sort(key=lambda x: len(x[1]))
+        return result
+
     def to_json(self):
         return {
             "type": "DisplayChain",
@@ -187,7 +203,7 @@ class DisplayChain:
         }
 
     @classmethod
-    def from_json(cls, data, base_functions=all_binary_generators):
+    def from_json(cls, data, base_functions=all_binary_generators_func_names):
         wrapper_map = {
             "IndependentFeatureWrapper": IndependentFeatureWrapper,
             "DependentFeatureWrapper": DependentFeatureWrapper,
@@ -289,3 +305,14 @@ def sort_prev_first(reflections: list[str]) -> tuple[list[str], list[str]]:
         and refl != POSITION_PARITY_FEATURE
     ]
     return non_active_features, active_features
+
+
+def get_word_starts(text: str) -> list[int]:
+    """Returns a list of word starts in the text, character-wise."""
+    words = text.split()
+    cur = 0
+    word_starts = [cur]
+    for i, word in enumerate(words):
+        cur += len(word) + 1  # adding space
+        word_starts.append(cur)
+    return word_starts

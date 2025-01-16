@@ -157,8 +157,8 @@ class DataCollator(DataCollatorMixin):
 
     def __call__(self, features):
         batch = []
-        for feature in features:
-            batch.append(feature["input_ids"])
+        for feature in features["input_ids"]:
+            batch.append(feature)
         batch = {"input_ids": torch.tensor(batch), "labels": torch.tensor(batch)}
         if self.device:
             batch = {k: v.to(self.device) for k, v in batch.items()}
