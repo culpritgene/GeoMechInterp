@@ -11,10 +11,12 @@ import torch
 from torch.utils.data import Dataset
 from jaxtyping import Int, Float
 from geomechinterp.tflens.activations import load_precomputed_activation
-from geomechinterp.plots import plot_pca_activations, plot_tsne_activations
+from geomechinterp.viz.plots import plot_pca_activations, plot_tsne_activations
 import logging
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+from geomechinterp.viz.streamlit_viz import ActivationVisualizer
+from streamlit_jupyter import StreamlitPatcher
 
 logging.basicConfig(level=logging.INFO)
 
@@ -73,11 +75,14 @@ class ActivationStatsPipeline:
         self.cursor: str = ""
         self.results: dict[str, Any] = {}
 
+        self.viz: ActivationVisualizer | None = None
         self.__post_init__()
 
     def __post_init__(self):
+        # build feature df
         self.build_feature_df()
 
+        # load activations
         if not self.activations and self.activations_dir is not None:
             if self.selected_hooks is None:
                 raise Warning(
@@ -85,11 +90,17 @@ class ActivationStatsPipeline:
                 )
             self.load_activations(selected_hooks=self.selected_hooks)
 
+        # add position integers to agg_methods
         if "positions" in self.agg_methods:
             self.agg_methods.pop(self.agg_methods.index("positions"))
             self.agg_methods.extend(
                 list(range(self.activations[list(self.activations.keys())[0]].shape[1]))
             )
+
+        # initialize viz
+        self.viz = ActivationVisualizer(
+            activations=self.activations, features_df=self.features_df
+        )
 
     def build_feature_df(
         self,
@@ -270,3 +281,28 @@ class ActivationStatsPipeline:
             self.results[self.cursor]["tsne"],
             self.results[self.cursor].get("clusters", None),
         )
+
+    def streamlit_viz(self):
+        # run as a separate process
+        # providing paths to saved activations and features as arguments
+        import subprocess
+        import os
+
+        # save current activations and features as tmp files
+        activations_path = Path("activations.pt")
+        features_path = Path("features.csv")
+        torch.save(self.activations, activations_path)
+        self.features_df.to_csv(features_path, index=False)
+
+        # Set environment variables
+        os.environ["ACTIVATIONS_PATH"] = str(activations_path)
+        os.environ["FEATURES_PATH"] = str(features_path)
+
+        # Run Streamlit app
+        # find the path to the streamlit_viz.py file
+        streamlit_viz_path = Path(__file__).parent.parent / "viz" / "streamlit_viz.py"
+        subprocess.run(["streamlit", "run", str(streamlit_viz_path)])
+
+        # Clean up temp files
+        activations_path.unlink()
+        features_path.unlink()

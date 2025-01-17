@@ -1,6 +1,7 @@
 /geomechinterp/__pycache__/
 __pycache__/
 /geomechinterp/data/
+experiments/tensors/
 /geomechinterp/scripts/profile_html/*
 /lib/*
 wandb/

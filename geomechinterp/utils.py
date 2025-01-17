@@ -3,7 +3,7 @@ import networkx as nx
 import torch
 import pandas as pd
 
-from geomechinterp.plots import plot_uncertainty
+from geomechinterp.viz.plots import plot_uncertainty
 
 
 def visualize_dict_structure_tree(

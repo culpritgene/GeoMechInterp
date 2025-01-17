@@ -1,7 +1,7 @@
 import torch
 from tqdm import tqdm
 import pandas as pd
-from geomechinterp.logit_diff_utils import compute_rank_difference
+from geomechinterp.tflens.logit_diff_utils import compute_rank_difference
 
 
 def generate_prompt_binary(

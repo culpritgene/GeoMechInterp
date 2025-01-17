@@ -58,7 +58,6 @@ def cluster_kmeans_elbow(activations, max_clusters=10, plot=False):
     """
     silhouette_scores = []
     for k in range(2, max_clusters + 1):
-        print("activations", activations.shape)
         kmeans = KMeans(n_clusters=k, random_state=42).fit(activations)
         score = silhouette_score(activations, kmeans.labels_)
         silhouette_scores.append(score)
