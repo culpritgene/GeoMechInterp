@@ -25,7 +25,7 @@ from geomechinterp.causal.base_functions import all_binary_generators
 from multiprocessing import Pool, Manager
 from geomechinterp.causal.truth_table_cache import truth_table_cache
 from geomechinterp.graph.utils import dag_to_wl_hash
-from geomechinterp.utils import one_hot_encode_columns
+from geomechinterp.utils import one_hot_encode_columns, filter_categories
 
 logging.basicConfig(level=logging.INFO)
 
@@ -742,12 +742,15 @@ def build_features_dataframe(
     df = pd.DataFrame(all_rows)
     # df = df.reindex(columns=all_rows[0].keys(), fill_value=np.nan)
 
+    if take_top_freq_cats is not None:
+        for column in df.columns:
+            df = filter_categories(df, column, take_top_freq_cats)
+
     if one_hot_hash_features:
         # dummify hash features using sklearn
         df = one_hot_encode_columns(
             df,
             columns=["dag_equivalence_class", "labeled_graph_hash"],
-            threshold=take_top_freq_cats,
             rename_dummies=True,
         )
 

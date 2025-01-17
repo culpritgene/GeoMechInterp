@@ -1,5 +1,6 @@
 from typing import Literal, Any
 from pathlib import Path
+import pandas as pd
 from geomechinterp.ds.cluster import (
     cluster_isomap_kmeans,
     cluster_kmeans_elbow,
@@ -72,6 +73,7 @@ class ActivationStatsPipeline:
         self.agg_methods: list[Literal["mean", "stack"] | int] = agg_methods
 
         self.activations: dict[str, torch.Tensor] = {}
+        self.features_df: pd.DataFrame | None = None
         self.cursor: str = ""
         self.results: dict[str, Any] = {}
 
@@ -80,7 +82,7 @@ class ActivationStatsPipeline:
 
     def __post_init__(self):
         # build feature df
-        self.build_feature_df()
+        self.features_df = self.build_feature_df()
 
         # load activations
         if not self.activations and self.activations_dir is not None:
@@ -107,13 +109,12 @@ class ActivationStatsPipeline:
         one_hot_encode: bool = True,
         take_top_freq_cats: int | float | None = 0.85,
         drop_constant_columns: bool = True,
-    ):
-        self.features_df = build_features_dataframe(
+    ) -> pd.DataFrame:
+        features_df = build_features_dataframe(
             self.dataset, one_hot_encode, take_top_freq_cats, drop_constant_columns
         )
-        logging.info(
-            f"Built feature dataframe with {self.features_df.shape[1]} features"
-        )
+        logging.info(f"Built feature dataframe with {features_df.shape[1]} features")
+        return features_df
 
     def load_activations(self, selected_hooks: list[str] | None = None):
         if selected_hooks is None:
@@ -282,7 +283,7 @@ class ActivationStatsPipeline:
             self.results[self.cursor].get("clusters", None),
         )
 
-    def streamlit_viz(self):
+    def streamlit_viz(self, one_hot_features: bool = False):
         # run as a separate process
         # providing paths to saved activations and features as arguments
         import subprocess
@@ -292,7 +293,11 @@ class ActivationStatsPipeline:
         activations_path = Path("activations.pt")
         features_path = Path("features.csv")
         torch.save(self.activations, activations_path)
-        self.features_df.to_csv(features_path, index=False)
+        if one_hot_features:
+            self.features_df.to_csv(features_path, index=False)
+        else:
+            features_df = self.build_feature_df(one_hot_encode=False)
+            features_df.to_csv(features_path, index=False)
 
         # Set environment variables
         os.environ["ACTIVATIONS_PATH"] = str(activations_path)

@@ -160,16 +160,13 @@ def filter_categories(df, column, threshold):
     return df
 
 
-def one_hot_encode_columns(
-    df, columns: list[str], threshold: int | float | None, rename_dummies=False
-):
+def one_hot_encode_columns(df, columns: list[str], rename_dummies=False):
     """
     One-hot encode the specified categorical columns after filtering categories and append them to the original DataFrame.
 
     Parameters:
     - df (pd.DataFrame): The input DataFrame.
     - columns (list of str): List of column names to one-hot encode.
-    - threshold (int | float | None): A threshold for filtering categories.
     - rename_dummies (bool): If True, renames dummy columns to `colname_idx`,
          where idx 0 is for the most frequent category.
 
@@ -177,9 +174,6 @@ def one_hot_encode_columns(
     - pd.DataFrame: The original DataFrame with one-hot encoded columns appended.
     """
     for column in columns:
-        # threshold = thresholds.get(column, None)
-        df = filter_categories(df, column, threshold)
-
         # One-hot encode the column
         encoded = pd.get_dummies(df[column], prefix=column)
 
