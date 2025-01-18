@@ -14,6 +14,8 @@ def accumulate_activations(
     model: HookedTransformer,
     dataset: Dataset,
     selected_hooks: list[str],
+    save_logits: bool = False,
+    save_loss: bool = False,
     from_word_idx: int,
     select_num_chars: int,
     batch_size: int | None = None,
@@ -35,6 +37,11 @@ def accumulate_activations(
     accumulated_activations = {
         hook.format(i=i): [] for hook in selected_hooks for i in range(1, 6)
     }
+    if save_logits:
+        accumulated_activations['logits'] = []
+    if save_loss:
+        accumulated_activations['loss'] = []
+
     accumulated_strings = []
     selected_word_starts = []
     meta_info_template = {
@@ -85,11 +92,18 @@ def accumulate_activations(
                 accumulated_activations[hook].append(
                     activations[hook][i, char_pos[0] : char_pos[1], :]
                 )
+                if save_logits:
+                    accumulated_activations['logits'].append(out.logits[i, char_pos[0] : char_pos[1], :])
+        if save_loss:
+            accumulated_activations['loss'].append(out.loss[i])
 
+        # we need to keep track of positions in the dataset
         meta_info["dataset_positions"] = (
             min(meta_info["dataset_positions"][0], start_idx),
             max(meta_info["dataset_positions"][1], end_idx),
         )
+        # and positions within tokenized sequence
+        # NOTE: because we select substrings based on *word* positions, not character positions!
         meta_info["select_substrings"].extend(accumulated_strings)
         meta_info["selected_word_starts"].extend(selected_word_starts)
 

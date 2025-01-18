@@ -402,27 +402,30 @@ def classify_tt_size_4(tt: list[int]):
 
 def classify_truth_table(
     tt: list[int], full_class_for_size_4: bool = True
-) -> list[str]:
+) -> tuple[list[str], int]:
     """
     Example approach:
     Extract symmetry-based truth-tables attributes
     such as it being balanced, or 1/2 symmetric, etc.
     Returns list of String Flags.
     """
-
-    if len(tt) == 4 and full_class_for_size_4:
-        return [classify_tt_size_4(tt)]
-
     tt_flags = []
     # tt symmetries in size log2(len(tt)) e.g. [1,1,0]
     # first 1 means first half == second half
     # second 1 means 1/4 = 2/4 AND 3/4 = 4/4
     tt_symmetries = truth_table_block_symmetries(tt, mode="all")
+    symmetry_complexity = len(tt) - np.sum(tt)  # number of missing symmetries
+
+    # for size 4, we use full classification
+    if len(tt) == 4 and full_class_for_size_4:
+        return [classify_tt_size_4(tt)], symmetry_complexity
+
+    # overwise we flag by each type of symmetry
     for i, sym in enumerate(tt_symmetries):
         if sym:
             tt_flags.append(f"tt_sym_{i}")
 
-    # trivial cases
+    # and add trivial cases
     length = len(tt)
     if all(x == 0 for x in tt):
         tt_flags.append("constant_0")
@@ -434,7 +437,7 @@ def classify_truth_table(
     if count_ones * 2 == length:
         tt_flags.append("balanced")
 
-    return tt_flags
+    return tt_flags, symmetry_complexity
 
 
 def test_filter_truth_tables():

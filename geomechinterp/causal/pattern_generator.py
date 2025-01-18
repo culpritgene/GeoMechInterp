@@ -26,6 +26,8 @@ from multiprocessing import Pool, Manager
 from geomechinterp.causal.truth_table_cache import truth_table_cache
 from geomechinterp.graph.utils import dag_to_wl_hash
 from geomechinterp.utils import one_hot_encode_columns, filter_categories
+from geomechinterp.informat.entropy import estimate_entropy_char, estimate_entropy_token
+from geomechinterp.informat.compression import compression_complexity
 
 logging.basicConfig(level=logging.INFO)
 
@@ -611,7 +613,13 @@ FUNCTION_NAME_TO_FEATURE = {
 ALL_KNOWN_FEATURES = ["position_parity", "ab", "case", "+-", "12", "><", "?!", "]["]
 
 
-def extract_features_from_dataset_entry(entry: dict) -> dict:
+def extract_features_from_dataset_entry(
+    entry: dict,
+    attach_patterns: bool = False,
+    attach_patterns_length: int | None = None,
+    compute_uncertainty: bool = False,
+    compute_pattern_compression: bool = False,
+) -> dict:
     """
     Given one dataset entry, return a dictionary of higher-level features:
     {
@@ -646,6 +654,7 @@ def extract_features_from_dataset_entry(entry: dict) -> dict:
     max_controls = 0
 
     tt_by_size_ = {2: {}, 4: {}, 8: {}, 16: {}}
+    total_tt_symmetry_complexity = 0
     for fn in functions:
         # Identify the short feature name from the function
         fn_name = fn.get("function", "")
@@ -668,10 +677,11 @@ def extract_features_from_dataset_entry(entry: dict) -> dict:
             tt_size_dict = tt_by_size_[tt_size]
             tt_size_dict["count"] = tt_size_dict.get("count", 0) + 1
             # return string flags characterizing truth table
-            tt_flags = classify_truth_table(tt_values)
+            tt_flags, symmetry_complexity = classify_truth_table(tt_values)
             # store counts for each non empty flag grouped by tt size
             for flag in tt_flags:
                 tt_size_dict[flag] = tt_size_dict.get("count", 0) + 1
+            total_tt_symmetry_complexity += symmetry_complexity
 
     tt_by_size = {}
     for tt_size, tt_by_size_feats in tt_by_size_.items():
@@ -687,13 +697,11 @@ def extract_features_from_dataset_entry(entry: dict) -> dict:
         feature_presence[f"presence_{feat}"] = val
 
     # consider DAG abstract structure
-    dag = generator.dag
-    equivalence_class_hash = dag_to_wl_hash(dag)
-    labeled_graph_hash = dag_to_wl_hash(dag, strip_node_labels=False)
+    equivalence_class_hash = dag_to_wl_hash(generator.dag)
+    labeled_graph_hash = dag_to_wl_hash(generator.dag, strip_node_labels=False)
 
-    # abstract adjacency matrix
-    # 5) Consolidate all features into a single dict
-    #    Flatten tt_counts
+    # 6) Consolidate all features into a single dict
+    # Consolidate all features into a single dict
     features_dict = {
         "num_functions": num_funcs,
         "num_edges": edge_count,
@@ -705,6 +713,19 @@ def extract_features_from_dataset_entry(entry: dict) -> dict:
         "labeled_graph_hash": labeled_graph_hash,
         **tt_by_size,
     }
+
+    if attach_patterns:
+        pattern = entry["pattern"]
+        features_dict["pattern"] = (
+            pattern[:attach_patterns_length] if attach_patterns_length else pattern
+        )
+
+    if compute_uncertainty:
+        features_dict["pattern_entropy_token"] = estimate_entropy_token(pattern)
+        features_dict["pattern_entropy_char"] = estimate_entropy_char(pattern)
+
+    if compute_pattern_compression:
+        features_dict.update(compression_complexity(pattern))
 
     return features_dict
 

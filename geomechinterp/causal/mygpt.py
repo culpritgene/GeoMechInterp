@@ -34,10 +34,6 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
         max_length: int = 72,
     ):
         self.vocab = vocab
-        self.pad_token = "(PAD)"
-        self.unk_token = "(UNK)"
-        self.bos_token = "(BOS)"
-        self.eos_token = "(EOS)"
         self.multiprocessing = multiprocessing
         self.max_length = max_length
         self.model_input_names = ["input_ids", "attention_mask"]
@@ -46,6 +42,10 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
         self.__post_init__()
 
     def __post_init__(self):
+        self.pad_token = "(PAD)"
+        self.unk_token = "(UNK)"
+        self.bos_token = "(BOS)"
+        self.eos_token = "(EOS)"
         self.vocab.append(self.pad_token)
         self.vocab.append(self.unk_token)
         self.vocab.append(self.bos_token)

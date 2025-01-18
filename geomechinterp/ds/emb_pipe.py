@@ -6,18 +6,24 @@ from geomechinterp.ds.cluster import (
     cluster_kmeans_elbow,
     random_forest_feature_imp,
 )
-from geomechinterp.ds.stats import perform_anova
-from geomechinterp.causal.pattern_generator import build_features_dataframe
 import torch
 from torch.utils.data import Dataset
 from jaxtyping import Int, Float
-from geomechinterp.tflens.activations import load_precomputed_activation
-from geomechinterp.viz.plots import plot_pca_activations, plot_tsne_activations
-import logging
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+
+
+from geomechinterp.ds.stats import perform_anova
+from geomechinterp.causal.pattern_generator import build_features_dataframe
+
+from geomechinterp.tflens.activations import load_precomputed_activation
+from geomechinterp.viz.plots import plot_pca_activations, plot_tsne_activations
+
 from geomechinterp.viz.streamlit_viz import ActivationVisualizer
-from streamlit_jupyter import StreamlitPatcher
+import logging
+import warnings
+
+warnings.filterwarnings("ignore")
 
 logging.basicConfig(level=logging.INFO)
 
@@ -109,6 +115,8 @@ class ActivationStatsPipeline:
         one_hot_encode: bool = True,
         take_top_freq_cats: int | float | None = 0.85,
         drop_constant_columns: bool = True,
+        compute_uncertainty: bool = False,
+        attach_patterns: bool = False,
     ) -> pd.DataFrame:
         features_df = build_features_dataframe(
             self.dataset, one_hot_encode, take_top_freq_cats, drop_constant_columns

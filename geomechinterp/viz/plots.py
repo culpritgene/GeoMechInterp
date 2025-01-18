@@ -5,12 +5,117 @@ import pandas as pd
 import torch
 from sklearn.decomposition import PCA
 
+import networkx as nx
+
 from matplotlib import pyplot as plt
 import plotly.io as pio
 import plotly.express as px
 import plotly.graph_objects as go
 
 from geomechinterp.informat.entropy import get_uncertainty
+
+
+def visualize_dict_structure_tree(
+    d, graph=None, parent="Root", level=0, max_depth=None
+):
+    """
+    Recursively adds dictionary keys to the graph for visualization in a tree layout.
+    Adds an option to cut off visualization at a certain depth (max_depth).
+    """
+    if graph is None:
+        graph = nx.DiGraph()  # Directed graph for hierarchy
+
+    # If max_depth is specified, stop adding nodes beyond this level
+    if max_depth is not None and level > max_depth:
+        return graph
+
+    for key, value in d.items():
+        node_id = key  # Use the key directly as the node id (no depth in name)
+
+        # Connect the node to its parent (Root for the first level)
+        graph.add_edge(parent, node_id)
+
+        # If the value is a dictionary, recursively visualize its structure
+        if isinstance(value, dict):
+            visualize_dict_structure_tree(
+                value, graph=graph, parent=node_id, level=level + 1, max_depth=max_depth
+            )
+        else:
+            # Add leaf node for non-dictionary value
+            value_node_id = f"{key}_value"
+            graph.add_edge(node_id, value_node_id)
+
+    return graph
+
+
+def calculate_node_depths(graph, root=None):
+    """
+    Calculate depths of nodes in a graph from a given root.
+    If root is None, a random root will be chosen.
+    """
+    if root is None:
+        root = list(graph.nodes)[0]
+    depths = {node: float("inf") for node in graph.nodes}
+    depths[root] = 0
+    queue = [root]
+    while queue:
+        current = queue.pop(0)
+        for neighbor in graph.neighbors(current):
+            if depths[neighbor] == float("inf"):
+                depths[neighbor] = depths[current] + 1
+                queue.append(neighbor)
+    return depths
+
+
+def display_graph_tree(graph, max_depth=None, root=None):
+    """
+    Display the dictionary structure graph using matplotlib in a tree-like layout.
+    Colors nodes by depth and decreases node size with each level.
+    """
+    # Use Graphviz layout for a directed tree
+    pos = nx.nx_agraph.graphviz_layout(
+        graph, prog="dot"
+    )  # 'dot' creates a hierarchical layout
+
+    # Calculate the depth of each node
+    node_depths = calculate_node_depths(graph, root=root)
+
+    # Set node sizes and colors based on depth
+    max_level = max(node_depths.values())
+    node_sizes = [
+        2000 * (0.8 ** node_depths[node]) for node in graph.nodes()
+    ]  # Decrease size by depth
+    node_colors = [
+        plt.cm.viridis(node_depths[node] / max_level) for node in graph.nodes()
+    ]  # Color by depth
+
+    plt.figure(figsize=(12, 8))
+
+    # Draw nodes, edges, and labels
+    nx.draw(
+        graph,
+        pos,
+        with_labels=True,
+        node_size=node_sizes,
+        node_color=node_colors,
+        font_size=10,
+        font_weight="bold",
+        font_family="Arial",
+        edge_color="gray",
+        width=2,
+        alpha=0.9,
+        linewidths=1,
+        arrows=True,  # Show direction
+    )
+
+    # Add a title
+    title = "Nested Dictionary Tree Visualization"
+    if max_depth is not None:
+        title += f" (Max Depth: {max_depth})"
+    plt.title(title, fontsize=15, fontweight="bold")
+
+    # Show the final visualization
+    plt.show()
 
 
 def plot_pca_reps(concept_dirs, labels, title="PCA Projection of Concept Vectors"):
