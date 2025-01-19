@@ -4,8 +4,8 @@ import re
 import numpy
 from typing import Callable
 from geomechinterp.causal.base_functions import (
-    all_binary_checks,
-    all_binary_generators_func_names,
+    ALL_BINARY_CHECKS,
+    ALL_BINARY_GENERATOR_FUNC_NAMES,
 )
 from .truth_table_cache import truth_table_cache
 
@@ -68,7 +68,7 @@ class DependentFeatureWrapper:
     Wraps a feature function to be dependent on a set of control features.
     """
 
-    all_binary_checks = all_binary_checks
+    all_binary_checks = ALL_BINARY_CHECKS
 
     def __init__(
         self,
@@ -84,16 +84,16 @@ class DependentFeatureWrapper:
         control_vals = []  # list of control values
         for cf in self.control_features:
             if cf == "position_parity":
-                control_vals.append(all_binary_checks[cf](s, position))
+                control_vals.append(ALL_BINARY_CHECKS[cf](s, position))
             else:
                 if NON_ACTIVE_FEATURE_SUFFIX_RE.findall(cf):
                     control_vals.append(
-                        all_binary_checks[NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", cf)](
+                        ALL_BINARY_CHECKS[NON_ACTIVE_FEATURE_SUFFIX_RE.sub("", cf)](
                             s_prev
                         )
                     )
                 else:
-                    control_vals.append(all_binary_checks[cf](s))
+                    control_vals.append(ALL_BINARY_CHECKS[cf](s))
         control_idx = 0
         for i, v in enumerate(control_vals):
             # truth table vvvv|vvvv
@@ -203,7 +203,7 @@ class DisplayChain:
         }
 
     @classmethod
-    def from_json(cls, data, base_functions=all_binary_generators_func_names):
+    def from_json(cls, data, base_functions=ALL_BINARY_GENERATOR_FUNC_NAMES):
         wrapper_map = {
             "IndependentFeatureWrapper": IndependentFeatureWrapper,
             "DependentFeatureWrapper": DependentFeatureWrapper,

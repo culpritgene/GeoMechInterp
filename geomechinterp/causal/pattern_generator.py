@@ -1,9 +1,10 @@
 from typing import Callable, List
 import numpy as np
+import pandas as pd
 import logging
 from itertools import permutations, product
 from tqdm import tqdm
-
+from functools import partial
 from geomechinterp.causal.hasse import (
     get_all_possible_hasse_diagrams,
     unflatten_to_causal_triangle,
@@ -21,7 +22,11 @@ from geomechinterp.causal.utils import (
     POSITION_PARITY_FEATURE,
 )
 
-from geomechinterp.causal.base_functions import all_binary_generators
+from geomechinterp.causal.base_functions import (
+    ALL_BINARY_GENERATORS,
+    ALL_BINARY_FEATURES,
+    FUNCTION_NAME_TO_FEATURE,
+)
 from multiprocessing import Pool, Manager
 from geomechinterp.causal.truth_table_cache import truth_table_cache
 from geomechinterp.graph.utils import dag_to_wl_hash
@@ -216,7 +221,7 @@ def realize_causal_pattern_with_pruning(
     pattern: list[tuple[str, list[str]]],
     use_stochastic_features: bool = False,
     remove_non_causal_truth_tables: bool = True,
-    all_binary_generators: dict[str, Callable] = all_binary_generators,
+    all_binary_generators: dict[str, Callable] = ALL_BINARY_GENERATORS,
 ) -> list[DisplayChain]:
     """
     Takes a causal pattern description and returns all possible realizations of that pattern
@@ -233,7 +238,7 @@ def realize_causal_pattern_with_pruning(
     """
 
     # Initialize independent features
-    pattern = _check_pattern_structure(pattern)
+    pattern = _check_dag_structure_list(pattern)
     independent_pattern_functions: list[list[Callable]] = []
     independent_global_controls: list[list[int]] = []
     indep_pattern_names: list[str] = []
@@ -297,10 +302,10 @@ def realize_causal_pattern_with_pruning(
 
 
 def realize_causal_pattern(
-    pattern: list[tuple[str, list[str]]],
+    dag_structure: list[tuple[str, list[str]]],
     use_stochastic_features: bool = False,
     remove_non_causal_truth_tables: bool = True,
-    all_binary_generators: dict[str, Callable] = all_binary_generators,
+    all_binary_generators: dict[str, Callable] = ALL_BINARY_GENERATORS,
 ) -> list[DisplayChain]:
     """
     Takes a causal pattern description and returns all possible realizations of that pattern
@@ -314,8 +319,8 @@ def realize_causal_pattern(
     Returns:
         List of functions that each generate a valid sequence following the causal pattern
     """
-    # Get all possible truth tables for each feature based on number of controlling features
-    pattern = _check_pattern_structure(pattern)
+    # Get all possible truth tables for each feature based on number of control features
+    dag_structure = _check_dag_structure_list(dag_structure)
     independent_pattern_functions: list[list[Callable]] = []
     independent_global_controls: list[list[int]] = []
     indep_pattern_names: list[str] = []
@@ -328,7 +333,7 @@ def realize_causal_pattern(
     # second tuple argument contains "control" features
     # loop below inserts particular realizations of control
     # since all features are binary, we just iterate *over all possible truth tables*
-    for feature, controls in pattern:
+    for feature, controls in dag_structure:
         function_realizations: List[Callable[[str, str, int], str]] = []
 
         # Get base function for this feature
@@ -358,7 +363,7 @@ def realize_causal_pattern(
         all_indep_combinations, all_indep_global_controls
     ):
         dependent_pattern_func_cont = []
-        for feature, controls in pattern:
+        for feature, controls in dag_structure:
             function_realizations: List[Callable[[str, str, int], str]] = []
 
             # Get base function for this feature
@@ -403,23 +408,23 @@ def realize_causal_pattern(
     ]
 
 
-def _check_pattern_structure(pattern: list[tuple[str, list[str]]]) -> bool:
-    assert isinstance(pattern, (tuple, list)), "pattern must be a tuple or list"
-    assert len(pattern) > 0, "Pattern must be non-empty"
+def _check_dag_structure_list(dag_structure: list[tuple[str, list[str]]]) -> bool:
+    assert isinstance(dag_structure, (tuple, list)), "pattern must be a tuple or list"
+    assert len(dag_structure) > 0, "Pattern must be non-empty"
     assert isinstance(
-        pattern[0], (tuple, list)
-    ), f"each control subpattern must be a tuple or list, got: {pattern[0]} instead"
+        dag_structure[0], (tuple, list)
+    ), f"each control subpattern must be a tuple or list, got: {dag_structure[0]} instead"
     assert isinstance(
-        pattern[0][0], str
-    ), f"first element of each control subpattern must be a string, got: {pattern[0][0]} instead"
-    for i, (feature, controls) in enumerate(pattern):
+        dag_structure[0][0], str
+    ), f"first element of each control subpattern must be a string, got: {dag_structure[0][0]} instead"
+    for i, (feature, controls) in enumerate(dag_structure):
         if not isinstance(controls, (tuple, list)):
             logging.warning(
                 f"second element of each control subpattern must be a tuple or list, got: {controls} instead; wrapping in tuple"
             )
-            pattern[i] = (feature, tuple([controls]))
+            dag_structure[i] = (feature, tuple([controls]))
 
-    return pattern
+    return dag_structure
 
 
 def _check_feature_func(feature: str, all_binary_generators: dict) -> bool:
@@ -432,16 +437,20 @@ def _check_feature_func(feature: str, all_binary_generators: dict) -> bool:
     return True
 
 
-def process_single_function(args):
-    realized_function, group_of_features, causal_pattern = args
-    pattern = generate_pattern(realized_function, pattern_length=7)
-    stochastic = (
-        True if realized_function.__repr__().find("stochastic") != -1 else False
-    )
+def pack_generator_and_pattern(
+    generator: DisplayChain,
+    pattern: str | None = None,
+    selected_features: list[str] | None = None,
+    causal_pattern: list | None = None,
+    pattern_length: int | None = 20,
+):
+    if pattern is None:
+        pattern = generate_pattern(generator, pattern_length=pattern_length)
+    stochastic = True if generator.__repr__().find("stochastic") != -1 else False
     pattern_and_generator = {
         "pattern": pattern,
-        "generator": realized_function,
-        "sequence_of_features": group_of_features,
+        "generator": generator,
+        "sequence_of_features": selected_features,
         "causal_pattern": causal_pattern,
         "stochastic": stochastic,
     }
@@ -453,7 +462,7 @@ def process_pattern(
     causal_pattern: list[tuple[str, list[str]]],
     pattern_length: int = 7,
     use_stochastic_features: bool = False,
-    all_binary_generators: dict = all_binary_generators,
+    all_binary_generators: dict = ALL_BINARY_GENERATORS,
 ) -> dict:
     results = {}
     all_realized_functions = realize_causal_pattern(
@@ -464,17 +473,15 @@ def process_pattern(
     )
     for realized_function in all_realized_functions:
         pattern = generate_pattern(realized_function, pattern_length=pattern_length)
-        stochastic = (
-            True if realized_function.__repr__().find("stochastic") != -1 else False
+        pattern, packed_gen_data = pack_generator_and_pattern(
+            realized_function,
+            pattern,
+            selected_features,
+            causal_pattern,
+            pattern_length,
         )
-        pattern_and_generator = {
-            "pattern": pattern,
-            "generator": realized_function,
-            "sequence_of_features": group_of_features,
-            "causal_pattern": causal_pattern,
-            "stochastic": stochastic,
-        }
-        results[pattern] = pattern_and_generator
+        packed_gen_data["group_of_features"] = group_of_features
+        results[pattern] = packed_gen_data
     return results
 
 
@@ -483,13 +490,13 @@ def worker(args):
     return realize_causal_pattern(*args)
 
 
-def generate_all_patterns_and_generators(
+def get_exhaustive_pattern_generators(
     selected_features: list[str],
-    all_binary_generators: dict = all_binary_generators,
+    all_binary_generators: dict = ALL_BINARY_GENERATORS,
     use_stochastic_features: bool = False,
     max_controls: int = 3,
     verbose: bool = False,
-) -> dict:
+) -> list[DisplayChain]:
     assert (
         max_controls < 5
     ), "with 5 controls we get 2**(2**5) = 4294967296 possible patterns"
@@ -550,7 +557,7 @@ def generate_all_patterns_and_generators(
 
         tqdm_instance.close()
 
-    return all_generators
+    return list(all_generators)
 
 
 def generate_pattern(
@@ -598,26 +605,52 @@ def generate_pattern(
         return pattern.strip(" ")
 
 
-import pandas as pd
+def generate_patterns_mp(
+    generators: list[DisplayChain], pattern_length: int | None = None
+) -> list[str]:
+    """
+    Generate patterns in parallel using multiprocessing.
+    """
+    if pattern_length is not None:
+        generate_pattern_ = partial(generate_pattern, pattern_length=pattern_length)
+    else:
+        generate_pattern_ = generate_pattern
+    with Pool() as pool:
+        patterns = pool.map(generate_pattern_, generators)
+    return patterns
 
-# Suppose we know how to map function names like 'plus_minus_f' -> the short feature label '+-'
-FUNCTION_NAME_TO_FEATURE = {
-    "plus_minus_f": "+-",
-    "ab_f": "ab",
-    "case_f": "case",
-    "f12_f": "12",
-    # add others if needed
-}
 
-# A universal set of possible features:
-ALL_KNOWN_FEATURES = ["position_parity", "ab", "case", "+-", "12", "><", "?!", "]["]
+def get_exhaustive_patterns_and_pack(
+    selected_features: list[str],
+    use_stochastic_features: bool = True,
+    max_controls: int = 3,
+    pattern_length: int = 10,
+) -> dict:
+    logging.info(f"Generating {len(selected_features)} exhaustive patterns...")
+    generators = get_exhaustive_pattern_generators(
+        selected_features=selected_features,
+        use_stochastic_features=use_stochastic_features,
+        max_controls=max_controls,
+    )
+    logging.info(f"Producing {len(generators)} patterns...")
+    patterns = generate_patterns_mp(generators, pattern_length=pattern_length)
+
+    logging.info(f"Packing {len(patterns)} exhaustive patterns and generators...")
+    # Create a dictionary mapping patterns to their generators
+    all_patterns_and_generators = {}
+    for pattern, generator in zip(patterns, generators):
+        all_patterns_and_generators[pattern] = pack_generator_and_pattern(
+            generator, pattern, selected_features
+        )
+
+    return all_patterns_and_generators
 
 
 def extract_features_from_dataset_entry(
     entry: dict,
     attach_patterns: bool = False,
     attach_patterns_length: int | None = None,
-    compute_uncertainty: bool = False,
+    compute_pattern_uncertainty: bool = False,
     compute_pattern_compression: bool = False,
 ) -> dict:
     """
@@ -645,7 +678,7 @@ def extract_features_from_dataset_entry(
     num_funcs = len(functions)
 
     # 3) Count edges in the DAG
-    #    Summation of len(control_features) for each function
+    # Summation of len(control_features) for each function
     edge_count = 0
 
     # We might also track the set of "function feature names" encountered
@@ -653,6 +686,8 @@ def extract_features_from_dataset_entry(
     num_independent_functions = 0
     max_controls = 0
 
+    # 4) categorize truth tables by size
+    # count them and classify by symmetry and complexity
     tt_by_size_ = {2: {}, 4: {}, 8: {}, 16: {}}
     total_tt_symmetry_complexity = 0
     for fn in functions:
@@ -689,19 +724,18 @@ def extract_features_from_dataset_entry(
         for tt_flag, tt_flag_count in tt_by_size_feats.items():
             tt_by_size[str_prefix + "_" + tt_flag] = tt_flag_count
 
-    # 4) presence/absence for particular features
+    # 5) presence/absence for particular features
     feature_presence = {}
-    for feat in ALL_KNOWN_FEATURES:
+    for feat in ALL_BINARY_FEATURES:
         # If the feature is in sequence_of_features OR in the function_feature_set
         val = 1 if (feat in seq_of_features or feat in function_feature_set) else 0
         feature_presence[f"presence_{feat}"] = val
 
-    # consider DAG abstract structure
+    # 6) consider DAG abstract structure
     equivalence_class_hash = dag_to_wl_hash(generator.dag)
     labeled_graph_hash = dag_to_wl_hash(generator.dag, strip_node_labels=False)
 
-    # 6) Consolidate all features into a single dict
-    # Consolidate all features into a single dict
+    # 7) Consolidate all basic features
     features_dict = {
         "num_functions": num_funcs,
         "num_edges": edge_count,
@@ -709,23 +743,29 @@ def extract_features_from_dataset_entry(
         "stochastic": int(entry.get("stochastic", False)),
         **feature_presence,
         "max_control": max_controls,
-        "dag_equivalence_class": equivalence_class_hash,
-        "labeled_graph_hash": labeled_graph_hash,
-        **tt_by_size,
+        "total_tt_symmetry_complexity": total_tt_symmetry_complexity,
     }
 
+    # 8) attach patterns
+    pattern = entry["text"]
     if attach_patterns:
-        pattern = entry["pattern"]
         features_dict["pattern"] = (
             pattern[:attach_patterns_length] if attach_patterns_length else pattern
         )
 
-    if compute_uncertainty:
+    # 9) compute uncertainty
+    if compute_pattern_uncertainty:
         features_dict["pattern_entropy_token"] = estimate_entropy_token(pattern)
         features_dict["pattern_entropy_char"] = estimate_entropy_char(pattern)
 
+    # 10) compute pattern compression metrics
     if compute_pattern_compression:
         features_dict.update(compression_complexity(pattern))
+
+    # 11) attach DAG structure features (at the end for viz. convenience)
+    features_dict["dag_equivalence_class"] = equivalence_class_hash
+    features_dict["labeled_graph_hash"] = labeled_graph_hash
+    features_dict.update(tt_by_size)
 
     return features_dict
 
@@ -733,8 +773,12 @@ def extract_features_from_dataset_entry(
 def build_features_dataframe(
     dataset: list[dict],
     one_hot_hash_features: bool = True,
-    take_top_freq_cats: int | float | None = 0.85,
+    take_top_freq_cats: int | float | None = 0.9,
     drop_constant_columns: bool = True,
+    attach_patterns: bool = False,
+    attach_patterns_length: int | None = None,
+    compute_pattern_uncertainty: bool = False,
+    compute_pattern_compression: bool = False,
 ) -> pd.DataFrame:
     """
     one_hot_hash_features - dummify hashes representing dag structure
@@ -757,15 +801,22 @@ def build_features_dataframe(
 
     all_rows = []
     for entry in dataset:
-        feats = extract_features_from_dataset_entry(entry)
+        feats = extract_features_from_dataset_entry(
+            entry,
+            attach_patterns=attach_patterns,
+            attach_patterns_length=attach_patterns_length,
+            compute_pattern_uncertainty=compute_pattern_uncertainty,
+            compute_pattern_compression=compute_pattern_compression,
+        )
         all_rows.append(feats)
 
     df = pd.DataFrame(all_rows)
-    # df = df.reindex(columns=all_rows[0].keys(), fill_value=np.nan)
 
     if take_top_freq_cats is not None:
         for column in df.columns:
-            df = filter_categories(df, column, take_top_freq_cats)
+            # only for string columns
+            if df[column].dtype == str:
+                df = filter_categories(df, column, take_top_freq_cats)
 
     if one_hot_hash_features:
         # dummify hash features using sklearn

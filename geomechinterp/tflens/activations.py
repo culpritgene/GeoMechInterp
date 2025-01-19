@@ -16,8 +16,8 @@ def accumulate_activations(
     selected_hooks: list[str],
     save_logits: bool = False,
     save_loss: bool = False,
-    from_word_idx: int,
-    select_num_chars: int,
+    from_word_idx: int = 0,
+    select_num_chars: int = 30,
     batch_size: int | None = None,
     samples_per_file: int | None = None,
     save_suffix: str | None = None,
@@ -38,9 +38,9 @@ def accumulate_activations(
         hook.format(i=i): [] for hook in selected_hooks for i in range(1, 6)
     }
     if save_logits:
-        accumulated_activations['logits'] = []
+        accumulated_activations["logits"] = []
     if save_loss:
-        accumulated_activations['loss'] = []
+        accumulated_activations["loss"] = []
 
     accumulated_strings = []
     selected_word_starts = []
@@ -93,9 +93,11 @@ def accumulate_activations(
                     activations[hook][i, char_pos[0] : char_pos[1], :]
                 )
                 if save_logits:
-                    accumulated_activations['logits'].append(out.logits[i, char_pos[0] : char_pos[1], :])
+                    accumulated_activations["logits"].append(
+                        out.logits[i, char_pos[0] : char_pos[1], :]
+                    )
         if save_loss:
-            accumulated_activations['loss'].append(out.loss[i])
+            accumulated_activations["loss"].append(out.loss[i])
 
         # we need to keep track of positions in the dataset
         meta_info["dataset_positions"] = (

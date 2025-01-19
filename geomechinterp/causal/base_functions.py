@@ -1,7 +1,7 @@
 from typing import Callable
 
-# gp = global position parity
-all_binary_features = ["position_parity", "ab", "case", "12", "+-", "><", "?!", "]["]
+
+ALL_BINARY_FEATURES = ["position_parity", "ab", "case", "12", "+-", "><", "?!", "]["]
 
 
 def _space_check(fn: Callable):
@@ -72,7 +72,7 @@ def bracket_f(s: str, c: int) -> str:
     return s + "]" if c == 1 else s + "["
 
 
-all_binary_generators = {
+ALL_BINARY_GENERATORS = {
     "position_parity": position_parity_check,  # no control!
     "ab": ab_f,
     "case": case_f,
@@ -82,7 +82,9 @@ all_binary_generators = {
     "][": bracket_f,
 }
 
-all_binary_generators_func_names = {
+FUNCTION_NAME_TO_FEATURE = {v.__name__: k for k, v in ALL_BINARY_GENERATORS.items()}
+
+ALL_BINARY_GENERATOR_FUNC_NAMES = {
     "position_parity_check": position_parity_check,  # no control!
     "ab_f": ab_f,
     "case_f": case_f,
@@ -93,7 +95,7 @@ all_binary_generators_func_names = {
 }
 
 
-all_binary_checks = {
+ALL_BINARY_CHECKS = {
     "position_parity": position_parity_check,
     "ab": ab_check,
     "case": case_check,

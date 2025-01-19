@@ -14,6 +14,7 @@ from sklearn.manifold import TSNE
 
 
 from geomechinterp.ds.stats import perform_anova
+from geomechinterp.ds.linalg import singular_value_concentration
 from geomechinterp.causal.pattern_generator import build_features_dataframe
 
 from geomechinterp.tflens.activations import load_precomputed_activation
@@ -80,6 +81,7 @@ class ActivationStatsPipeline:
 
         self.activations: dict[str, torch.Tensor] = {}
         self.features_df: pd.DataFrame | None = None
+        self.patterns_df: pd.DataFrame | None = None
         self.cursor: str = ""
         self.results: dict[str, Any] = {}
 
@@ -88,7 +90,10 @@ class ActivationStatsPipeline:
 
     def __post_init__(self):
         # build feature df
-        self.features_df = self.build_feature_df()
+        self.features_df = self.build_feature_df(
+            compute_pattern_compression=True,
+            compute_pattern_uncertainty=True,
+        )
 
         # load activations
         if not self.activations and self.activations_dir is not None:
@@ -115,12 +120,22 @@ class ActivationStatsPipeline:
         one_hot_encode: bool = True,
         take_top_freq_cats: int | float | None = 0.85,
         drop_constant_columns: bool = True,
-        compute_uncertainty: bool = False,
         attach_patterns: bool = False,
+        compute_pattern_uncertainty: bool = False,
+        compute_pattern_compression: bool = False,
+        attach_patterns_length: int | None = 30,
     ) -> pd.DataFrame:
         features_df = build_features_dataframe(
-            self.dataset, one_hot_encode, take_top_freq_cats, drop_constant_columns
+            self.dataset,
+            one_hot_hash_features=one_hot_encode,
+            take_top_freq_cats=take_top_freq_cats,
+            drop_constant_columns=drop_constant_columns,
+            attach_patterns=attach_patterns,
+            attach_patterns_length=attach_patterns_length,
+            compute_pattern_uncertainty=compute_pattern_uncertainty,
+            compute_pattern_compression=compute_pattern_compression,
         )
+
         logging.info(f"Built feature dataframe with {features_df.shape[1]} features")
         return features_df
 
@@ -148,7 +163,11 @@ class ActivationStatsPipeline:
         self.results[self.cursor] = {}
 
     def _split_cursor(self, cursor: str):
-        return "_".join(cursor.split("_")[:-1]), int(cursor.split("_")[-1])
+        base, agg_func = "_".join(cursor.split("_")[:-1]), cursor.split("_")[-1]
+        if agg_func.isdigit():
+            return base, int(agg_func)
+        else:
+            return base, agg_func
 
     def get_activations(
         self,
@@ -227,6 +246,7 @@ class ActivationStatsPipeline:
     ):
         self.set_cursor(activations_str, agg_func)
         self.cluster(activations_str, agg_func)
+        self.calc_activations_svd()
         self.anova_on_clusters()
         self.feature_imp()
         if filter_non_important:
@@ -291,7 +311,28 @@ class ActivationStatsPipeline:
             self.results[self.cursor].get("clusters", None),
         )
 
-    def streamlit_viz(self, one_hot_features: bool = False):
+    def calc_activations_svd(self, cursor: str | None = None):
+        if cursor is None:
+            cursor = self.cursor
+        res = self.results.get(cursor, {})
+        activations_str, agg_func = self._split_cursor(cursor)
+        activations = self.agg_activations(activations_str, agg_func)
+        activations_tensor = torch.tensor(activations)
+        rank = torch.linalg.matrix_rank(activations_tensor).item()
+        res["matrix_rank"] = rank
+        svd_results = singular_value_concentration(activations_tensor)
+        res.update(svd_results)
+        self.results[cursor] = res
+        return res
+
+    def streamlit_viz(
+        self,
+        one_hot_features: bool = False,
+        attach_patterns: bool = True,
+        compute_pattern_uncertainty: bool = True,
+        compute_pattern_compression: bool = True,
+        attach_patterns_length: int = 30,
+    ):
         # run as a separate process
         # providing paths to saved activations and features as arguments
         import subprocess
@@ -304,7 +345,13 @@ class ActivationStatsPipeline:
         if one_hot_features:
             self.features_df.to_csv(features_path, index=False)
         else:
-            features_df = self.build_feature_df(one_hot_encode=False)
+            features_df = self.build_feature_df(
+                one_hot_encode=False,
+                attach_patterns=attach_patterns,
+                compute_pattern_uncertainty=compute_pattern_uncertainty,
+                compute_pattern_compression=compute_pattern_compression,
+                attach_patterns_length=attach_patterns_length,
+            )
             features_df.to_csv(features_path, index=False)
 
         # Set environment variables

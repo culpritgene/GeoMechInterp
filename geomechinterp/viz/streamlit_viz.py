@@ -174,7 +174,7 @@ class ActivationVisualizer:
 
     def perform_projection(self):
         projection_method = st.sidebar.selectbox(
-            "Projection Method", ["PCA", "t-SNE", "UMAP"]
+            "Projection Method", ["t-SNE", "PCA", "UMAP"]
         )
 
         # Compute dim-reduction projection if not already done
@@ -204,7 +204,9 @@ class ActivationVisualizer:
         elif self.agg_choice == "stack":
             default_color = "Position"
 
-        available_colors.extend(list(self.features_df.columns))
+        feats = list(self.features_df.columns)
+        feats.remove("pattern")
+        available_colors.extend(feats)
         self.color_by = st.sidebar.selectbox(
             "Color By", available_colors, index=available_colors.index(default_color)
         )
@@ -243,8 +245,8 @@ class ActivationVisualizer:
         # Determine if the color_by column is categorical (integers or binary)
         if (
             self.projection_df[self.color_by].dtype
-            in [np.int64, np.int32, np.int8, bool]
-            or self.projection_df[self.color_by].nunique() <= 10
+            in [np.int64, np.int32, np.int8, bool, str]
+            or self.projection_df[self.color_by].nunique() <= 6
         ):
             color_discrete_sequence = px.colors.qualitative.Plotly
         else:
