@@ -1,11 +1,26 @@
 import torch
 import pandas as pd
+from typing import Optional, Callable
 from geomechinterp.viz.plots import plot_uncertainty
 
 
-def run_model_on_pattern(model, pattern, exclude_first_k: int = 0, device: str = "mps"):
-    token_ids = model.to_tokens(pattern).to(device)  # Convert tokens to token ids
-    token_ids = token_ids[:, :512]  # Limit the sequence length if necessary
+def run_model_on_pattern(
+    model,
+    pattern,
+    exclude_first_k: int = 0,
+    tokenizer: Optional[Callable] = None,
+    device: str = "mps",
+):
+    if tokenizer is None:
+        tokenizer = model.to_tokens
+    token_ids = tokenizer(pattern)  # Convert tokens to token ids
+    if isinstance(token_ids, list):
+        token_ids = token_ids[:512]
+        token_ids = torch.tensor(token_ids).to(device)
+    else:
+        # Limit the sequence length if necessary
+        token_ids = token_ids[:, :512]
+        token_ids = token_ids.to(device)
 
     # Forward pass through the model
     logits = model(token_ids, return_type="logits")

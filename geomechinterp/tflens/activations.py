@@ -141,8 +141,9 @@ def load_precomputed_activation(
     input_dir: str | Path,
     selected_hooks: list[str] | None = None,
     subselected_positions: list[int] | None = None,
+    merge_meta_batches: bool = True,
     file_substring: str | None = None,
-):
+) -> tuple[dict, dict]:
     max_bytes = 8 * 1024 * 1024 * 1024  # 8 GB
     current_bytes = 0
     if selected_hooks:
@@ -178,4 +179,21 @@ def load_precomputed_activation(
 
     for hook in selected_hooks:
         accumulated_activations[hook] = torch.cat(accumulated_activations[hook], dim=0)
-    return accumulated_activations, meta_info
+
+    if not merge_meta_batches:
+        return accumulated_activations, meta_info
+
+    meta_info_dict = {}
+    for meta_info_batch in meta_info:
+        for key, value in meta_info_batch.items():
+            if isinstance(value, list):
+                meta_info_dict[key] = meta_info_dict.get(key, []) + value
+            else:
+                meta_info_dict[key] = meta_info_dict.get(key, []) + [value]
+
+    # convert back to single value is all values are the same
+    for key, value in meta_info_dict.items():
+        if len(set(value)) == 1:
+            meta_info_dict[key] = value[0]
+
+    return accumulated_activations, meta_info_dict

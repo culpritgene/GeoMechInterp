@@ -145,13 +145,14 @@ class ActivationStatsPipeline:
         else:
             self.selected_hooks = selected_hooks
         if self.activations_dir is not None:
-            activations, _ = load_precomputed_activation(
+            activations, meta_info = load_precomputed_activation(
                 self.activations_dir,
                 selected_hooks=selected_hooks,
                 subselected_positions=None,
                 file_substring=self.activations_file_substring,
             )
             self.activations = activations
+            self.meta_info = meta_info
             logging.info(f"Loaded {len(self.activations)} hooked activations.")
         else:
             raise ValueError("activations_dir is not provided")

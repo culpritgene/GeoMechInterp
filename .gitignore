@@ -4,6 +4,8 @@ __pycache__/
 experiments/tensors/
 /geomechinterp/scripts/profile_html/*
 /lib/*
+/*.pt
+/*.pyc
 wandb/
 mlruns/
 logs/
