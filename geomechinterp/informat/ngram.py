@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     # Optional weighting for each model, e.g. (1,2,3)
     # If None, it's a simple average
-    weights = [0.5, 1.0, 1.5]
+    weights = None # [0.5, 1.0, 1.5]
 
     # Generate text
     generated_text, usage_count = generate_from_mixture(

@@ -13,7 +13,11 @@ def run_model_on_pattern(
 ):
     if tokenizer is None:
         tokenizer = model.to_tokens
-    token_ids = tokenizer(pattern)  # Convert tokens to token ids
+    # Accept both list and dict-style outputs (e.g., {'input_ids': [...]})
+    if isinstance(tokenizer(pattern), dict) and 'input_ids' in tokenizer(pattern):
+        token_ids = tokenizer(pattern)['input_ids']
+    else:
+        token_ids = tokenizer(pattern)
     if isinstance(token_ids, list):
         token_ids = token_ids[:512]
         token_ids = torch.tensor(token_ids).to(device)
@@ -26,21 +30,34 @@ def run_model_on_pattern(
     logits = model(token_ids, return_type="logits")
     # compute cross-entropy loss
     loss = torch.nn.functional.cross_entropy(
-        logits[0, exclude_first_k:, :], token_ids[0, exclude_first_k:]
+        logits.squeeze(0)[exclude_first_k:], token_ids.squeeze(0)[exclude_first_k:]
     )
     return loss.item()
 
 
 def run_model_on_pattern_and_plot(
-    model, pattern, annotate_tokens: str = False, device: str = "mps"
+    model,
+    pattern,
+    annotate_tokens: str = False,
+    device: str = "mps",
+    tokenizer: Optional[Callable] = None,
 ):
-    token_ids = model.to_tokens(pattern).to(device)  # Convert tokens to token ids
+    if tokenizer is None:
+        assert model.tokenizer is not None, "Tokenizer is required for model"
+
+    if tokenizer is not None:
+        token_ids = torch.tensor(tokenizer(pattern)["input_ids"]).to(device).unsqueeze(0)  # Convert tokens to token ids
+    else:
+        token_ids = model.to_tokens(pattern).to(device)  # Convert tokens to token ids
     token_ids = token_ids[:, :512]  # Limit the sequence length if necessary
 
     # Forward pass through the model
     logits = model(token_ids, return_type="logits")
 
-    print(model.to_str_tokens(logits[0, :, :].argmax(dim=-1)))
+    if tokenizer is None:
+        print(model.to_str_tokens(logits[0, :, :].argmax(dim=-1)))
+    else:
+        print(tokenizer.decode(logits[0, :, :].argmax(dim=-1)))
     # print(logits.var(dim=-1))
     if annotate_tokens:
         plot_uncertainty(

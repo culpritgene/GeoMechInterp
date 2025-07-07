@@ -29,16 +29,32 @@ def symbol_tokenizer(doc):
 class SymbolTokenizer(PreTrainedTokenizerBase):
     def __init__(
         self,
-        vocab: list[str] = ALL_SYMBOLS + EXTRA_SYMBOLS,
+        vocab: list[str] = None,
         multiprocessing: bool = False,
         max_length: int = 72,
     ):
+        # Set up your vocab and other attributes
+        if vocab is None:
+            vocab = ALL_SYMBOLS + EXTRA_SYMBOLS
         self.vocab = vocab
         self.multiprocessing = multiprocessing
         self.max_length = max_length
         self.model_input_names = ["input_ids", "attention_mask"]
         self.skip_special_tokens = False
+
+        # Set up init_kwargs as expected by transformer_lens
+        self.init_kwargs = {
+            "name_or_path": "symbol_tokenizer",
+            "add_bos_token": True,
+            "add_eos_token": True,
+            "add_pad_token": True,
+            "add_unk_token": True,
+        }
+
+        # Call the parent class __init__ with no arguments
         super().__init__()
+
+        # If you have a __post_init__, call it here
         self.__post_init__()
 
     def __post_init__(self):
@@ -46,22 +62,35 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
         self.unk_token = "(UNK)"
         self.bos_token = "(BOS)"
         self.eos_token = "(EOS)"
-        self.vocab.append(self.pad_token)
-        self.vocab.append(self.unk_token)
-        self.vocab.append(self.bos_token)
-        self.vocab.append(self.eos_token)
+
+        # Only add special tokens if not already present
+        for tok in [self.pad_token, self.unk_token, self.bos_token, self.eos_token]:
+            if tok not in self.vocab:
+                self.vocab.append(tok)
+
         self.token_to_id = {symbol: idx for idx, symbol in enumerate(self.vocab)}
         self.id_to_token = {idx: symbol for symbol, idx in self.token_to_id.items()}
-        self.special_tokens_ids = {
-            self.pad_token: self.token_to_id[self.pad_token],
-            self.unk_token: self.token_to_id[self.unk_token],
-            self.bos_token: self.token_to_id[self.bos_token],
-            self.eos_token: self.token_to_id[self.eos_token],
+
+        self.pad_token_id = self.token_to_id[self.pad_token]
+        self.unk_token_id = self.token_to_id[self.unk_token]
+        self.bos_token_id = self.token_to_id[self.bos_token]
+        self.eos_token_id = self.token_to_id[self.eos_token]
+
+        # Set the special tokens map for HuggingFace compatibility
+        self._special_tokens_map = {
+            "pad_token": self.pad_token,
+            "unk_token": self.unk_token,
+            "bos_token": self.bos_token,
+            "eos_token": self.eos_token,
         }
+
         # Create spacy pipeline
         self.nlp = spacy.blank("en")
         self.nlp.add_pipe("symbol_tokenizer", name="symbol_tokenizer", first=True)
-
+    
+    def __len__(self):
+        return len(self.vocab)
+    
     def encode(
         self, text: str | list[str], padding: bool = False
     ) -> list[int] | list[list[int]]:
@@ -123,14 +152,63 @@ class SymbolTokenizer(PreTrainedTokenizerBase):
         # Convert IDs back to symbols and join
         if self.skip_special_tokens:
             token_ids = [
-                idx for idx in token_ids if idx not in self.special_tokens_ids.values()
+                idx for idx in token_ids if idx not in self._special_tokens_map.values()
             ]
         return "".join(self.id_to_token.get(idx, "[UNK]") for idx in token_ids)
 
     def __call__(
-        self, text: str | list[str], padding: bool = False
-    ) -> list[int] | list[list[int]]:
-        return self.encode(text, padding=padding)
+        self,
+        text,
+        return_tensors=None,
+        padding=False,
+        truncation=False,
+        max_length=None,
+        **kwargs
+    ):
+        # Tokenize your input here
+        # For demonstration, let's assume you have a method self.encode(text)
+        if isinstance(text, str):
+            input_ids = self.encode(text)
+        else:
+            input_ids = [self.encode(t) for t in text]
+
+        # Handle truncation
+        if truncation and max_length is not None:
+            if isinstance(input_ids[0], list):  # batch
+                input_ids = [ids[:max_length] for ids in input_ids]
+            else:
+                input_ids = input_ids[:max_length]
+
+        # Handle padding
+        if padding:
+            if isinstance(input_ids[0], list):  # batch
+                max_len = max(len(ids) for ids in input_ids)
+                input_ids = [
+                    ids + [self.pad_token_id] * (max_len - len(ids)) for ids in input_ids
+                ]
+            else:
+                # single example, pad to max_length if provided
+                if max_length is not None:
+                    input_ids = input_ids + [self.pad_token_id] * (max_length - len(input_ids))
+
+        # Convert to tensors if requested
+        if return_tensors == "pt":
+            import torch
+            input_ids = torch.tensor(input_ids)
+
+        return {"input_ids": input_ids}
+
+    def convert_tokens_to_ids(self, tokens):
+        # tokens: str or list of str
+        if isinstance(tokens, str):
+            return self.token_to_id.get(tokens, self.unk_token_id)
+        return [self.token_to_id.get(token, self.unk_token_id) for token in tokens]
+
+    def convert_ids_to_tokens(self, ids):
+        # ids: int or list of int
+        if isinstance(ids, int):
+            return self.id_to_token.get(ids, self.unk_token)
+        return [self.id_to_token.get(i, self.unk_token) for i in ids]
 
     def pad(self, features, padding=True, max_length=None, **kwargs):
         """Add padding method to make compatible with HuggingFace's DataCollator"""
