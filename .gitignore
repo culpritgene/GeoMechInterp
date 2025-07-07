@@ -19,6 +19,11 @@ tokenized_val/
 *.png
 .DS_Store
 *.prof
-*.pkl
-*.pth.tar
-*.json
+**/t*.pkl
+**/*.pth.tar
+**/*.json
+**/.DS_Store*
+**/*.pt
+**/*.pyc
+**/*.csv
+**/*scrap*
