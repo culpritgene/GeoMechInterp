@@ -60,6 +60,12 @@ Most existing mechinterp frameworks rely on first-order term approximation over 
 
 ## Sub-Projects
 
+Some minimal standalone experiments can be found in `preliminary_experiments`, for instance 
+- `preliminary_experiments/token_superposition.ipynb` that tests if we can decode answer to $2$ mixed queries from a single output (not really)
+- `preliminary_experiments/uroborosus.ipynb` that tracks convergence wrt logit diff after re-feeding some FFN parameter slice back into TF
+- `preliminary_experiments/uncertaity_quantification.ipynb` that tests very simple uncertainty quantification approaches for MDPs
+
+Each `Project` listed above has its own `README.md` file with more details - navigate into subfolder to see it. 
 ### Causal Patterns & Uncertainty (`projects/causal_patterns/`)
 
 **Location**: `projects/causal_patterns/`
@@ -82,41 +88,6 @@ Most existing mechinterp frameworks rely on first-order term approximation over 
 - Uncertainty varies predictably with pattern complexity
 - Structured uncertainty correlates with feature-interaction order
 - Disentangled subspaces allow clean causal interventions
-
-**Minimal Code Example**:
-```python
-from geomechinterp.causal.pattern_generator import get_exhaustive_pattern_generators, generate_patterns_mp
-from geomechinterp.causal.mygpt import SymbolTokenizer, train_model
-from geomechinterp.informat.entropy import estimate_entropy_token
-import torch
-
-# 1. Generate causal patterns
-patterns = get_exhaustive_pattern_generators(
-    selected_features=['position_parity', 'ab', 'case', '+-'],
-    max_controls=2
-)
-pattern_strings = generate_patterns_mp(patterns, pattern_length=20)
-
-# 2. Train/evaluate model on patterns
-tokenizer = SymbolTokenizer()
-model = train_model(pattern_strings, tokenizer, epochs=10)
-
-# 3. Compare uncertainty between optimal and model
-def compare_uncertainty(model, pattern, tokenizer):
-    # Get model predictions
-    logits = model.run_with_cache(model.to_tokens(pattern))[1]['logits']
-    model_entropy = estimate_entropy_token(logits.softmax(-1))
-    
-    # Get optimal (ground truth) uncertainty
-    optimal_entropy = estimate_entropy_token(pattern)  # Based on causal structure
-    
-    return model_entropy, optimal_entropy
-
-# Example usage
-model_uncertainty, optimal_uncertainty = compare_uncertainty(model, "a b a b a b", tokenizer)
-print(f"Model uncertainty: {model_uncertainty:.3f}")
-print(f"Optimal uncertainty: {optimal_uncertainty:.3f}")
-```
 
 
 ### Orthogonal Concepts (`projects/orthogonal_concepts/`)
