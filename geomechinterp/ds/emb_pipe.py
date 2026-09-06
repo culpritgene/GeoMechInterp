@@ -17,7 +17,7 @@ from geomechinterp.ds.stats import perform_anova
 from geomechinterp.ds.linalg import singular_value_concentration
 from geomechinterp.causal.pattern_generator import build_features_dataframe
 
-from geomechinterp.tflens.activations import load_precomputed_activation
+from geomechinterp.minterp.activations import load_precomputed_activation
 from geomechinterp.viz.plots import plot_pca_activations, plot_tsne_activations
 
 from geomechinterp.viz.streamlit_viz import ActivationVisualizer

@@ -7,7 +7,7 @@ from pathlib import Path
 import torch
 from datasets import Dataset
 from geomechinterp.causal.utils import get_word_starts
-from geomechinterp.tflens.utils import HookedTransformer
+from geomechinterp.minterp.utils import HookedTransformer
 
 
 def accumulate_activations(

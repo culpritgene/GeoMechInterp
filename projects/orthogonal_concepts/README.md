@@ -30,6 +30,7 @@ See [Google Doc report](https://docs.google.com/document/d/1jm-pqVV4TyfpBbCK3hUq
 
 
 ## Directory layout
+| Module / Notebook                   | Purpose                                                                                                                |
 
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prelogit_orthogonal_concepts_I.ipynb`         | Whitening the unembedding matrix, extracting counter‑factual concept vectors and testing basic steering on **Gemma‑2B** model.                                 |
