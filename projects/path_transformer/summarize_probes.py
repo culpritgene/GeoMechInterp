@@ -24,7 +24,7 @@ LABEL = {"linear": "linear (ridge)", "sae+linear": "top-k SAE + linear", "relu+l
          "spline1L": "cubic splines + linear", "spline2L": "2-layer cubic KAN", "spline": "2-layer cubic KAN"}
 COLOR = {"linear": "#898781", "sae+linear": "#2a78d6", "relu+linear": "#eb6834", "spline1L": "#e87ba4", "spline2L": "#1baf7a", "spline": "#1baf7a"}
 SURFACE, INK, MUTED, GRID = "#fcfcfb", "#0b0b0b", "#898781", "#e1e0d9"
-TARGETS = ["pos", "goal", "next", "remain"]
+TARGETS = ["pos", "goal", "dir", "remain"]
 BUDGETS = [1000, 2500, 5000, 10000, 40000, 300000]
 
 
@@ -64,7 +64,7 @@ def main(a):
                 ax.spines[sp].set_visible(False)
             ax.tick_params(colors=MUTED, labelsize=8, length=0)
             if i == 0:
-                ax.set_title(run.replace("_flat_L6_d256", ""), fontsize=10, color=INK, loc="left")
+                ax.set_title(run.replace("_flat", ""), fontsize=10, color=INK, loc="left")
             if j == 0:
                 ax.set_ylabel(f"R² for {tgt}", fontsize=9, color=MUTED)
             if i == len(TARGETS) - 1:

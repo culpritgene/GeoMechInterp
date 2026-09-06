@@ -1,0 +1,1154 @@
+[
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3259815275669098
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.24024955928325653
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.3512519299983978
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.38491034507751465
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.37406983971595764
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.2668568789958954
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.37993478775024414
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.47049784660339355
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3502672016620636
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.2449597716331482
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.3687809407711029
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.43343427777290344
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.4678966999053955
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.35244572162628174
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.45902714133262634
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.5865761637687683
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3725409507751465
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.25261735916137695
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.37672552466392517
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.4808960258960724
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.5448503494262695
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.4628422260284424
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.5225107073783875
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.6436466574668884
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3698008060455322
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.2671040892601013
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.3636370599269867
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.47152724862098694
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3909018039703369
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.25233742594718933
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.39249563217163086
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.5202624797821045
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.6990527510643005
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.7147969603538513
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7117689251899719
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.534369170665741
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.6751428246498108
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.6887462139129639
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.6874645352363586
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.5234015583992004
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.8170358538627625
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8421761393547058
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8247566819190979
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.6062046885490417
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.8513663411140442
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8672463297843933
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8430901169776917
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.7531319260597229
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.8687413334846497
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8878787159919739
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8589644432067871
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.7649968266487122
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.9001234173774719
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.9153051376342773
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8935832977294922
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.8107974529266357
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.848505437374115
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8754253387451172
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8396626114845276
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.7176303863525391
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.8229326605796814
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8200343251228333
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8111446499824524
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 2,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.8012423515319824
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.2569982409477234
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.1703764945268631
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.2767021059989929
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "linear",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.3200227618217468
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.30010974407196045
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.20545269548892975
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.29694363474845886
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.3900587558746338
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.2945401966571808
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.20617921650409698
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.28508394956588745
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.3841707706451416
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.41216185688972473
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.286411851644516
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.4033266007900238
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.5395966172218323
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.318228155374527
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.20125317573547363
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.3073900640010834
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.43797698616981506
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.5247917175292969
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.4145486354827881
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.514674723148346
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "relu m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.6384925246238708
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3140477240085602
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.18663208186626434
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.29511314630508423
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "spline m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.45182597637176514
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.3494044244289398
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.22632326185703278
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.33952227234840393
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "dir",
+  "probe": "sae m=1024 k=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.4751448333263397
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.6412515640258789
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.6554428935050964
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.6623964309692383
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "linear",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.4425535202026367
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.7167508006095886
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.7367760539054871
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7190510630607605
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.5447192788124084
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.7330629229545593
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.7514934539794922
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7554106712341309
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=8",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.523743212223053
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.7997272610664368
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8182420134544373
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7881729006767273
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.6766697764396667
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.7840254902839661
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.811255931854248
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7796984314918518
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.6117123961448669
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.8492772579193115
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.8698110580444336
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.8386222720146179
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "relu m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.7426231503486633
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.7664996981620789
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.7968759536743164
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7635954022407532
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "spline m=128",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.5778843760490417
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "all",
+  "n": 6601,
+  "r2": 0.7401964068412781
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "lowK",
+  "n": 2138,
+  "r2": 0.7269614338874817
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "midK",
+  "n": 2165,
+  "r2": 0.7446861267089844
+ },
+ {
+  "run": "single_ring_flat_L6_d256",
+  "layer": 4,
+  "target": "pos",
+  "probe": "sae m=1024 k=32",
+  "stratum": "highK",
+  "n": 2298,
+  "r2": 0.6984270215034485
+ }
+]

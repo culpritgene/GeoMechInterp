@@ -105,7 +105,53 @@ budget, layer 4 (`results/probes_probes_v2_L4.md`; layers 2 and 6 alongside):
 (the cubic-spline probe was swept to m=128, i.e. ~37k parameters; the ReLU
 probe to m=512.)
 
-Takeaways:
+### v3: fixed spline probe, six models
+
+The v2 spline probe squashed its projection with tanh, which crippled it at
+width (m=128: 0.71-0.78 vs 0.85 for ReLU on single_ring, layer 4). Removing
+the squash and using a B-spline grid over [-3, 3] on standardised inputs gives
+0.849-0.854 at the same width, above the ReLU probe (0.846). All v3 numbers
+use the fixed probe, add the unit step direction (`dir`) as a target, and
+include the 0.24M-parameter 3-layer d=64 models (which solve the task as well
+as the 5M ones: 98.4-99.7% success).
+
+Layer 2, mean over all six models (`results/probes_probes_v3_L2.md`):
+
+| target | probe | <= 1000 | <= 2500 | <= 5000 | <= 10000 | <= 40000 | <= 300000 |
+|---|---|---|---|---|---|---|---|
+| pos | linear | 0.635 | | | | | |
+| pos | top-k SAE + linear | - | - | - | - | - | 0.925 |
+| pos | ReLU hinges + linear | 0.604 | 0.848 | 0.889 | 0.915 | 0.941 | 0.945 |
+| pos | cubic splines + linear | 0.694 | 0.854 | 0.904 | 0.934 | 0.950 | 0.950 |
+| goal | linear | 0.569 | | | | | |
+| goal | ReLU hinges + linear | 0.507 | 0.744 | 0.788 | 0.817 | 0.854 | 0.859 |
+| goal | cubic splines + linear | 0.589 | 0.747 | 0.796 | 0.832 | 0.850 | 0.850 |
+| dir | linear | 0.220 | | | | | |
+| dir | top-k SAE + linear | - | - | - | - | - | 0.510 |
+| dir | ReLU hinges + linear | 0.249 | 0.416 | 0.486 | 0.550 | 0.636 | 0.665 |
+| dir | cubic splines + linear | 0.272 | 0.388 | 0.463 | 0.525 | 0.586 | 0.586 |
+| remain | linear | 0.802 | | | | | |
+| remain | ReLU hinges + linear | 0.832 | 0.874 | 0.892 | 0.899 | 0.908 | 0.911 |
+| remain | cubic splines + linear | 0.849 | 0.884 | 0.896 | 0.900 | 0.900 | 0.900 |
+
+Small (d=64) models, layer 3, position: linear 0.50, ReLU 0.64 / 0.80 / 0.88
+and cubic splines 0.68 / 0.81 / 0.88 at <= 1k / 5k / 40k params; SAE + linear
+0.61 at 40k and 0.84 at 300k.
+
+Takeaways (v3):
+
+- With a fair probe, cubic splines match or modestly beat hinges on the
+  smooth geometric targets (position, remaining distance) at every budget,
+  and hinges win on the decision-like targets (step direction; goal at wide
+  budgets). Smooth features favour splines, piecewise/categorical decisions
+  favour hinges; neither gap is large.
+- The unsupervised top-k SAE trails both supervised families by roughly an
+  order of magnitude in parameters for every target.
+- Compression (d=64) makes the code more non-linear (linear R^2 for position
+  drops from 0.64 to 0.50 and non-linear probes add +0.38), but does not widen
+  the spline-vs-hinge margin.
+
+Earlier (v2, tanh spline probe) takeaways, kept for the record:
 
 - Geometry in the residual stream is only partly linear: a linear probe
   explains 64-74% of position variance in the middle layers, and a small

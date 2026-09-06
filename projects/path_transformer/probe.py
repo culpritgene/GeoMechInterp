@@ -5,7 +5,8 @@ For every path-token position of held-out sequences we record the residual
 stream after each block and the ground truth
     pos   : 3-D centre of the current cell (normalised to [-1,1])
     goal  : 3-D centre of the goal cell
-    next  : 3-D centre of the next cell on the path (the model's decision)
+    next  : 3-D centre of the next cell on the path
+    dir   : unit step direction next - pos (the model's actual decision)
     remain: normalised remaining polyline length to the goal
 
 Probes (all read out `target` from the residual vector r in R^d):
@@ -74,6 +75,8 @@ def collect(run: str, n_seq: int, split: str, device):
             tg["seq"].append(np.full(L - 1, i)); tg["t"].append(np.arange(L - 1))
     feats = {l: torch.cat(v) for l, v in feats.items()}
     tg = {k: np.concatenate(v).astype(np.float32) for k, v in tg.items()}
+    step = tg["next"] - tg["pos"]
+    tg["dir"] = (step / np.maximum(np.linalg.norm(step, axis=1, keepdims=True), 1e-9)).astype(np.float32)
     return feats, tg, pd
 
 
@@ -160,13 +163,15 @@ class SplineProbe(nn.Module):
 
 class Spline1LProbe(nn.Module):
     """Exact analogue of ReLUProbe with hinges replaced by cubic splines:
-    out = sum_j f_j(a_j . r + b_j), f_j a cubic B-spline on G intervals.
-    Same number of projection directions m as the ReLU probe's hidden units."""
-    def __init__(self, d, m, out, G=8, degree=3):
-        super().__init__(); self.proj = nn.Linear(d, m); self.kan = KANLayer(m, out, G=G, k=degree)
+    out = sum_j f_j(a_j . r + b_j), f_j a cubic B-spline on G intervals over
+    [-3, 3] (inputs are standardised, so projections land inside the grid and
+    are clamped at its ends rather than squashed by tanh, which hurt
+    optimisation).  Same number of directions m as the ReLU probe's units."""
+    def __init__(self, d, m, out, G=8, degree=3, span=3.0):
+        super().__init__(); self.proj = nn.Linear(d, m); self.kan = KANLayer(m, out, G=G, k=degree, lo=-span, hi=span)
 
     def forward(self, x):
-        return self.kan(torch.tanh(self.proj(x)))
+        return self.kan(self.proj(x))
 
 
 def n_params(m):
@@ -200,7 +205,7 @@ def run_probes(feats, tg, layer, target, device, n_train, sizes, steps, seed=0):
         with torch.no_grad():
             res.append(dict(probe="relu+linear", size=m, n_params=n_params(net), r2=r2(net(Xte).cpu().numpy(), yte.cpu().numpy())))
     for m in sizes["spline1L"]:
-        net = train_supervised(Spline1LProbe(d, m, out).to(device), Xtr, ytr, Xva, yva, steps=steps, lr=1e-2)
+        net = train_supervised(Spline1LProbe(d, m, out).to(device), Xtr, ytr, Xva, yva, steps=steps, lr=3e-3)
         with torch.no_grad():
             res.append(dict(probe="spline1L", size=m, n_params=n_params(net), r2=r2(net(Xte).cpu().numpy(), yte.cpu().numpy())))
     for k, h, G in sizes["spline"]:
@@ -216,7 +221,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", default="single_ring_flat_L6_d256")
     ap.add_argument("--layers", nargs="+", type=int, default=[0, 2, 4, 6])
-    ap.add_argument("--targets", nargs="+", default=["pos", "goal", "next", "remain"])
+    ap.add_argument("--targets", nargs="+", default=["pos", "goal", "dir", "remain"])
     ap.add_argument("--n_seq", type=int, default=3000)
     ap.add_argument("--n_train", type=int, default=40000)
     ap.add_argument("--steps", type=int, default=3000)
