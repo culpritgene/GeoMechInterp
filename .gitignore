@@ -27,3 +27,14 @@ tokenized_val/
 **/*.pyc
 **/*.csv
 **/*scrap*
+
+# large manifold datasets synced from GCS (see scripts/fetch_data.sh)
+data/meshes/
+data/mesh_datasets/
+data/geodesic_datasets/
+.venv
+projects/*/results/logs/
+# keep result figures despite the global *.png rule
+!projects/*/results/*.png
+!projects/*/results/**/*.csv
+!projects/*/results/**/*.json
