@@ -1,0 +1,21 @@
+{
+ "run": "single_ring_gh_flat_L3_d64",
+ "splits": {
+  "test": {
+   "n": 2000,
+   "parsed": 0.9955,
+   "valid": 0.988,
+   "reached": 0.992,
+   "success": 0.9845,
+   "len_ratio": 1.0401893784816951
+  },
+  "test_goalheld": {
+   "n": 2000,
+   "parsed": 0.6925,
+   "valid": 0.633,
+   "reached": 0.573,
+   "success": 0.522,
+   "len_ratio": 1.320550706166459
+  }
+ }
+}

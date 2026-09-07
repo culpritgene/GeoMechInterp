@@ -360,6 +360,25 @@ and top-k SAEs on each token + ridge on their codes.
   a direct sum, not a curved code; only the SAE factorisation count (not yet
   computed) remains as a deliverable for this rung.
 
+### Generalisation to unseen goal cells: flat vs hierarchical tokens (`eval_split.py`)
+single_ring with 10% of goal cells held out of training entirely (they still
+occur as waypoints); success = valid and goal-reaching on held-out-goal pairs
+(seen-goal test pairs are 99-100% for all four models):
+
+| format | size | success on unseen goals | length / geodesic |
+|---|---|---|---|
+| flat (one token per cell) | 3L d=64 | 0.52 | 1.32 |
+| hier (five coordinate tokens) | 3L d=64 | 0.44 | 1.10 |
+| flat | 6L d=256 | 0.67 | 1.33 |
+| hier | 6L d=256 | 0.90 | 1.02 |
+
+The hierarchical format generalises compositionally to new goal positions
+once the model has capacity; the flat format keeps a per-goal lookup
+component at any size. Tokenisation therefore matters for what the model
+learns about the geometry (an interpolating map vs a table), even though it
+did not change probe linearity. Quality models for later rungs should use
+the coordinate format, or be tested on held-out positions.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider

@@ -1,0 +1,21 @@
+{
+ "run": "single_ring_gh_flat_L6_d256",
+ "splits": {
+  "test": {
+   "n": 2000,
+   "parsed": 1.0,
+   "valid": 0.9985,
+   "reached": 1.0,
+   "success": 0.9985,
+   "len_ratio": 1.0105779106752968
+  },
+  "test_goalheld": {
+   "n": 2000,
+   "parsed": 0.861,
+   "valid": 0.768,
+   "reached": 0.7505,
+   "success": 0.674,
+   "len_ratio": 1.3338503685082048
+  }
+ }
+}

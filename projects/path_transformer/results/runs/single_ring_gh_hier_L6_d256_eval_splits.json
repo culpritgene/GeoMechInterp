@@ -1,0 +1,21 @@
+{
+ "run": "single_ring_gh_hier_L6_d256",
+ "splits": {
+  "test": {
+   "n": 2000,
+   "parsed": 0.9955,
+   "valid": 0.9865,
+   "reached": 0.995,
+   "success": 0.986,
+   "len_ratio": 1.0068156911696715
+  },
+  "test_goalheld": {
+   "n": 2000,
+   "parsed": 0.954,
+   "valid": 0.9015,
+   "reached": 0.949,
+   "success": 0.8975,
+   "len_ratio": 1.0206071306049669
+  }
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "run": "single_ring_winding_flat_L6_d256",
+ "step": 30000,
+ "splits": {
+  "validation": {
+   "n": 2000,
+   "parsed": 1.0,
+   "valid": 1.0,
+   "reached": 1.0,
+   "success": 1.0,
+   "len_ratio": 1.0000015970412504,
+   "exact_class": 1.0,
+   "success_class": 1.0
+  },
+  "test": {
+   "n": 2000,
+   "parsed": 1.0,
+   "valid": 1.0,
+   "reached": 1.0,
+   "success": 1.0,
+   "len_ratio": 1.0000007840814786,
+   "exact_class": 1.0,
+   "success_class": 1.0
+  },
+  "test_goalheld": {
+   "n": 2000,
+   "parsed": 0.774,
+   "valid": 0.4625,
+   "reached": 0.3995,
+   "success": 0.16,
+   "len_ratio": 1.4199021619951329,
+   "exact_class": 0.646,
+   "success_class": 0.159
+  }
+ }
+}
