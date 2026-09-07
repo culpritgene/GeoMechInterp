@@ -274,6 +274,21 @@ idea was dropped because the ring belief concentration is nearly constant
   such features mid-network (D36 sign at layer 2; Z36 fundamental at d=32)
   and linearise them only where the output head needs them.
 
+### Stratified probes revisited with the fixed spline probe (chain_link_two, d=256)
+- Earlier conclusion ("near-contact non-linearity does not widen the
+  spline-vs-hinge gap") was an artefact of the tanh spline probe. With the
+  fixed probe and probes trained on all tokens, the gap near link contacts is
+  +0.09 (m=32: spline 0.910 vs hinge 0.819) and +0.12 (m=128: 0.909 vs
+  0.791) for position at layer 2, and +0.18 at m=8 at layer 4, against
+  +0.02 on the manifold as a whole. The sheet label (which torus) shows the
+  same ordering at small widths (0.959 vs 0.930 at m=8).
+- Probes trained on near-contact tokens only find the region almost linear
+  locally (ridge 0.88 for position, 0.84 for the sheet label at layer 2) and
+  every family saturates (>= 0.98 at m=32), gaps +0.005..+0.02. So the code
+  near contacts is a locally near-linear patch that a single global linear
+  map cannot fit; a global cubic readout bends to it more cheaply than hinges.
+- Step direction remains hinge-neutral everywhere (ties within 0.01).
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider
