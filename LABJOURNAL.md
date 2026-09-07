@@ -335,6 +335,21 @@ and top-k SAEs on each token + ridge on their codes.
   5k; splines +0.04..+0.09 over hinges, bilinear 0.42, SAE 0.52), so the
   torus state is not stored in the f=1 coordinates the target uses.
 
+### Rung 1: winding-class geodesics (`gen_winding.py`, `winding_data.py`)
+- 3-layer d=64 model on single_ring with a prescribed winding class
+  (k in {-1,0,1}, ~67% of triples binding, paths median 60 cells): on
+  held-out (start, goal, class) triples it is essentially perfect: valid
+  1.000, reached 1.000, exact class 1.000, length ratio 1.000 (test, n=2000).
+- On 100 goal cells held out entirely from the training goals (the cells
+  still occur as waypoints): valid 0.55, reached 0.04, success 0.03, exact
+  class 0.65, length ratio 1.34. The flat format's goal reading does not
+  transfer to unseen goal tokens: a per-goal lookup component, not a
+  fully geometric map. Same caveat presumably applies to every flat path
+  model (their splits were by pair, not by goal). Next test: the
+  hierarchical format spells the goal as five coordinate tokens, so it can
+  generalise to unseen goals compositionally; compare flat vs hier on a
+  goal-held-out split.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider
