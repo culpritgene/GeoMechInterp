@@ -1,0 +1,662 @@
+[
+ {
+  "probe": "linear",
+  "size": "-",
+  "n_params": 771,
+  "r2": 0.5465107560157776,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m256k8",
+  "n_params": 66563,
+  "r2": 0.5386292934417725,
+  "sae_ev": 0.42132627964019775,
+  "sae_l0": 8.0,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m256k32",
+  "n_params": 66563,
+  "r2": 0.43094298243522644,
+  "sae_ev": 0.6492518782615662,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k8",
+  "n_params": 266243,
+  "r2": 0.7806940078735352,
+  "sae_ev": 0.5775187015533447,
+  "sae_l0": 8.0,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k32",
+  "n_params": 266243,
+  "r2": 0.6668641567230225,
+  "sae_ev": 0.7313991785049438,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k128",
+  "n_params": 266243,
+  "r2": 0.5606608986854553,
+  "sae_ev": 0.9447777271270752,
+  "sae_l0": 128.0,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m4096k32",
+  "n_params": 1064963,
+  "r2": 0.7820789813995361,
+  "sae_ev": 0.8501043319702148,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 2,
+  "n_params": 523,
+  "r2": 0.36507120728492737,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 4,
+  "n_params": 1043,
+  "r2": 0.5542963147163391,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 8,
+  "n_params": 2083,
+  "r2": 0.6606159806251526,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 16,
+  "n_params": 4163,
+  "r2": 0.7380335927009583,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 32,
+  "n_params": 8323,
+  "r2": 0.7612220644950867,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 64,
+  "n_params": 16643,
+  "r2": 0.7896302342414856,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 128,
+  "n_params": 33283,
+  "r2": 0.8136730790138245,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 512,
+  "n_params": 133123,
+  "r2": 0.840498149394989,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 2,
+  "n_params": 583,
+  "r2": 0.379687637090683,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 4,
+  "n_params": 1163,
+  "r2": 0.5952303409576416,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 8,
+  "n_params": 2323,
+  "r2": 0.6756513714790344,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 16,
+  "n_params": 4643,
+  "r2": 0.7479395866394043,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 32,
+  "n_params": 9283,
+  "r2": 0.7818201184272766,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 64,
+  "n_params": 18563,
+  "r2": 0.8009560108184814,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline1L",
+  "size": 128,
+  "n_params": 37123,
+  "r2": 0.7959486842155457,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k2h4G8",
+  "n_params": 741,
+  "r2": 0.3775821924209595,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k4h8G8",
+  "n_params": 1655,
+  "r2": 0.5920087099075317,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k8h16G16",
+  "n_params": 5419,
+  "r2": 0.6644709706306458,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k16h32G16",
+  "n_params": 15699,
+  "r2": 0.6448349952697754,
+  "layer": 4,
+  "target": "pos"
+ },
+ {
+  "probe": "linear",
+  "size": "-",
+  "n_params": 771,
+  "r2": 0.567902147769928,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m256k8",
+  "n_params": 66563,
+  "r2": 0.48193955421447754,
+  "sae_ev": 0.42132627964019775,
+  "sae_l0": 8.0,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m256k32",
+  "n_params": 66563,
+  "r2": 0.5365748405456543,
+  "sae_ev": 0.6492518782615662,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k8",
+  "n_params": 266243,
+  "r2": 0.6206438541412354,
+  "sae_ev": 0.5775187015533447,
+  "sae_l0": 8.0,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k32",
+  "n_params": 266243,
+  "r2": 0.6647942662239075,
+  "sae_ev": 0.7313991785049438,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k128",
+  "n_params": 266243,
+  "r2": 0.5952761769294739,
+  "sae_ev": 0.9447777271270752,
+  "sae_l0": 128.0,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m4096k32",
+  "n_params": 1064963,
+  "r2": 0.7141683101654053,
+  "sae_ev": 0.8501043319702148,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 2,
+  "n_params": 523,
+  "r2": 0.3890852630138397,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 4,
+  "n_params": 1043,
+  "r2": 0.5610765814781189,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 8,
+  "n_params": 2083,
+  "r2": 0.6665543913841248,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 16,
+  "n_params": 4163,
+  "r2": 0.7286722660064697,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 32,
+  "n_params": 8323,
+  "r2": 0.7728331685066223,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 64,
+  "n_params": 16643,
+  "r2": 0.7851608395576477,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 128,
+  "n_params": 33283,
+  "r2": 0.7979855537414551,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 512,
+  "n_params": 133123,
+  "r2": 0.8265199065208435,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 2,
+  "n_params": 583,
+  "r2": 0.4030390679836273,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 4,
+  "n_params": 1163,
+  "r2": 0.6173425316810608,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 8,
+  "n_params": 2323,
+  "r2": 0.6816530227661133,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 16,
+  "n_params": 4643,
+  "r2": 0.7567093372344971,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 32,
+  "n_params": 9283,
+  "r2": 0.7903778553009033,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 64,
+  "n_params": 18563,
+  "r2": 0.7958616614341736,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline1L",
+  "size": 128,
+  "n_params": 37123,
+  "r2": 0.787101686000824,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k2h4G8",
+  "n_params": 741,
+  "r2": 0.41003021597862244,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k4h8G8",
+  "n_params": 1655,
+  "r2": 0.605686366558075,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k8h16G16",
+  "n_params": 5419,
+  "r2": 0.6919161677360535,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k16h32G16",
+  "n_params": 15699,
+  "r2": 0.6679710745811462,
+  "layer": 4,
+  "target": "goal"
+ },
+ {
+  "probe": "linear",
+  "size": "-",
+  "n_params": 771,
+  "r2": 0.22731894254684448,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m256k8",
+  "n_params": 66563,
+  "r2": 0.14873109757900238,
+  "sae_ev": 0.42132627964019775,
+  "sae_l0": 8.0,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m256k32",
+  "n_params": 66563,
+  "r2": 0.1800757497549057,
+  "sae_ev": 0.6492518782615662,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k8",
+  "n_params": 266243,
+  "r2": 0.27937719225883484,
+  "sae_ev": 0.5775187015533447,
+  "sae_l0": 8.0,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k32",
+  "n_params": 266243,
+  "r2": 0.2621220648288727,
+  "sae_ev": 0.7313991785049438,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m1024k128",
+  "n_params": 266243,
+  "r2": 0.23684273660182953,
+  "sae_ev": 0.9447777271270752,
+  "sae_l0": 128.0,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "sae+linear",
+  "size": "m4096k32",
+  "n_params": 1064963,
+  "r2": 0.377814382314682,
+  "sae_ev": 0.8501043319702148,
+  "sae_l0": 32.0,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 2,
+  "n_params": 523,
+  "r2": 0.2000647634267807,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 4,
+  "n_params": 1043,
+  "r2": 0.22918599843978882,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 8,
+  "n_params": 2083,
+  "r2": 0.27828940749168396,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 16,
+  "n_params": 4163,
+  "r2": 0.30853503942489624,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 32,
+  "n_params": 8323,
+  "r2": 0.348466157913208,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 64,
+  "n_params": 16643,
+  "r2": 0.3744295537471771,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 128,
+  "n_params": 33283,
+  "r2": 0.4212934672832489,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "relu+linear",
+  "size": 512,
+  "n_params": 133123,
+  "r2": 0.48928722739219666,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 2,
+  "n_params": 583,
+  "r2": 0.20576198399066925,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 4,
+  "n_params": 1163,
+  "r2": 0.2465609759092331,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 8,
+  "n_params": 2323,
+  "r2": 0.26738542318344116,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 16,
+  "n_params": 4643,
+  "r2": 0.2994258403778076,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 32,
+  "n_params": 9283,
+  "r2": 0.31529006361961365,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 64,
+  "n_params": 18563,
+  "r2": 0.3341924250125885,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline1L",
+  "size": 128,
+  "n_params": 37123,
+  "r2": 0.3284338414669037,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k2h4G8",
+  "n_params": 741,
+  "r2": 0.2016933113336563,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k4h8G8",
+  "n_params": 1655,
+  "r2": 0.22453589737415314,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k8h16G16",
+  "n_params": 5419,
+  "r2": 0.19504517316818237,
+  "layer": 4,
+  "target": "dir"
+ },
+ {
+  "probe": "spline2L",
+  "size": "k16h32G16",
+  "n_params": 15699,
+  "r2": 0.1932089775800705,
+  "layer": 4,
+  "target": "dir"
+ }
+]

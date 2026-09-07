@@ -224,6 +224,28 @@ idea was dropped because the ring belief concentration is nearly constant
   Shell 0.15-0.30 and temperature 0.25 are the "realistic but learnable"
   fuzzy-manifold settings.
 
+### Manifold sweep: probes (middle layer, held-out R², `results/sweep_summary.md`)
+- Spline-minus-hinge gap for position at <= 2.5k probe params stays within
+  +-0.05 on every axis (hole size r=0.12..0.50, samples 3k..40k, oct-tree
+  depth 4..6, shell 0..0.6r, temperature 0..0.5, observation noise 0..0.15,
+  chain r=0.25/0.45): -0.01 to -0.045 for the d=64 models, +0.015 to +0.06
+  for the d=256 models; at <= 10k it is ~0 (d=64) and +0.02..+0.045 (d=256).
+  Curvature and hole size do not open a spline advantage in this task.
+- Linearity of the position code falls with the number of occupied cells for
+  the small model (ridge R² 0.55 at 1,117 cells -> 0.42 at 2,470; 0.66 at
+  depth 4 -> 0.22 at depth 6) but stays hinge-friendly: the non-linearity is
+  hash-like, not curved.
+- Noise linearises: temperature 0.25/0.5 raises the linear R² for position
+  from 0.53 to 0.71/0.73 (d=64) and observation noise 0.05/0.15 to 0.68/0.72
+  (d=64) and 0.77/0.78 (d=256). A model that must denoise builds an explicit,
+  more linear position estimate. The 5M model imitates observation noise
+  (success 0.957/0.905 at p=0.05/0.15 vs 0.978/0.949 for the 0.24M model).
+- Top-k SAE + ridge (266k-1M params) reaches 0.78-0.98, above any supervised
+  probe at <= 10k params but at 25-100x the parameters, as before.
+- Conclusion: the fuzzy-manifold regime does not create curved low-dimensional
+  codes in the path task; the one large spline win on activations so far is
+  the quadratic sign feature of the dihedral group (rung 2).
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider

@@ -1,0 +1,555 @@
+{
+ "group": "T36x12",
+ "d": 64,
+ "freqs": [
+  1
+ ],
+ "n_nuisance": 40,
+ "noise": 0.1,
+ "latent_dim": 4,
+ "coord_names": [
+  "a_f1_cos",
+  "a_f1_sin",
+  "b_f1_cos",
+  "b_f1_sin"
+ ],
+ "rows": [
+  {
+   "probe": "linear",
+   "size": "-",
+   "n_params": 260,
+   "r2": 0.9798805117607117,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m256k8",
+   "n_params": 17668,
+   "sae_ev": 0.6423659324645996,
+   "sae_l0": 8.0,
+   "r2": 0.3972489833831787,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k8",
+   "n_params": 70660,
+   "sae_ev": 0.7202587127685547,
+   "sae_l0": 8.0,
+   "r2": 0.4958077371120453,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k32",
+   "n_params": 70660,
+   "sae_ev": 0.9134486317634583,
+   "sae_l0": 32.0,
+   "r2": 0.8416494131088257,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m4096k32",
+   "n_params": 282628,
+   "sae_ev": 0.9398725628852844,
+   "sae_l0": 32.0,
+   "r2": 0.844630241394043,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 2,
+   "n_params": 142,
+   "r2": 0.4899860620498657,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 4,
+   "n_params": 280,
+   "r2": 0.9803352952003479,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 8,
+   "n_params": 556,
+   "r2": 0.9814115762710571,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 16,
+   "n_params": 1108,
+   "r2": 0.9845249652862549,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 32,
+   "n_params": 2212,
+   "r2": 0.9854767918586731,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 64,
+   "n_params": 4420,
+   "r2": 0.9856986999511719,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 128,
+   "n_params": 8836,
+   "r2": 0.9859448671340942,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 2,
+   "n_params": 222,
+   "r2": 0.5717639327049255,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 4,
+   "n_params": 440,
+   "r2": 0.9804239273071289,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 8,
+   "n_params": 876,
+   "r2": 0.9892591238021851,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 16,
+   "n_params": 1748,
+   "r2": 0.9893815517425537,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 32,
+   "n_params": 3492,
+   "r2": 0.9893198013305664,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 64,
+   "n_params": 6980,
+   "r2": 0.9891285300254822,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 128,
+   "n_params": 13956,
+   "r2": 0.9886481761932373,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "linear",
+   "size": "-",
+   "n_params": 130,
+   "r2": -0.0019542574882507324,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m256k8",
+   "n_params": 17154,
+   "sae_ev": 0.6423659324645996,
+   "sae_l0": 8.0,
+   "r2": 0.0020152926445007324,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k8",
+   "n_params": 68610,
+   "sae_ev": 0.7202587127685547,
+   "sae_l0": 8.0,
+   "r2": 0.002185821533203125,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k32",
+   "n_params": 68610,
+   "sae_ev": 0.9134486317634583,
+   "sae_l0": 32.0,
+   "r2": 0.07672274112701416,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m4096k32",
+   "n_params": 274434,
+   "sae_ev": 0.9398725628852844,
+   "sae_l0": 32.0,
+   "r2": 0.10663610696792603,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 2,
+   "n_params": 136,
+   "r2": 0.33801713585853577,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 4,
+   "n_params": 270,
+   "r2": 0.9097603559494019,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 8,
+   "n_params": 538,
+   "r2": 0.9480447769165039,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 16,
+   "n_params": 1074,
+   "r2": 0.9491195678710938,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 32,
+   "n_params": 2146,
+   "r2": 0.9488192796707153,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 64,
+   "n_params": 4290,
+   "r2": 0.9477602243423462,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 128,
+   "n_params": 8578,
+   "r2": 0.9463157653808594,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 2,
+   "n_params": 176,
+   "r2": 0.9312323927879333,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 4,
+   "n_params": 350,
+   "r2": 0.9573954343795776,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 8,
+   "n_params": 698,
+   "r2": 0.9580283164978027,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 16,
+   "n_params": 1394,
+   "r2": 0.958106517791748,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 32,
+   "n_params": 2786,
+   "r2": 0.9569019079208374,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 64,
+   "n_params": 5570,
+   "r2": 0.9555554986000061,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 128,
+   "n_params": 11138,
+   "r2": 0.9528728723526001,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "linear",
+   "size": "-",
+   "n_params": 130,
+   "r2": -0.002548396587371826,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m256k8",
+   "n_params": 17154,
+   "sae_ev": 0.6423659324645996,
+   "sae_l0": 8.0,
+   "r2": -0.0052356719970703125,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k8",
+   "n_params": 68610,
+   "sae_ev": 0.7202587127685547,
+   "sae_l0": 8.0,
+   "r2": -0.02461528778076172,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k32",
+   "n_params": 68610,
+   "sae_ev": 0.9134486317634583,
+   "sae_l0": 32.0,
+   "r2": -0.02548128366470337,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m4096k32",
+   "n_params": 274434,
+   "sae_ev": 0.9398725628852844,
+   "sae_l0": 32.0,
+   "r2": -0.11356347799301147,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 2,
+   "n_params": 136,
+   "r2": 0.14537417888641357,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 4,
+   "n_params": 270,
+   "r2": -0.004353046417236328,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 8,
+   "n_params": 538,
+   "r2": 0.8405364751815796,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 16,
+   "n_params": 1074,
+   "r2": 0.8901640772819519,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 32,
+   "n_params": 2146,
+   "r2": 0.89051353931427,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 64,
+   "n_params": 4290,
+   "r2": 0.890646755695343,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 128,
+   "n_params": 8578,
+   "r2": 0.8837157487869263,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 2,
+   "n_params": 176,
+   "r2": -0.003397315740585327,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 4,
+   "n_params": 350,
+   "r2": 0.9033381938934326,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 8,
+   "n_params": 698,
+   "r2": 0.8144490718841553,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 16,
+   "n_params": 1394,
+   "r2": 0.9062131643295288,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 32,
+   "n_params": 2786,
+   "r2": 0.9012301564216614,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 64,
+   "n_params": 5570,
+   "r2": 0.8984366655349731,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 128,
+   "n_params": 11138,
+   "r2": 0.8949450850486755,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  }
+ ]
+}

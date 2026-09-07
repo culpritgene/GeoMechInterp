@@ -46,6 +46,7 @@ def local_geometry(P_raw: np.ndarray, shape: str, tori_arr=None):
         axdist.append(np.sqrt((rho - Rj) ** 2 + h ** 2))   # distance to the torus' core circle
     d_all = np.stack(d_all, 1); K_all = np.stack(K_all, 1)
     nearest = np.abs(d_all).argmin(1)
+    local_geometry.nearest = nearest
     absK = np.abs(K_all[np.arange(len(P_raw)), nearest])
     if d_all.shape[1] > 1:
         others = np.abs(d_all).copy(); others[np.arange(len(P_raw)), nearest] = np.inf
@@ -64,6 +65,7 @@ def main(a):
     absK, contact = local_geometry(P_raw, shape, pd.extras.get("tori"))
     step = tg["next"] - tg["pos"]; dirn = step / np.maximum(np.linalg.norm(step, axis=1, keepdims=True), 1e-9)
     tg["dir"] = dirn.astype(np.float32)
+    tg["sheet"] = (2.0 * (local_geometry.nearest == 0) - 1.0)[:, None].astype(np.float32)   # which torus the current cell lies on (+-1)
     q = np.quantile(absK, [1 / 3, 2 / 3])
     strata = {"all": np.ones(len(absK), bool), "lowK": absK < q[0], "midK": (absK >= q[0]) & (absK < q[1]), "highK": absK >= q[1]}
     if np.isfinite(contact).any():
@@ -74,6 +76,9 @@ def main(a):
     seqs = tg["seq"]; useq = np.unique(seqs); rng = np.random.default_rng(0); rng.shuffle(useq)
     tr_seq = set(useq[: int(0.8 * len(useq))]); va_seq = set(useq[int(0.8 * len(useq)): int(0.9 * len(useq))])
     tr = np.array([s in tr_seq for s in seqs]); va = np.array([s in va_seq for s in seqs]); te = ~(tr | va)
+    if a.train_stratum != "all":       # local probes: fit on tokens of one stratum only (scored on every stratum)
+        keep = strata[a.train_stratum]; tr &= keep; va &= keep
+        print(f"training probes on stratum {a.train_stratum}: {int(tr.sum())} train / {int(va.sum())} val tokens", flush=True)
     rows = []
     for layer in a.layers:
         X = feats[layer].to(device); mu, sd = X[tr].mean(0), X[tr].std(0) + 1e-6; Xn = (X - mu) / sd
@@ -106,7 +111,7 @@ def main(a):
             for name in preds:
                 vals = {r["stratum"]: r["r2"] for r in rows if r["layer"] == layer and r["target"] == target and r["probe"] == name}
                 print(f"  {name:18s}" + "".join(f"{vals[s]:14.3f}" if s in vals else " " * 14 for s in strata), flush=True)
-    out = CKPT / a.run / "probes_strata.json"
+    out = CKPT / a.run / ("probes_strata.json" if a.train_stratum == "all" else f"probes_strata_{a.train_stratum}.json")
     json.dump(rows, open(out, "w"), indent=1); print("saved", out)
 
 
@@ -114,11 +119,12 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", default="single_ring_flat_L6_d256")
     ap.add_argument("--layers", nargs="+", type=int, default=[2, 4])
-    ap.add_argument("--targets", nargs="+", default=["dir", "pos"])
+    ap.add_argument("--targets", nargs="+", default=["dir", "pos", "sheet"])
     ap.add_argument("--widths", nargs="+", type=int, default=[8, 32, 128])
     ap.add_argument("--n_seq", type=int, default=3000)
     ap.add_argument("--n_train", type=int, default=40000)
     ap.add_argument("--steps", type=int, default=3000)
     ap.add_argument("--lr_spline", type=float, default=3e-3)
     ap.add_argument("--contact_r", type=float, default=0.35)
+    ap.add_argument("--train_stratum", default="all", help="all, or a stratum name (e.g. near_contact) to train the probes on that stratum only")
     main(ap.parse_args())
