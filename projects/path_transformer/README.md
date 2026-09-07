@@ -46,6 +46,22 @@ Loss is taken only on the path tokens after the goal.
 
 Both formats learn the task; the flat format trains ~6x faster (block 59 vs 332) and is what the probes use.
 
+## Environment (rebuild after a reboot)
+
+`/var/tmp` (the overlay filesystem) is wiped when the machine reboots, taking
+the venv, generated data, checkpoints and any results left there. Results that
+matter are copied into `results/runs/` by `sweep.sh`. Rebuild with:
+
+```bash
+mkdir -p /var/tmp/venvs /var/tmp/uv_cache /var/tmp/geomech_data/generated
+export UV_CACHE_DIR=/var/tmp/uv_cache UV_LINK_MODE=copy
+uv --no-config venv /var/tmp/venvs/geomechinterp --python 3.12
+uv --no-config pip install --python /var/tmp/venvs/geomechinterp/bin/python --index-url https://pypi.org/simple \
+    torch numpy pyarrow datasets scikit-learn scipy pandas matplotlib tqdm einops networkx sympy
+uv --no-config pip install --python /var/tmp/venvs/geomechinterp/bin/python --index-url https://pypi.org/simple --no-deps -e .
+bash projects/path_transformer/sweep.sh      # resumable: regenerates data, models, probes, winding and group runs
+```
+
 ## Training
 
 ```bash
