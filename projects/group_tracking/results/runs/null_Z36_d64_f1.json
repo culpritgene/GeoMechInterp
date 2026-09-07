@@ -1,0 +1,553 @@
+{
+ "group": "Z36",
+ "d": 64,
+ "freqs": [
+  1
+ ],
+ "n_nuisance": 40,
+ "noise": 0.1,
+ "latent_dim": 2,
+ "coord_names": [
+  "f1_cos",
+  "f1_sin"
+ ],
+ "rows": [
+  {
+   "probe": "linear",
+   "size": "-",
+   "n_params": 130,
+   "r2": 0.9802507162094116,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m256k8",
+   "n_params": 17154,
+   "sae_ev": 0.6534508466720581,
+   "sae_l0": 8.0,
+   "r2": 0.3854990601539612,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k8",
+   "n_params": 68610,
+   "sae_ev": 0.730393648147583,
+   "sae_l0": 8.0,
+   "r2": 0.5073157548904419,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k32",
+   "n_params": 68610,
+   "sae_ev": 0.9177775979042053,
+   "sae_l0": 32.0,
+   "r2": 0.8457474708557129,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m4096k32",
+   "n_params": 274434,
+   "sae_ev": 0.9425644278526306,
+   "sae_l0": 32.0,
+   "r2": 0.8549249172210693,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 2,
+   "n_params": 136,
+   "r2": 0.981273889541626,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 4,
+   "n_params": 270,
+   "r2": 0.9806777834892273,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 8,
+   "n_params": 538,
+   "r2": 0.9850674867630005,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 16,
+   "n_params": 1074,
+   "r2": 0.9854094982147217,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 32,
+   "n_params": 2146,
+   "r2": 0.9855983257293701,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 64,
+   "n_params": 4290,
+   "r2": 0.9875938892364502,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 128,
+   "n_params": 8578,
+   "r2": 0.9852186441421509,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 2,
+   "n_params": 176,
+   "r2": 0.9854353070259094,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 4,
+   "n_params": 350,
+   "r2": 0.9895018935203552,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 8,
+   "n_params": 698,
+   "r2": 0.9894605875015259,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 16,
+   "n_params": 1394,
+   "r2": 0.9894202947616577,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 32,
+   "n_params": 2786,
+   "r2": 0.9892501831054688,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 64,
+   "n_params": 5570,
+   "r2": 0.9888882637023926,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "spline1L",
+   "size": 128,
+   "n_params": 11138,
+   "r2": 0.9882016181945801,
+   "cell": "null",
+   "layer": 0,
+   "target": "irrep"
+  },
+  {
+   "probe": "linear",
+   "size": "-",
+   "n_params": 130,
+   "r2": -0.0020734667778015137,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m256k8",
+   "n_params": 17154,
+   "sae_ev": 0.6534508466720581,
+   "sae_l0": 8.0,
+   "r2": 0.004286289215087891,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k8",
+   "n_params": 68610,
+   "sae_ev": 0.730393648147583,
+   "sae_l0": 8.0,
+   "r2": 0.009698182344436646,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k32",
+   "n_params": 68610,
+   "sae_ev": 0.9177775979042053,
+   "sae_l0": 32.0,
+   "r2": 0.08797717094421387,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m4096k32",
+   "n_params": 274434,
+   "sae_ev": 0.9425644278526306,
+   "sae_l0": 32.0,
+   "r2": 0.135425865650177,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 2,
+   "n_params": 136,
+   "r2": 0.44092288613319397,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 4,
+   "n_params": 270,
+   "r2": 0.9058371782302856,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 8,
+   "n_params": 538,
+   "r2": 0.9493740200996399,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 16,
+   "n_params": 1074,
+   "r2": 0.9498183727264404,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 32,
+   "n_params": 2146,
+   "r2": 0.9494855403900146,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 64,
+   "n_params": 4290,
+   "r2": 0.9489798545837402,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 128,
+   "n_params": 8578,
+   "r2": 0.9468749761581421,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 2,
+   "n_params": 176,
+   "r2": 0.9311966896057129,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 4,
+   "n_params": 350,
+   "r2": 0.9573248624801636,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 8,
+   "n_params": 698,
+   "r2": 0.9589855670928955,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 16,
+   "n_params": 1394,
+   "r2": 0.9586430191993713,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 32,
+   "n_params": 2786,
+   "r2": 0.9575124979019165,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 64,
+   "n_params": 5570,
+   "r2": 0.9555200338363647,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "spline1L",
+   "size": 128,
+   "n_params": 11138,
+   "r2": 0.9535943269729614,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm2"
+  },
+  {
+   "probe": "linear",
+   "size": "-",
+   "n_params": 130,
+   "r2": -0.0033194422721862793,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m256k8",
+   "n_params": 17154,
+   "sae_ev": 0.6534508466720581,
+   "sae_l0": 8.0,
+   "r2": -0.005031943321228027,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k8",
+   "n_params": 68610,
+   "sae_ev": 0.730393648147583,
+   "sae_l0": 8.0,
+   "r2": -0.02964407205581665,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m1024k32",
+   "n_params": 68610,
+   "sae_ev": 0.9177775979042053,
+   "sae_l0": 32.0,
+   "r2": -0.021491408348083496,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "sae+linear",
+   "size": "m4096k32",
+   "n_params": 274434,
+   "sae_ev": 0.9425644278526306,
+   "sae_l0": 32.0,
+   "r2": -0.10117137432098389,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 2,
+   "n_params": 136,
+   "r2": 0.14567464590072632,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 4,
+   "n_params": 270,
+   "r2": -0.005155801773071289,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 8,
+   "n_params": 538,
+   "r2": 0.818581759929657,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 16,
+   "n_params": 1074,
+   "r2": 0.8338135480880737,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 32,
+   "n_params": 2146,
+   "r2": 0.898669958114624,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 64,
+   "n_params": 4290,
+   "r2": 0.8926419615745544,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "relu+linear",
+   "size": 128,
+   "n_params": 8578,
+   "r2": -0.046051740646362305,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 2,
+   "n_params": 176,
+   "r2": 0.817478358745575,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 4,
+   "n_params": 350,
+   "r2": 0.884141743183136,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 8,
+   "n_params": 698,
+   "r2": 0.9060714840888977,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 16,
+   "n_params": 1394,
+   "r2": 0.9063472747802734,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 32,
+   "n_params": 2786,
+   "r2": 0.9051107168197632,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 64,
+   "n_params": 5570,
+   "r2": 0.897294819355011,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  },
+  {
+   "probe": "spline1L",
+   "size": 128,
+   "n_params": 11138,
+   "r2": 0.8941788673400879,
+   "cell": "null",
+   "layer": 0,
+   "target": "harm3"
+  }
+ ]
+}

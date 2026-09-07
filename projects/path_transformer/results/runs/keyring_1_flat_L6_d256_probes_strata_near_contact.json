@@ -5,8 +5,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.26326072216033936
+  "n": 11079,
+  "r2": 0.030661463737487793
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -14,8 +14,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.19760888814926147
+  "n": 3721,
+  "r2": -0.09894963353872299
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -23,8 +23,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.2615415155887604
+  "n": 3736,
+  "r2": 0.11323360353708267
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -32,8 +32,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.295119971036911
+  "n": 3622,
+  "r2": 0.05506895110011101
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -41,8 +41,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.27244430780410767
+  "n": 3926,
+  "r2": 0.4203015863895416
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -50,8 +50,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.23098818957805634
+  "n": 7153,
+  "r2": -0.23139221966266632
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -59,8 +59,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.39128994941711426
+  "n": 11079,
+  "r2": 0.10735348612070084
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -68,8 +68,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.2871958911418915
+  "n": 3721,
+  "r2": -0.07035700231790543
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -77,8 +77,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.39145728945732117
+  "n": 3736,
+  "r2": 0.23246748745441437
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -86,8 +86,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.46533504128456116
+  "n": 3622,
+  "r2": 0.1285819411277771
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -95,8 +95,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.4359802305698395
+  "n": 3926,
+  "r2": 0.6088446974754333
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -104,8 +104,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.33518552780151367
+  "n": 7153,
+  "r2": -0.23324964940547943
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -113,8 +113,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.39507874846458435
+  "n": 11079,
+  "r2": 0.05320994183421135
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -122,8 +122,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.30233609676361084
+  "n": 3721,
+  "r2": -0.1394881010055542
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -131,8 +131,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.38951945304870605
+  "n": 3736,
+  "r2": 0.18569791316986084
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -140,8 +140,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.4584070146083832
+  "n": 3622,
+  "r2": 0.08307502418756485
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -149,8 +149,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.4466690123081207
+  "n": 3926,
+  "r2": 0.6128320097923279
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -158,8 +158,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.33675551414489746
+  "n": 7153,
+  "r2": -0.31592485308647156
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -167,8 +167,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.5396969318389893
+  "n": 11079,
+  "r2": 0.1705937534570694
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -176,8 +176,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.4148198068141937
+  "n": 3721,
+  "r2": -0.029182175174355507
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -185,8 +185,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.5460180044174194
+  "n": 3736,
+  "r2": 0.28272590041160583
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -194,8 +194,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.6288803219795227
+  "n": 3622,
+  "r2": 0.23734694719314575
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -203,8 +203,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6412778496742249
+  "n": 3926,
+  "r2": 0.7605795860290527
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -212,8 +212,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.45058658719062805
+  "n": 7153,
+  "r2": -0.20821630954742432
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -221,8 +221,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.5325389504432678
+  "n": 11079,
+  "r2": 0.18559592962265015
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -230,8 +230,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.4058252274990082
+  "n": 3721,
+  "r2": -0.016573747619986534
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -239,8 +239,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.5298623442649841
+  "n": 3736,
+  "r2": 0.304419606924057
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -248,8 +248,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.627764880657196
+  "n": 3622,
+  "r2": 0.2433622032403946
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -257,8 +257,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.634951651096344
+  "n": 3926,
+  "r2": 0.7567960619926453
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -266,8 +266,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.44404152035713196
+  "n": 7153,
+  "r2": -0.18540139496326447
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -275,8 +275,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.611158549785614
+  "n": 11079,
+  "r2": 0.18990939855575562
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -284,8 +284,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.4753797948360443
+  "n": 3721,
+  "r2": 0.01435138750821352
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -293,8 +293,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.6254546046257019
+  "n": 3736,
+  "r2": 0.31253257393836975
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -302,8 +302,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.7041182518005371
+  "n": 3622,
+  "r2": 0.22325943410396576
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -311,8 +311,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.7104590535163879
+  "n": 3926,
+  "r2": 0.8170185089111328
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -320,8 +320,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.5246067047119141
+  "n": 7153,
+  "r2": -0.20779848098754883
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -329,8 +329,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.5925504565238953
+  "n": 11079,
+  "r2": 0.21743865311145782
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -338,8 +338,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.4595237672328949
+  "n": 3721,
+  "r2": 0.011182904243469238
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -347,8 +347,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.6025189757347107
+  "n": 3736,
+  "r2": 0.3455297648906708
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -356,8 +356,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.6804518103599548
+  "n": 3622,
+  "r2": 0.27306798100471497
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -365,8 +365,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6919214129447937
+  "n": 3926,
+  "r2": 0.8090010285377502
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -374,8 +374,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.5071468353271484
+  "n": 7153,
+  "r2": -0.15930254757404327
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -383,8 +383,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.4400130808353424
+  "n": 11079,
+  "r2": 0.19930285215377808
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -392,8 +392,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.27348101139068604
+  "n": 3721,
+  "r2": 6.397565357474377e-06
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -401,8 +401,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.4675920903682709
+  "n": 3736,
+  "r2": 0.30521297454833984
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -410,8 +410,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.5410687327384949
+  "n": 3622,
+  "r2": 0.2759352922439575
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -419,8 +419,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5417966246604919
+  "n": 3926,
+  "r2": 0.7091981768608093
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -428,8 +428,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.35154104232788086
+  "n": 7153,
+  "r2": -0.12630204856395721
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -437,8 +437,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.7381182312965393
+  "n": 11079,
+  "r2": 0.26518455147743225
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -446,8 +446,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.7467430233955383
+  "n": 3721,
+  "r2": 0.22737663984298706
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -455,8 +455,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.6950058937072754
+  "n": 3736,
+  "r2": 0.2917679250240326
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -464,8 +464,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.7665145397186279
+  "n": 3622,
+  "r2": 0.29674461483955383
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -473,8 +473,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": -0.6288384795188904
+  "n": 3926,
+  "r2": 0.8350855708122253
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -482,8 +482,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.7683151364326477
+  "n": 7153,
+  "r2": 0.20437420904636383
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -491,8 +491,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.86711186170578
+  "n": 11079,
+  "r2": 0.26562798023223877
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -500,8 +500,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8706254959106445
+  "n": 3721,
+  "r2": 0.21901291608810425
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -509,8 +509,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8428205847740173
+  "n": 3736,
+  "r2": 0.3085103929042816
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -518,8 +518,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8851633667945862
+  "n": 3622,
+  "r2": 0.2955571413040161
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -527,8 +527,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5478677153587341
+  "n": 3926,
+  "r2": 0.9162082076072693
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -536,8 +536,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8797764778137207
+  "n": 7153,
+  "r2": 0.19463956356048584
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -545,8 +545,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9012617468833923
+  "n": 11079,
+  "r2": 0.27635279297828674
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -554,8 +554,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.900800883769989
+  "n": 3721,
+  "r2": 0.23339569568634033
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -563,8 +563,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8790991902351379
+  "n": 3736,
+  "r2": 0.3132311999797821
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -572,8 +572,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.923778235912323
+  "n": 3622,
+  "r2": 0.30631908774375916
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -581,8 +581,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6254666447639465
+  "n": 3926,
+  "r2": 0.9341694712638855
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -590,8 +590,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9134311079978943
+  "n": 7153,
+  "r2": 0.207183837890625
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -599,8 +599,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9155537486076355
+  "n": 11079,
+  "r2": 0.24325288832187653
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -608,8 +608,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9171419143676758
+  "n": 3721,
+  "r2": 0.18877317011356354
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -617,8 +617,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.899303138256073
+  "n": 3736,
+  "r2": 0.29013383388519287
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -626,8 +626,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9288776516914368
+  "n": 3622,
+  "r2": 0.28206685185432434
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -635,8 +635,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6916472315788269
+  "n": 3926,
+  "r2": 0.9685533046722412
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -644,8 +644,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9219802021980286
+  "n": 7153,
+  "r2": 0.16529107093811035
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -653,8 +653,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.955045759677887
+  "n": 11079,
+  "r2": 0.2592637240886688
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -662,8 +662,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.955014705657959
+  "n": 3721,
+  "r2": 0.20036321878433228
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -671,8 +671,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9442978501319885
+  "n": 3736,
+  "r2": 0.3098931610584259
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -680,8 +680,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9657691121101379
+  "n": 3622,
+  "r2": 0.3017709255218506
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -689,8 +689,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.8412086367607117
+  "n": 3926,
+  "r2": 0.9810128211975098
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -698,8 +698,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.958759069442749
+  "n": 7153,
+  "r2": 0.18250495195388794
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -707,8 +707,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9324615597724915
+  "n": 11079,
+  "r2": 0.22247503697872162
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -716,8 +716,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9370367527008057
+  "n": 3721,
+  "r2": 0.15800948441028595
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -725,8 +725,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9147138595581055
+  "n": 3736,
+  "r2": 0.2717044949531555
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -734,8 +734,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9428135752677917
+  "n": 3622,
+  "r2": 0.27477356791496277
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -743,8 +743,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6219843029975891
+  "n": 3926,
+  "r2": 0.9730022549629211
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -752,8 +752,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9397871494293213
+  "n": 7153,
+  "r2": 0.1406400203704834
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -761,8 +761,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.954440176486969
+  "n": 11079,
+  "r2": 0.2390672117471695
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -770,8 +770,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9548316597938538
+  "n": 3721,
+  "r2": 0.1797279715538025
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -779,8 +779,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9419386386871338
+  "n": 3736,
+  "r2": 0.27738282084465027
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -788,8 +788,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.966331422328949
+  "n": 3622,
+  "r2": 0.2939840257167816
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -797,8 +797,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.7854970097541809
+  "n": 3926,
+  "r2": 0.9761617183685303
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -806,8 +806,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.958846390247345
+  "n": 7153,
+  "r2": 0.15971940755844116
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -815,8 +815,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8958998322486877
+  "n": 11079,
+  "r2": 0.18368346989154816
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -824,8 +824,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8972327709197998
+  "n": 3721,
+  "r2": 0.11252328008413315
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -833,8 +833,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8588955998420715
+  "n": 3736,
+  "r2": 0.23452943563461304
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -842,8 +842,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9309818148612976
+  "n": 3622,
+  "r2": 0.24455271661281586
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -851,8 +851,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5390799641609192
+  "n": 3926,
+  "r2": 0.9668658375740051
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -860,8 +860,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9023562073707581
+  "n": 7153,
+  "r2": 0.09696594625711441
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -869,8 +869,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.7455638647079468
+  "n": 11079,
+  "r2": 0.3611319661140442
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -878,8 +878,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.7360904812812805
+  "n": 3721,
+  "r2": 0.12103384733200073
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -887,8 +887,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.6974710822105408
+  "n": 3736,
+  "r2": 0.4419282078742981
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -896,8 +896,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8041890263557434
+  "n": 3622,
+  "r2": 0.5215651988983154
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -905,8 +905,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6629467010498047
+  "n": 3926,
+  "r2": 0.7732805609703064
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -914,8 +914,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.7915564775466919
+  "n": 7153,
+  "r2": 0.133408784866333
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -923,8 +923,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8988933563232422
+  "n": 11079,
+  "r2": 0.44968146085739136
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -932,8 +932,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.894302487373352
+  "n": 3721,
+  "r2": 0.2855590581893921
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -941,8 +941,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8839586973190308
+  "n": 3736,
+  "r2": 0.5401166081428528
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -950,8 +950,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9184828996658325
+  "n": 3622,
+  "r2": 0.5229024291038513
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -959,8 +959,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.883886992931366
+  "n": 3926,
+  "r2": 0.937903106212616
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -968,8 +968,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9072412848472595
+  "n": 7153,
+  "r2": 0.18002855777740479
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -977,8 +977,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9436293840408325
+  "n": 11079,
+  "r2": 0.37254661321640015
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -986,8 +986,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.928207516670227
+  "n": 3721,
+  "r2": 0.05346006155014038
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -995,8 +995,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9333008527755737
+  "n": 3736,
+  "r2": 0.5068352818489075
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1004,8 +1004,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.968998908996582
+  "n": 3622,
+  "r2": 0.5600874423980713
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1013,8 +1013,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.923362672328949
+  "n": 3926,
+  "r2": 0.970375657081604
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1022,8 +1022,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9549124836921692
+  "n": 7153,
+  "r2": 0.04237872362136841
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1031,8 +1031,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9377533197402954
+  "n": 11079,
+  "r2": 0.49204879999160767
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1040,8 +1040,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.926451563835144
+  "n": 3721,
+  "r2": 0.29965710639953613
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1049,8 +1049,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9346870183944702
+  "n": 3736,
+  "r2": 0.5987127423286438
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1058,8 +1058,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9513152837753296
+  "n": 3622,
+  "r2": 0.5781946778297424
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1067,8 +1067,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9355859756469727
+  "n": 3926,
+  "r2": 0.9705052971839905
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1076,8 +1076,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.938953697681427
+  "n": 7153,
+  "r2": 0.2278050184249878
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1085,8 +1085,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9642975330352783
+  "n": 11079,
+  "r2": 0.45295143127441406
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1094,8 +1094,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9546374678611755
+  "n": 3721,
+  "r2": 0.17983847856521606
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1103,8 +1103,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9597503542900085
+  "n": 3736,
+  "r2": 0.570514976978302
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1112,8 +1112,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9781153202056885
+  "n": 3622,
+  "r2": 0.6107455492019653
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1121,8 +1121,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9561687111854553
+  "n": 3926,
+  "r2": 0.983585774898529
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1130,8 +1130,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.96882164478302
+  "n": 7153,
+  "r2": 0.15989869832992554
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1139,8 +1139,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9500035047531128
+  "n": 11079,
+  "r2": 0.5009998083114624
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1148,8 +1148,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9437435269355774
+  "n": 3721,
+  "r2": 0.3025694489479065
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1157,8 +1157,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9459353089332581
+  "n": 3736,
+  "r2": 0.6069463491439819
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1166,8 +1166,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9599321484565735
+  "n": 3622,
+  "r2": 0.5941411852836609
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1175,8 +1175,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9525689482688904
+  "n": 3926,
+  "r2": 0.974280059337616
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1184,8 +1184,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9485689401626587
+  "n": 7153,
+  "r2": 0.23961633443832397
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1193,8 +1193,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9523048400878906
+  "n": 11079,
+  "r2": 0.46964043378829956
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1202,8 +1202,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9438312649726868
+  "n": 3721,
+  "r2": 0.26562511920928955
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1211,8 +1211,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9477277994155884
+  "n": 3736,
+  "r2": 0.5634453892707825
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1220,8 +1220,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9649168252944946
+  "n": 3622,
+  "r2": 0.5805906653404236
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1229,8 +1229,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9531431794166565
+  "n": 3926,
+  "r2": 0.9745621681213379
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1238,8 +1238,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9518325924873352
+  "n": 7153,
+  "r2": 0.1907830834388733
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1247,8 +1247,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9099653959274292
+  "n": 11079,
+  "r2": 0.4338492751121521
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1256,8 +1256,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8888496160507202
+  "n": 3721,
+  "r2": 0.27332478761672974
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1265,8 +1265,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9028205275535583
+  "n": 3736,
+  "r2": 0.5412870049476624
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1274,8 +1274,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9370566010475159
+  "n": 3622,
+  "r2": 0.48604822158813477
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1283,8 +1283,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9106934666633606
+  "n": 3926,
+  "r2": 0.961675763130188
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1292,8 +1292,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9095499515533447
+  "n": 7153,
+  "r2": 0.14233624935150146
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1301,8 +1301,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.18882638216018677
+  "n": 11079,
+  "r2": -0.02910073660314083
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1310,8 +1310,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.09780681133270264
+  "n": 3721,
+  "r2": -0.17613689601421356
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1319,8 +1319,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.18053556978702545
+  "n": 3736,
+  "r2": 0.06830330938100815
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1328,8 +1328,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.2588033378124237
+  "n": 3622,
+  "r2": 0.00831538438796997
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1337,8 +1337,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.2405935525894165
+  "n": 3926,
+  "r2": 0.3893764913082123
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1346,8 +1346,8 @@
   "target": "dir",
   "probe": "linear",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.1389613002538681
+  "n": 7153,
+  "r2": -0.3010857105255127
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1355,8 +1355,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.3170652985572815
+  "n": 11079,
+  "r2": 0.02913643978536129
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1364,8 +1364,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.19385778903961182
+  "n": 3721,
+  "r2": -0.11692830175161362
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1373,8 +1373,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.32622015476226807
+  "n": 3736,
+  "r2": 0.13774698972702026
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1382,8 +1382,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.393014520406723
+  "n": 3622,
+  "r2": 0.05724911019206047
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1391,8 +1391,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.39205029606819153
+  "n": 3926,
+  "r2": 0.5473149418830872
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1400,8 +1400,8 @@
   "target": "dir",
   "probe": "relu m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.24541227519512177
+  "n": 7153,
+  "r2": -0.3000427484512329
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1409,8 +1409,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.34835195541381836
+  "n": 11079,
+  "r2": 0.023136794567108154
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1418,8 +1418,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.2226557582616806
+  "n": 3721,
+  "r2": -0.17417342960834503
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1427,8 +1427,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.33416998386383057
+  "n": 3736,
+  "r2": 0.1554051637649536
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1436,8 +1436,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.4553774297237396
+  "n": 3622,
+  "r2": 0.06536559015512466
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1445,8 +1445,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.40096578001976013
+  "n": 3926,
+  "r2": 0.5760207772254944
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1454,8 +1454,8 @@
   "target": "dir",
   "probe": "spline m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.2882854640483856
+  "n": 7153,
+  "r2": -0.3415236473083496
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1463,8 +1463,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.49418941140174866
+  "n": 11079,
+  "r2": 0.11378637701272964
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1472,8 +1472,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.3505180776119232
+  "n": 3721,
+  "r2": -0.0991467610001564
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1481,8 +1481,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.49573493003845215
+  "n": 3736,
+  "r2": 0.25889599323272705
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1490,8 +1490,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.6012334227561951
+  "n": 3622,
+  "r2": 0.1598549336194992
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1499,8 +1499,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6029025316238403
+  "n": 3926,
+  "r2": 0.7356082797050476
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1508,8 +1508,8 @@
   "target": "dir",
   "probe": "relu m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.3994954824447632
+  "n": 7153,
+  "r2": -0.2827065885066986
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1517,8 +1517,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.4764150083065033
+  "n": 11079,
+  "r2": 0.1210387721657753
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1526,8 +1526,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.3322230577468872
+  "n": 3721,
+  "r2": -0.07857334613800049
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1535,8 +1535,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.48251888155937195
+  "n": 3736,
+  "r2": 0.2561081349849701
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1544,8 +1544,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.5784254670143127
+  "n": 3622,
+  "r2": 0.1668933629989624
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1553,8 +1553,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5795813798904419
+  "n": 3926,
+  "r2": 0.7292405962944031
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1562,8 +1562,8 @@
   "target": "dir",
   "probe": "spline m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.38443097472190857
+  "n": 7153,
+  "r2": -0.2703581154346466
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1571,8 +1571,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.5876374840736389
+  "n": 11079,
+  "r2": 0.1846875101327896
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1580,8 +1580,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.43404698371887207
+  "n": 3721,
+  "r2": -0.021276315674185753
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1589,8 +1589,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.602956235408783
+  "n": 3736,
+  "r2": 0.3437572419643402
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1598,8 +1598,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.6922554969787598
+  "n": 3622,
+  "r2": 0.2220606654882431
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1607,8 +1607,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6860391497612
+  "n": 3926,
+  "r2": 0.8116970062255859
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1616,8 +1616,8 @@
   "target": "dir",
   "probe": "relu m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.5002172589302063
+  "n": 7153,
+  "r2": -0.20994095504283905
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1625,8 +1625,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.5575405955314636
+  "n": 11079,
+  "r2": 0.1614893078804016
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1634,8 +1634,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.40607181191444397
+  "n": 3721,
+  "r2": -0.04891932010650635
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1643,8 +1643,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.5704097151756287
+  "n": 3736,
+  "r2": 0.30300208926200867
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1652,8 +1652,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.6623247265815735
+  "n": 3622,
+  "r2": 0.21825404465198517
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1661,8 +1661,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6676280498504639
+  "n": 3926,
+  "r2": 0.7947015166282654
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1670,8 +1670,8 @@
   "target": "dir",
   "probe": "spline m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.46181008219718933
+  "n": 7153,
+  "r2": -0.2406373769044876
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1679,8 +1679,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.40295055508613586
+  "n": 11079,
+  "r2": 0.1473264843225479
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1688,8 +1688,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.1985527127981186
+  "n": 3721,
+  "r2": -0.06411103159189224
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1697,8 +1697,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.41859006881713867
+  "n": 3736,
+  "r2": 0.3021472096443176
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1706,8 +1706,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.5534315705299377
+  "n": 3622,
+  "r2": 0.18311607837677002
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1715,8 +1715,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5188780426979065
+  "n": 3926,
+  "r2": 0.7238218784332275
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1724,8 +1724,8 @@
   "target": "dir",
   "probe": "sae m=1024 k=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.3018110990524292
+  "n": 7153,
+  "r2": -0.21763169765472412
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1733,8 +1733,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.6457518935203552
+  "n": 11079,
+  "r2": 0.21303385496139526
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1742,8 +1742,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.6540700793266296
+  "n": 3721,
+  "r2": 0.16603215038776398
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1751,8 +1751,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.5956017374992371
+  "n": 3736,
+  "r2": 0.23236435651779175
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1760,8 +1760,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.6816461682319641
+  "n": 3622,
+  "r2": 0.2657705247402191
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1769,8 +1769,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": -1.1642131805419922
+  "n": 3926,
+  "r2": 0.767789363861084
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1778,8 +1778,8 @@
   "target": "pos",
   "probe": "linear",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.6845949292182922
+  "n": 7153,
+  "r2": 0.1508946567773819
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1787,8 +1787,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.7889125943183899
+  "n": 11079,
+  "r2": 0.24194331467151642
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1796,8 +1796,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.789725124835968
+  "n": 3721,
+  "r2": 0.17933042347431183
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1805,8 +1805,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.759013831615448
+  "n": 3736,
+  "r2": 0.2767716944217682
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1814,8 +1814,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8168285489082336
+  "n": 3622,
+  "r2": 0.3054051697254181
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1823,8 +1823,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.32271668314933777
+  "n": 3926,
+  "r2": 0.878696858882904
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1832,8 +1832,8 @@
   "target": "pos",
   "probe": "relu m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8070153594017029
+  "n": 7153,
+  "r2": 0.17216937243938446
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1841,8 +1841,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8180403113365173
+  "n": 11079,
+  "r2": 0.26611989736557007
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1850,8 +1850,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8113341927528381
+  "n": 3721,
+  "r2": 0.2136482149362564
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1859,8 +1859,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.7941646575927734
+  "n": 3736,
+  "r2": 0.29868248105049133
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1868,8 +1868,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8520422577857971
+  "n": 3622,
+  "r2": 0.3152543604373932
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1877,8 +1877,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.3285244405269623
+  "n": 3926,
+  "r2": 0.8968825936317444
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1886,8 +1886,8 @@
   "target": "pos",
   "probe": "spline m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8381304740905762
+  "n": 7153,
+  "r2": 0.19705139100551605
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1895,8 +1895,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8659512400627136
+  "n": 11079,
+  "r2": 0.22831539809703827
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1904,8 +1904,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8635880351066589
+  "n": 3721,
+  "r2": 0.16339971125125885
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1913,8 +1913,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8441410064697266
+  "n": 3736,
+  "r2": 0.26782506704330444
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1922,8 +1922,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8911930918693542
+  "n": 3622,
+  "r2": 0.29087507724761963
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1931,8 +1931,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5611215233802795
+  "n": 3926,
+  "r2": 0.9395856857299805
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1940,8 +1940,8 @@
   "target": "pos",
   "probe": "relu m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8744745850563049
+  "n": 7153,
+  "r2": 0.1513894945383072
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1949,8 +1949,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9005865454673767
+  "n": 11079,
+  "r2": 0.2452670782804489
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1958,8 +1958,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8998849391937256
+  "n": 3721,
+  "r2": 0.18294869363307953
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1967,8 +1967,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8798505663871765
+  "n": 3736,
+  "r2": 0.2846519947052002
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1976,8 +1976,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9223244786262512
+  "n": 3622,
+  "r2": 0.30392754077911377
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1985,8 +1985,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.6541426181793213
+  "n": 3926,
+  "r2": 0.9565973281860352
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -1994,8 +1994,8 @@
   "target": "pos",
   "probe": "spline m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9083561897277832
+  "n": 7153,
+  "r2": 0.16815060377120972
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2003,8 +2003,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8898846507072449
+  "n": 11079,
+  "r2": 0.2056751400232315
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2012,8 +2012,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8949001431465149
+  "n": 3721,
+  "r2": 0.13134241104125977
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2021,8 +2021,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8681514263153076
+  "n": 3736,
+  "r2": 0.24730689823627472
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2030,8 +2030,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9034407734870911
+  "n": 3622,
+  "r2": 0.28138163685798645
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2039,8 +2039,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.3734115660190582
+  "n": 3926,
+  "r2": 0.9485788345336914
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2048,8 +2048,8 @@
   "target": "pos",
   "probe": "relu m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9028735756874084
+  "n": 7153,
+  "r2": 0.12391883134841919
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2057,8 +2057,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9003345966339111
+  "n": 11079,
+  "r2": 0.21649092435836792
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2066,8 +2066,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9043254852294922
+  "n": 3721,
+  "r2": 0.14729727804660797
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2075,8 +2075,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8775053024291992
+  "n": 3736,
+  "r2": 0.26719191670417786
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2084,8 +2084,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9166106581687927
+  "n": 3622,
+  "r2": 0.2749688923358917
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2093,8 +2093,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.3816350996494293
+  "n": 3926,
+  "r2": 0.9571216106414795
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2102,8 +2102,8 @@
   "target": "pos",
   "probe": "spline m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9120595455169678
+  "n": 7153,
+  "r2": 0.1352687031030655
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2111,8 +2111,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.811262845993042
+  "n": 11079,
+  "r2": 0.17748719453811646
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2120,8 +2120,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8079223036766052
+  "n": 3721,
+  "r2": 0.09784108400344849
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2129,8 +2129,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.7597810626029968
+  "n": 3736,
+  "r2": 0.21881639957427979
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2138,8 +2138,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8688461184501648
+  "n": 3622,
+  "r2": 0.26210883259773254
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2147,8 +2147,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.10314011573791504
+  "n": 3926,
+  "r2": 0.9273975491523743
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2156,8 +2156,8 @@
   "target": "pos",
   "probe": "sae m=1024 k=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8263044953346252
+  "n": 7153,
+  "r2": 0.09364626556634903
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2165,8 +2165,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.6326797008514404
+  "n": 11079,
+  "r2": 0.30713653564453125
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2174,8 +2174,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.6123524904251099
+  "n": 3721,
+  "r2": 0.11957532167434692
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2183,8 +2183,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.5732640624046326
+  "n": 3736,
+  "r2": 0.34799110889434814
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2192,8 +2192,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.7128889560699463
+  "n": 3622,
+  "r2": 0.453627347946167
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2201,8 +2201,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.5243080854415894
+  "n": 3926,
+  "r2": 0.6690111756324768
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2210,8 +2210,8 @@
   "target": "sheet",
   "probe": "linear",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.693006157875061
+  "n": 7153,
+  "r2": 0.10712546110153198
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2219,8 +2219,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8222762942314148
+  "n": 11079,
+  "r2": 0.3818039298057556
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2228,8 +2228,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8032687902450562
+  "n": 3721,
+  "r2": 0.17702293395996094
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2237,8 +2237,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.803973376750946
+  "n": 3736,
+  "r2": 0.4682067036628723
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2246,8 +2246,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8586050271987915
+  "n": 3622,
+  "r2": 0.5004117488861084
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2255,8 +2255,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.7879352569580078
+  "n": 3926,
+  "r2": 0.8770245313644409
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2264,8 +2264,8 @@
   "target": "sheet",
   "probe": "relu m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8413859009742737
+  "n": 7153,
+  "r2": 0.10825550556182861
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2273,8 +2273,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8692305088043213
+  "n": 11079,
+  "r2": 0.27302664518356323
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2282,8 +2282,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8563621640205383
+  "n": 3721,
+  "r2": -0.006952404975891113
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2291,8 +2291,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8460652828216553
+  "n": 3736,
+  "r2": 0.3856658339500427
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2300,8 +2300,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9053349494934082
+  "n": 3622,
+  "r2": 0.4415864944458008
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2309,8 +2309,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.8203363418579102
+  "n": 3926,
+  "r2": 0.9145606160163879
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2318,8 +2318,8 @@
   "target": "sheet",
   "probe": "spline m=8",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8964518904685974
+  "n": 7153,
+  "r2": -0.08130526542663574
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2327,8 +2327,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8873639106750488
+  "n": 11079,
+  "r2": 0.4145422577857971
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2336,8 +2336,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8711740970611572
+  "n": 3721,
+  "r2": 0.2205715775489807
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2345,8 +2345,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8830011487007141
+  "n": 3736,
+  "r2": 0.5267468690872192
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2354,8 +2354,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9065556526184082
+  "n": 3622,
+  "r2": 0.4961523413658142
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2363,8 +2363,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.8804836273193359
+  "n": 3926,
+  "r2": 0.9377906322479248
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2372,8 +2372,8 @@
   "target": "sheet",
   "probe": "relu m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.8911840319633484
+  "n": 7153,
+  "r2": 0.12554562091827393
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2381,8 +2381,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9044129848480225
+  "n": 11079,
+  "r2": 0.3789503574371338
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2390,8 +2390,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8907124996185303
+  "n": 3721,
+  "r2": 0.16921842098236084
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2399,8 +2399,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.8992757797241211
+  "n": 3736,
+  "r2": 0.4840306043624878
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2408,8 +2408,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9222075939178467
+  "n": 3622,
+  "r2": 0.4837184548377991
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2417,8 +2417,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.8862642645835876
+  "n": 3926,
+  "r2": 0.9408178925514221
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2426,8 +2426,8 @@
   "target": "sheet",
   "probe": "spline m=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9145119190216064
+  "n": 7153,
+  "r2": 0.06862771511077881
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2435,8 +2435,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.9172964096069336
+  "n": 11079,
+  "r2": 0.41775310039520264
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2444,8 +2444,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.9047595858573914
+  "n": 3721,
+  "r2": 0.23020750284194946
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2453,8 +2453,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9142265915870667
+  "n": 3736,
+  "r2": 0.5451507568359375
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2462,8 +2462,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9318649768829346
+  "n": 3622,
+  "r2": 0.47740209102630615
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2471,8 +2471,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9175257682800293
+  "n": 3926,
+  "r2": 0.9504798054695129
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2480,8 +2480,8 @@
   "target": "sheet",
   "probe": "relu m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9171596169471741
+  "n": 7153,
+  "r2": 0.1235283613204956
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2489,8 +2489,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.911418080329895
+  "n": 11079,
+  "r2": 0.4144122004508972
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2498,8 +2498,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8968208432197571
+  "n": 3721,
+  "r2": 0.1983429193496704
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2507,8 +2507,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.9068183898925781
+  "n": 3736,
+  "r2": 0.5136815309524536
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2516,8 +2516,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.9295518398284912
+  "n": 3622,
+  "r2": 0.5318273305892944
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2525,8 +2525,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.9148023128509521
+  "n": 3926,
+  "r2": 0.9463725686073303
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2534,8 +2534,8 @@
   "target": "sheet",
   "probe": "spline m=128",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.9095232486724854
+  "n": 7153,
+  "r2": 0.12060856819152832
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2543,8 +2543,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "all",
-  "n": 5571,
-  "r2": 0.8313770294189453
+  "n": 11079,
+  "r2": 0.3877454400062561
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2552,8 +2552,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "lowK",
-  "n": 1751,
-  "r2": 0.8015265464782715
+  "n": 3721,
+  "r2": 0.2059195637702942
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2561,8 +2561,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "midK",
-  "n": 1988,
-  "r2": 0.812497615814209
+  "n": 3736,
+  "r2": 0.5033524036407471
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2570,8 +2570,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "highK",
-  "n": 1832,
-  "r2": 0.8787677884101868
+  "n": 3622,
+  "r2": 0.45323944091796875
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2579,8 +2579,8 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "near_contact",
-  "n": 1994,
-  "r2": 0.7992038130760193
+  "n": 3926,
+  "r2": 0.9002470374107361
  },
  {
   "run": "keyring_1_flat_L6_d256",
@@ -2588,7 +2588,7 @@
   "target": "sheet",
   "probe": "sae m=1024 k=32",
   "stratum": "far_contact",
-  "n": 3577,
-  "r2": 0.849280059337616
+  "n": 7153,
+  "r2": 0.10466504096984863
  }
 ]

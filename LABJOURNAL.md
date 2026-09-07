@@ -289,6 +289,31 @@ idea was dropped because the ring belief concentration is nearly constant
   map cannot fit; a global cubic readout bends to it more cheaply than hinges.
 - Step direction remains hinge-neutral everywhere (ties within 0.01).
 
+### Cross-token (pairwise) probes: reading the composition law (`probe_pair.py`)
+Inputs are two tokens: the residual at layer l at the previous generator
+position (state after t-1 generators) and the layer-0 embedding of the
+current generator; target = exact irrep coordinates of the prefix product
+after composing them. Families at matched params on the concatenation:
+ridge, low-rank bilinear (exact second order), ReLU hinges, additive cubic
+splines, tensor-product cubic spline surfaces on learned projection pairs,
+and top-k SAEs on each token + ridge on their codes.
+- Z36, d=32, fundamental circle of the composed element (layer 2): ridge
+  0.64; bilinear rank 1-8 caps at 0.72; hinges 0.67 / 0.89 / 0.98 at m=2/4/8;
+  cubic splines 0.995 at m=2 (176 params), 0.999 at m=16; tensor spline
+  0.988 with one projection pair (230 params); SAE codes + ridge 0.65-0.79
+  with 18k-72k params. Same ordering at layer 1 and for the full irrep
+  target (spline 0.98 vs hinge 0.64 at <= 1k).
+- Reading: the composition is not bilinear in the raw residuals (the state
+  is stored as a phase/harmonic code, not as the f=1 circle), but it is a
+  periodic function of a nearly linear combination across the two tokens.
+  One cubic spline on that combination expresses it; hinges must tile the
+  period (about 10 per period); a first-order dictionary with a linear
+  readout cannot express it at all. The fitted surface for the one-pair
+  tensor spline (results/pair_surface_Z36_d32.png) is an oscillation along
+  the state direction whose phase shifts from band to band of the generator
+  direction (six discrete generator values), i.e. the readout literally
+  shows angle addition with discrete shifts.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider

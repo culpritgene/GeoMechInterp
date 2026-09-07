@@ -90,10 +90,10 @@ def main(a):
             with torch.no_grad():
                 preds["linear"], _ = ridge(Xtr, ytr, Xte)
             for m in a.widths:
-                net = train_supervised(ReLUProbe(256, m, out).to(device), Xtr, ytr, Xva, yva, steps=a.steps)
+                net = train_supervised(ReLUProbe(X.shape[1], m, out).to(device), Xtr, ytr, Xva, yva, steps=a.steps)
                 with torch.no_grad():
                     preds[f"relu m={m}"] = net(Xte)
-                net = train_supervised(Spline1LProbe(256, m, out).to(device), Xtr, ytr, Xva, yva, steps=a.steps, lr=a.lr_spline)
+                net = train_supervised(Spline1LProbe(X.shape[1], m, out).to(device), Xtr, ytr, Xva, yva, steps=a.steps, lr=a.lr_spline)
                 with torch.no_grad():
                     preds[f"spline m={m}"] = net(Xte)
             sae, ev, l0 = train_sae(Xtr, 1024, 32, steps=a.steps)
