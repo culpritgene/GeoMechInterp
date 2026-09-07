@@ -266,6 +266,12 @@ idea was dropped because the ring belief concentration is nearly constant
   0.42-0.83 vs 0.09, quadratic sign form 0.92 vs 0.63 (d=256, <= 1k), and
   the top-k SAE + ridge fails on all of them (0.07-0.26; sign 0.53) while
   reading the linear feature at 0.82-0.85.
+- Z360 at d=32 (99.9% task accuracy; 360 elements in 32 dims): the element
+  embedding spreads over many harmonics (top frequencies hold only 3-5% of
+  power each); the f=1..3 irreps are read equally by hinges and splines
+  (0.90-0.98 at >= 2.5k, ridge 0.5-0.67); the lowest unused harmonic shows
+  the spline advantage again (gen cell, layer 2: 0.79 vs 0.32 at <= 1k, 0.93
+  vs 0.71 at <= 10k; SAE codes 0.21).
 - Reading across rung 2: the spline advantage is a property of the feature
   class. Features that are polynomial functions of linearly stored circles
   (harmonics, products, the dihedral sign) are read by a handful of cubic
