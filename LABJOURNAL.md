@@ -313,6 +313,15 @@ and top-k SAEs on each token + ridge on their codes.
   the state direction whose phase shifts from band to band of the generator
   direction (six discrete generator values), i.e. the readout literally
   shows angle addition with discrete shifts.
+- D36, d=64, sign of the composed element (layers 1-2): ridge 0.00; low-rank
+  bilinear (exact second order) 0.00, because the previous state's sign is
+  itself quadratic in the residual so the composed sign is cubic; hinges
+  0.07 / 0.34 / 0.92 at <= 500 / 1k / 2.5k params and at chance on reflection
+  steps below 2.5k; cubic splines 0.97 / 0.99 / 0.997 (reflection steps 0.96 /
+  0.97 / 0.996); tensor-spline surfaces 0.95 / 0.99; SAE codes + ridge
+  0.09-0.16 with 18k-72k params. The rotation coordinates of the composed
+  element are hard for every family at d=64 (<= 0.76 at 5k), with splines
+  ahead of hinges by 0.08-0.18.
 
 ### Open questions / next
 
