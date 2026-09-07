@@ -52,18 +52,21 @@ def collect() -> pd.DataFrame:
             f = GEN / f"{name}.npz"
             if f.exists():
                 z = np.load(f, allow_pickle=True); gmeta = json.loads(str(z["meta"])); gmeta["n_cells"] = int(z["cell_table"].shape[0])
+                # training paths may be stochastic (temperature > 0): their length relative to the exact geodesic
+                gmeta["train_path_over_geo"] = float(np.mean(z["path_len"] / z["geo_dist"])) if "path_len" in z.files else 1.0
                 mname = gmeta.get("shape")
                 mf = MAN / f"{mname}.npz"
                 if mf.exists():
                     gmeta.update({f"m_{k}": v for k, v in json.loads(str(np.load(mf, allow_pickle=True)["meta"])).items()})
             for size in SIZES:
                 d = CKPT / f"{name}_flat_{size}"
-                rec = dict(axis=axis, dataset=name, x=x, size=size, n_cells=gmeta.get("n_cells"), r=gmeta.get("m_r"),
+                rec = dict(axis=axis, dataset=name, x=x, size=size, n_cells=gmeta.get("n_cells"), r=gmeta.get("m_r"), train_path_over_geo=gmeta.get("train_path_over_geo"),
                            shell=gmeta.get("m_shell"), temperature=gmeta.get("temperature"), p_obs=gmeta.get("p_obs"))
                 s = d / "summary.json"
                 if s.exists():
                     sj = json.load(open(s))
                     rec.update(success=sj["test_success"], valid=sj["test_valid"], reached=sj["test_reached"], len_ratio=sj["test_len_ratio"],
+                               len_over_geo=sj["test_len_ratio"] * gmeta.get("train_path_over_geo", 1.0),
                                val_success=sj["best_val_success"], n_params=sj["n_params"])
                 p = d / "probes_v3.json"
                 if p.exists():
@@ -107,12 +110,12 @@ def main():
     df = collect(); RES.mkdir(exist_ok=True)
     df.to_csv(RES / "sweep_summary.csv", index=False)
     plot(df, "success", "test success (valid & reached)", RES / "sweep_success.png", ylim=(0.5, 1.0))
-    plot(df, "len_ratio", "path length / geodesic", RES / "sweep_len_ratio.png")
+    plot(df, "len_over_geo", "generated path length / exact geodesic", RES / "sweep_len_ratio.png")
     if "pos_gap_2500" in df:
         plot(df, "pos_linear", "linear R² for position (mid layer)", RES / "sweep_pos_linear.png", ylim=(0, 1))
         plot(df, "pos_gap_2500", "spline - ReLU R² for position (<= 2.5k params)", RES / "sweep_pos_gap2500.png")
         plot(df, "dir_gap_2500", "spline - ReLU R² for step direction (<= 2.5k params)", RES / "sweep_dir_gap2500.png")
-    cols = ["axis", "dataset", "x", "size", "n_cells", "success", "len_ratio", "pos_linear", "pos_relu_2500", "pos_spline_2500", "pos_gap_2500", "pos_gap_10000", "pos_sae", "dir_gap_2500"]
+    cols = ["axis", "dataset", "x", "size", "n_cells", "success", "len_over_geo", "pos_linear", "pos_relu_2500", "pos_spline_2500", "pos_gap_2500", "pos_gap_10000", "pos_sae", "dir_gap_2500"]
     cols = [c for c in cols if c in df]
     lines = ["# Manifold sweep summary", "", "success = valid and goal-reaching on held-out pairs; probe columns are held-out R² at the middle layer (2 for L3_d64, 4 for L6_d256).", ""]
     lines.append("| " + " | ".join(cols) + " |"); lines.append("|" + "---|" * len(cols))

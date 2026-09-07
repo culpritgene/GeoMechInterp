@@ -169,6 +169,61 @@ the concentration hyperparameter (rung 7). The manifold random-walk belief
 idea was dropped because the ring belief concentration is nearly constant
 (0.996) under the local walk; a hidden-start localisation variant is noted.
 
+## 2026-09-07 — Rung 2 (Cayley walks), manifold sweep, noise models
+
+### Operations
+- The machine rebooted and `/var/tmp` (overlay) was wiped: venv, generated
+  data, checkpoints and the first manifold sweep's results were lost. Rebuilt
+  the venv, made the sweep resumable (`projects/path_transformer/sweep.sh`)
+  with every summary copied into the repo as it lands, and added
+  `scripts/sync_artifacts.sh` (GCS push/pull; git LFS rejected: several GB and
+  `/home` is full). Lesson: never `pkill -f` with a pattern that occurs in the
+  killing shell's own command line; it killed the sweep runner twice.
+
+### Rung 2: group state tracking on Cayley walks (`projects/group_tracking`)
+- Task bar: D36 (dihedral, order 72, 12-step words with reflections) needs the
+  long schedule (120k steps, batch 512, lr 5e-4): d=64 reaches 99.9% on fresh
+  words, 99.95% on held-out generator bigrams, 99.8% on non-commutativity
+  minimal pairs; d=256 99.7%; d=32 saturates at ~97% (capacity-limited).
+  The abelian groups are easy: T36x12 hits 99.97% even at d=32.
+- **Key result.** At layer 2 of every D36 model the sign character eps of the
+  prefix product (is the running product a reflection?) is linearly
+  undecodable: ridge R² ~0 (final cell d=64: -0.003; d=256: 0.21), logistic
+  at chance. It is present non-linearly: cubic-spline probes reach 0.96-0.99
+  at <= 1k parameters against ReLU hinges 0.65-0.97 (gaps +0.32 at d=32 gen
+  cell, +0.24 at d=64 final cell, +0.20 at d=256 final cell); at 2.5k the
+  gaps are +0.11 / +0.12 / +0.05. Top-k SAE + linear readout fails on it
+  (0.16-0.53 at d <= 64, 0.81-0.91 at d=256) even with 266k-1M parameters.
+  The model linearises eps and the irrep coordinates only at layer 4 (ridge
+  0.7-0.86 for eps, 0.74-0.95 for the irreps), i.e. for the output head.
+- **Null control** (`null_control.py`, d=256: the four f=1 irrep entries
+  embedded linearly with 40 nuisance dims and noise 0.1; eps = quadratic form
+  of the two circles): spline 0.92 vs hinge 0.63 at <= 1k, 0.999 vs 0.992 at
+  2.5k, SAE + linear 0.53. The model's <= 1k gaps equal this ceiling and its
+  2.5k gaps exceed it. Reading: the sign really is stored as a quadratic form
+  of circles mid-network, which is exactly the feature class where a
+  first-order dictionary with a linear readout cannot express the feature and
+  four cubic splines can; and the model's code is if anything less
+  hinge-friendly than the clean quadratic form.
+- The unused harmonic target is essentially absent mid-network (all probes
+  ~0 at layer 2) and appears at layer 4 where splines lead at <= 1k
+  (0.73 vs 0.43 at d=256).
+
+### Manifold sweep (task quality; probes pending)
+- Difficulty for the 0.24M model scales with the number of occupied cells,
+  not with curvature: thin tube r=0.12 (1,117 cells) is easiest (99.6%);
+  r=0.50 (2,470 cells) 95.9% with paths 14% over geodesic; 40k samples
+  97.5%; oct-tree depth 6 (5,369 cells, paths 2x longer) collapses it to 37%.
+  The 5M model stays at 98.7-100% on every manifold.
+- Noise models (all keep training convergent): shell displacement up to 0.6r
+  costs 3-4 points at d=64 and ~1 at d=256 (token set grows 1,926 -> 3,897
+  cells); stochastic training paths at temperature 0.25 (~15% longer than
+  geodesic) still yield greedy paths only 5-7% over geodesic, i.e. the model
+  denoises toward the shortest path; at 0.5 the small model drops to 94% and
+  34% excess length; observation noise p=0.15 costs the small model 4 points.
+  Shell 0.15-0.30 and temperature 0.25 are the "realistic but learnable"
+  fuzzy-manifold settings.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider
