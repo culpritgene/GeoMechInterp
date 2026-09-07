@@ -83,3 +83,43 @@ are what the rung's claims need; these are only an end-to-end check.
   state targets are at chance there (a sanity check on the pipeline).
 - `--min_step` drops the first t generator positions from the `gen` cell
   (t = 1 is the one-step lookup `e0 . g1`).
+
+
+## Results (2026-09-07)
+
+Task bar (long schedule: 120k steps, batch 512, lr 5e-4, plateau stop):
+
+| group | d | fresh words | held-out bigrams | minimal pairs |
+|---|---|---|---|---|
+| D36 | 32 | 0.969 | 0.967 | 0.958 |
+| D36 | 64 | 0.999 | 0.9995 | 0.998 |
+| D36 | 256 | 0.997 | | |
+| T36x12 | 32 / 64 / 256 | 0.9997 / 0.9991 / 0.9995 | | |
+| Z36 | 32 / 64 / 256 | 0.998 / 0.999 / 0.999 | | |
+| Z360 | 32 | 0.999 | | |
+
+Single-token probes (`probe_group.py`, `results/group_probes.md`, figure
+`results/group_probes.png`): in every D36 model the sign character of the
+prefix product is linearly undecodable at layer 2 (ridge ~0, logistic at
+chance) yet cubic-spline probes read it at 0.96-0.99 under 1k parameters
+where ReLU hinges get 0.65-0.97 and top-k SAE codes + ridge 0.16-0.9; the
+model linearises it only at layer 4. Z36 at d=32 stores the element as a
+harmonic code (4th harmonic dominant) and splines read the fundamental at
+0.98 under 1k parameters vs 0.74 for hinges. The torus is stored linearly
+and shows no gap.
+
+Null controls (`null_control.py`, a linearly embedded circle plus 40
+nuisance dimensions): the linear feature is read equally by all families;
+its 2nd/3rd harmonics and the quadratic sign form are read by splines
+(0.83-0.93 under 1k) but not by hinges (0.09-0.34) nor by SAE codes
+(0.07-0.26). The spline advantage is a property of the feature class:
+polynomial functions of linearly stored circles.
+
+Cross-token probes (`probe_pair.py`, `results/pair_surface_Z36_d32.png`):
+reading the composed element from the previous state and the new generator.
+Z36 d=32: two cubic splines (176 params) reach 0.995; hinges need 16-32
+units; the exact bilinear form caps at 0.72; SAE codes + ridge 0.65-0.79 at
+18k-72k params. D36 d=64: the composed sign is cubic in the residuals, so
+ridge and bilinear score 0.00, hinges 0.07/0.34 at 500/1k params (chance on
+reflection steps), cubic splines 0.97/0.99, tensor-spline surfaces 0.95/0.99,
+SAE codes 0.09-0.16.

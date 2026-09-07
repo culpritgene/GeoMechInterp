@@ -186,3 +186,27 @@ Earlier (v2, tanh spline probe) takeaways, kept for the record:
   degrades toward the output (0.87 at layer 6), while `goal` is progressively
   consumed (0.89 at layer 2, 0.64 at layer 6): the model converts
   (position, goal) into the next step.
+
+
+## Manifold sweep (2026-09-07; `sweep.sh`, `sweep_analysis.py`, `results/sweep_summary.md`)
+
+Analytic torus products (`gen_manifold.py`) varying minor radius r (hole size
+and curvature), sample density, oct-tree depth, surface-shell noise, and
+path noise (`gen_paths.py --temperature`, `--p_obs`), two model sizes.
+
+- Task difficulty for the 0.24M model scales with the number of occupied
+  cells, not curvature: the thin tube r=0.12 (1,117 cells) is easiest
+  (99.6%), r=0.50 (2,470 cells) 95.9%, depth 6 (5,369 cells) 37%; the 5M
+  model stays at 98.7-100% everywhere.
+- Noise: shell displacement up to 0.6r costs 3-4 points (d=64) / 1 (d=256);
+  stochastic training paths at temperature 0.25 still yield greedy paths
+  5-7% over geodesic (the model denoises); observation noise p=0.15 costs
+  4 points at d=64 and 9 at d=256 (the big model imitates the noise).
+- Probes (middle layer): the spline-minus-hinge gap for position stays within
+  +-0.05 on every axis; linearity of the position code falls with the number
+  of cells (ridge 0.55 -> 0.22) but stays hinge-friendly; path and
+  observation noise LINEARISE the code (ridge 0.53 -> 0.73).
+- Stratified probes with the fixed spline probe (`probe_strata.py`): near
+  link contacts the global spline probe beats hinges by +0.09..+0.24; local
+  probes find the region near-linear (0.79-0.93), i.e. a locally linear
+  patch that a global linear map cannot fit.
