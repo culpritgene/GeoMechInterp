@@ -322,6 +322,12 @@ and top-k SAEs on each token + ridge on their codes.
   0.09-0.16 with 18k-72k params. The rotation coordinates of the composed
   element are hard for every family at d=64 (<= 0.76 at 5k), with splines
   ahead of hinges by 0.08-0.18.
+- D36, d=256, layer 2: composed sign, ridge -0.21, bilinear 0.00, hinges
+  0.60 / 0.89 at 2.5k / 5k, cubic splines 0.89 / 0.98, tensor spline 0.94 /
+  0.98 (0.62 at 1k), SAE codes 0.29. Torus T36x12 (d=64): the composed
+  irrep coordinates are hard for every family at these budgets (<= 0.68 at
+  5k; splines +0.04..+0.09 over hinges, bilinear 0.42, SAE 0.52), so the
+  torus state is not stored in the f=1 coordinates the target uses.
 
 ### Open questions / next
 
