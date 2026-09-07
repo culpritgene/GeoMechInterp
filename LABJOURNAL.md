@@ -246,6 +246,34 @@ idea was dropped because the ring belief concentration is nearly constant
   codes in the path task; the one large spline win on activations so far is
   the quadratic sign feature of the dihedral group (rung 2).
 
+### Rung 2, abelian groups and the feature-class picture
+- Torus T36x12 (d=32/64/256, all >= 99.9% task accuracy): irrep coordinates
+  are largely linear at the final cell (ridge 0.41/0.68/0.86 at layer 2,
+  0.39/0.82/0.97 at layer 4) and there is no consistent spline-vs-hinge gap
+  (mixed sign, |gap| <= 0.2 at <= 1k, ~0 at 2.5k for d >= 64).
+- Z36 at d=32 (99.8%): the running element is stored non-linearly
+  mid-network (ridge 0.26-0.34 at layers 2 and 4) and cubic-spline probes
+  decode the irrep at 0.977-0.993 under 1k params where hinges reach
+  0.736-0.932 (+0.24 at the gen cell); at d=256 the gen cell at layer 2 is
+  also non-linear (ridge < 0) with spline 0.86 vs hinge 0.32 at <= 1k. The
+  d=32 model's element embedding is dominated by the 4th harmonic (32% of
+  power), so the fundamental is a polynomial (Chebyshev) function of what is
+  stored, which is the mechanism predicted in the proposal.
+- Null controls (`null_control.py`, linearly embedded f=1 circle + 40
+  nuisance dims): the linear feature itself is read equally by every family
+  (hinge 0.98, spline 0.98-0.99 at <= 1k for d=64); polynomial functions of
+  it are not: 2nd harmonic spline 0.93 vs hinge 0.27-0.34, 3rd harmonic
+  0.42-0.83 vs 0.09, quadratic sign form 0.92 vs 0.63 (d=256, <= 1k), and
+  the top-k SAE + ridge fails on all of them (0.07-0.26; sign 0.53) while
+  reading the linear feature at 0.82-0.85.
+- Reading across rung 2: the spline advantage is a property of the feature
+  class. Features that are polynomial functions of linearly stored circles
+  (harmonics, products, the dihedral sign) are read by a handful of cubic
+  splines, need many hinges, and are missed by a first-order dictionary with
+  a linear readout; features stored linearly show no gap. Trained models put
+  such features mid-network (D36 sign at layer 2; Z36 fundamental at d=32)
+  and linearise them only where the output head needs them.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider
