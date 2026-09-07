@@ -27,7 +27,13 @@ class PathData:
     def __init__(self, shape: str, fmt: str = "hier"):
         z = np.load(GEN / f"{shape}.npz", allow_pickle=True)
         self.shape, self.fmt = shape, fmt
-        self.cell_ids = z["cell_ids"]; self.lengths = z["lengths"]; self.split = z["split"]
+        # observed (possibly noisy) waypoints are what the model is trained on;
+        # cell_ids holds the clean path, aligned with the observed one, and is
+        # used for scoring and probe targets (identical when there is no noise)
+        self.cell_ids_obs = z["cell_ids"]
+        self.cell_ids = z["cell_ids_clean"] if "cell_ids_clean" in z.files else z["cell_ids"]
+        self.lengths = z["lengths"]; self.split = z["split"]
+        self.extras = {k: z[k] for k in ("tori", "gauss_curv", "theta", "phi", "sdf") if k in z.files}
         self.cell_table = z["cell_table"]; self.cell_center = z["cell_center"]
         self.geo_dist = z["geo_dist"]
         self.adj = set(map(tuple, z["cell_adj"].tolist()))
@@ -51,7 +57,7 @@ class PathData:
         return [4 + int(cid)]
 
     def encode(self, i: int) -> list[int]:
-        L = int(self.lengths[i]); ids = self.cell_ids[i, :L]
+        L = int(self.lengths[i]); ids = self.cell_ids_obs[i, :L]
         seq = [BOS] + self.cell_tokens(ids[0]) + [SEP] + self.cell_tokens(ids[-1]) + [SEP]
         for c in ids:
             seq += self.cell_tokens(c)
@@ -63,10 +69,13 @@ class PathData:
             seq.append(EOS)
         return seq
 
-    def tensors(self, split: str, max_n: int | None = None):
+    def tensors(self, split: str, max_n: int | None = None, seed: int = 0):
+        """Encoded sequences of one split; a random (seeded) subset of max_n
+        rows, since rows are stored goal by goal and a prefix would cover only
+        a few goals."""
         idx = np.where(self.split == split)[0]
-        if max_n is not None:
-            idx = idx[:max_n]
+        if max_n is not None and max_n < len(idx):
+            idx = np.sort(np.random.default_rng(seed).choice(idx, size=max_n, replace=False))
         X = np.full((len(idx), self.block_size), PAD, dtype=np.int64)
         for r, i in enumerate(idx):
             s = self.encode(i); X[r, :len(s)] = s

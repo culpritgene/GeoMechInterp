@@ -65,7 +65,11 @@ def token_accuracy(model, X, pd, device, n=4096):
 def main(args):
     device = torch.device("cuda")
     torch.manual_seed(args.seed)
-    pd = PathData(args.shape, args.fmt)
+    if getattr(args, "data", "paths") == "winding":       # winding-class task (gen_winding.py / winding_data.py)
+        from winding_data import WindingData
+        pd = WindingData(args.shape, args.fmt)
+    else:
+        pd = PathData(args.shape, args.fmt)
     Xtr, _ = pd.tensors("train"); Xva, iva = pd.tensors("validation", args.n_eval); Xte, ite = pd.tensors("test", args.n_eval)
     print(f"{args.shape} [{args.fmt}] vocab={pd.vocab_size} block={pd.block_size} train={len(Xtr)} val={len(Xva)} cells={pd.n_cells}", flush=True)
     cfg = GPTConfig(pd.vocab_size, pd.block_size, args.n_layer, args.n_head, args.d_model, args.dropout)
@@ -73,7 +77,8 @@ def main(args):
     n_params = sum(p.numel() for p in model.parameters())
     print(f"params: {n_params/1e6:.2f}M", flush=True)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=args.wd)
-    run = CKPT / f"{args.shape}_{args.fmt}_L{args.n_layer}_d{args.d_model}"
+    tag = args.shape if getattr(args, "data", "paths") == "paths" else f"{args.shape}_{args.data}"
+    run = CKPT / f"{tag}_{args.fmt}_L{args.n_layer}_d{args.d_model}"
     run.mkdir(parents=True, exist_ok=True)
     Xtr = Xtr.to(device)
     log = []
@@ -128,4 +133,5 @@ if __name__ == "__main__":
     ap.add_argument("--eval_every", type=int, default=2000)
     ap.add_argument("--n_eval", type=int, default=1000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--data", default="paths", choices=["paths", "winding"], help="paths: PathData on <shape>.npz; winding: WindingData on <shape>_wind.npz (run dir gets a _winding tag)")
     main(ap.parse_args())

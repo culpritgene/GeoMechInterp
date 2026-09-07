@@ -29,8 +29,14 @@ from data import fit_tori_from_obj, torus_frames  # noqa: E402
 from probe import CKPT, ReLUProbe, SAE, Spline1LProbe, collect, r2, ridge, train_sae, train_supervised, n_params  # noqa: E402
 
 
-def local_geometry(P_raw: np.ndarray, shape: str):
-    C, A, R, r = torus_frames(fit_tori_from_obj(shape))
+def local_geometry(P_raw: np.ndarray, shape: str, tori_arr=None):
+    """|K| of the nearest torus and distance to the nearest other torus.
+    `tori_arr` (T, 8): centre, axis, R, r rows from an analytic manifold; if
+    None the tori are fitted from the shipped OBJ mesh of `shape`."""
+    if tori_arr is not None:
+        C, A = np.asarray(tori_arr)[:, :3], np.asarray(tori_arr)[:, 3:6]; R, r = np.asarray(tori_arr)[:, 6], np.asarray(tori_arr)[:, 7]
+    else:
+        C, A, R, r = torus_frames(fit_tori_from_obj(shape))
     d_all, K_all, axdist = [], [], []
     for c, a, Rj, rj in zip(C, A, R, r):
         v = P_raw - c; h = v @ a; rho = np.linalg.norm(v - np.outer(h, a), axis=1)
@@ -55,7 +61,7 @@ def main(a):
     shape = a.run.split("_flat")[0]
     lo, hi = pd.cell_center.min(0), pd.cell_center.max(0); ctr = (lo + hi) / 2; half = (hi - lo).max() / 2
     P_raw = tg["pos"] * half + ctr
-    absK, contact = local_geometry(P_raw, shape)
+    absK, contact = local_geometry(P_raw, shape, pd.extras.get("tori"))
     step = tg["next"] - tg["pos"]; dirn = step / np.maximum(np.linalg.norm(step, axis=1, keepdims=True), 1e-9)
     tg["dir"] = dirn.astype(np.float32)
     q = np.quantile(absK, [1 / 3, 2 / 3])
