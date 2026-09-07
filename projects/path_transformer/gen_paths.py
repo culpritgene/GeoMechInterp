@@ -118,7 +118,7 @@ def rollout(A: sp.csr_matrix, D: np.ndarray, s: int, g: int, T: float, scale: fl
 
 
 def generate(shape: str, n_goals: int, starts_per_goal: int, min_dist: float, seed: int, temperature: float, p_obs: float,
-             manifold: bool, out_name: str | None, chunk: int = 200):
+             manifold: bool, out_name: str | None, chunk: int = 200, holdout_goal_frac: float = 0.0):
     rng = np.random.default_rng(seed)
     P, A, E, bounds, depth, extras = (load_manifold if manifold else load_shape)(shape)
     n = len(P)
@@ -170,6 +170,10 @@ def generate(shape: str, n_goals: int, starts_per_goal: int, min_dist: float, se
     lengths = np.array([len(p) for p in paths_clean], dtype=np.int16)
     cells = np.where(cell_ids[..., None] >= 0, table[np.maximum(cell_ids, 0)], -1).astype(np.int8)
     split = rng.choice(["train", "validation", "test"], size=N, p=[0.9, 0.05, 0.05])
+    if holdout_goal_frac > 0:   # goal CELLS never used as goals in training (they still occur as waypoints)
+        goal_cells = np.array([node_cell[g] for g in gl]); held = rng.choice(len(uniq), size=int(holdout_goal_frac * len(uniq)), replace=False)
+        split = np.where(np.isin(goal_cells, held), "test_goalheld", split)
+        print(f"  held-out goal cells: {len(held)} -> {int((split == 'test_goalheld').sum())} rows")
     name = out_name or (shape + (f"_T{temperature:g}" if temperature > 0 else "") + (f"_obs{p_obs:g}" if p_obs > 0 else ""))
     OUT.mkdir(parents=True, exist_ok=True)
     meta = dict(shape=shape, manifold=manifold, n_goals=n_goals, starts_per_goal=starts_per_goal, min_dist=min_dist, seed=seed,
@@ -198,8 +202,9 @@ if __name__ == "__main__":
     ap.add_argument("--p_obs", type=float, default=0.0)
     ap.add_argument("--out_name", default=None)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--holdout_goal_frac", type=float, default=0.0, help="fraction of goal cells held out of training entirely (split test_goalheld)")
     a = ap.parse_args()
     names = SHAPES if a.shapes == ["all"] else a.shapes
     for s in names:
         generate(s, a.n_goals, a.starts_per_goal, a.min_dist, a.seed, a.temperature, a.p_obs, a.manifold,
-                 a.out_name if len(names) == 1 else None)
+                 a.out_name if len(names) == 1 else None, holdout_goal_frac=a.holdout_goal_frac)

@@ -349,6 +349,16 @@ and top-k SAEs on each token + ridge on their codes.
   hierarchical format spells the goal as five coordinate tokens, so it can
   generalise to unseen goals compositionally; compare flat vs hier on a
   goal-held-out split.
+- Probes on the d=64 winding model (`probe_winding.py`; targets: circle +
+  one-hot winding count, remaining cover displacement, slow circle, position,
+  step direction; layers 1-3): the winding state is not a curved feature.
+  Hinges and cubic splines tie within 0.05 at every budget (e.g. remaining
+  displacement at layer 2: ridge 0.69, both families 0.87 at <= 1k and 0.94
+  at <= 10k; unrolled-angle target: ridge 0.65 / 0.58 / 0.52 at layers 1-3,
+  both families 0.97 / 0.94 / 0.90 at <= 10k) and the SAE + ridge matches at
+  266k params. As the proposal's "expected" branch said: circle x counter is
+  a direct sum, not a curved code; only the SAE factorisation count (not yet
+  computed) remains as a deliverable for this rung.
 
 ### Open questions / next
 
