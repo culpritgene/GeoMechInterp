@@ -1,0 +1,846 @@
+{
+ "name": "group_D36_L4_d256_long",
+ "kind": "group",
+ "rows": [
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 1028,
+   "r2": 0.2109302282333374
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "sae->dL4+linear",
+   "size": "m256k8",
+   "n_params": 66820,
+   "ev": 0.8071942925453186,
+   "l0": 8.0,
+   "r2": 0.8501737713813782
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "sae->dL4+linear",
+   "size": "m256k32",
+   "n_params": 66820,
+   "ev": 0.8407902121543884,
+   "l0": 31.9583740234375,
+   "r2": 0.8861128091812134
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "sae->dL4+linear",
+   "size": "m1024k32",
+   "n_params": 267268,
+   "ev": 0.8622754216194153,
+   "l0": 32.0,
+   "r2": 0.9158622026443481
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "spae->dL4+linear",
+   "size": "m256k8G8",
+   "n_params": 69636,
+   "ev": 0.7755301594734192,
+   "l0": 8.0,
+   "r2": 0.7610945701599121
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "spae->dL4+linear",
+   "size": "m256k32G8",
+   "n_params": 69636,
+   "ev": 0.8502875566482544,
+   "l0": 32.0,
+   "r2": 0.8556979894638062
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "spae->dL4+linear",
+   "size": "m1024k32G8",
+   "n_params": 278532,
+   "ev": 0.88804692029953,
+   "l0": 32.0,
+   "r2": 0.8761634826660156
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "tsae->dL4+linear",
+   "size": "m64k8G6",
+   "n_params": 38340,
+   "ev": 0.7866065502166748,
+   "l0": 8.0,
+   "r2": 0.7323436141014099
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "tsae->dL4+linear",
+   "size": "m128k16G6",
+   "n_params": 76676,
+   "ev": 0.868084728717804,
+   "l0": 16.0,
+   "r2": 0.8020395636558533
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "tsae->dL4+linear",
+   "size": "m256k32G6",
+   "n_params": 153348,
+   "ev": 0.9168355464935303,
+   "l0": 32.0,
+   "r2": 0.8598883152008057
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "tsae->dL4+linear",
+   "size": "m512k32G6",
+   "n_params": 306692,
+   "ev": 0.9406795501708984,
+   "l0": 32.0,
+   "r2": 0.8997194170951843
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f1",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2412,
+   "r2": 0.9038486480712891
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 1028,
+   "r2": -0.14414265751838684
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "sae->dL4+linear",
+   "size": "m256k8",
+   "n_params": 66820,
+   "ev": 0.8071942925453186,
+   "l0": 8.0,
+   "r2": 0.543256402015686
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "sae->dL4+linear",
+   "size": "m256k32",
+   "n_params": 66820,
+   "ev": 0.8407902121543884,
+   "l0": 31.9583740234375,
+   "r2": 0.5722459554672241
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "sae->dL4+linear",
+   "size": "m1024k32",
+   "n_params": 267268,
+   "ev": 0.8622754216194153,
+   "l0": 32.0,
+   "r2": 0.7120096683502197
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "spae->dL4+linear",
+   "size": "m256k8G8",
+   "n_params": 69636,
+   "ev": 0.7755301594734192,
+   "l0": 8.0,
+   "r2": 0.4582512378692627
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "spae->dL4+linear",
+   "size": "m256k32G8",
+   "n_params": 69636,
+   "ev": 0.8502875566482544,
+   "l0": 32.0,
+   "r2": 0.5479570627212524
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "spae->dL4+linear",
+   "size": "m1024k32G8",
+   "n_params": 278532,
+   "ev": 0.88804692029953,
+   "l0": 32.0,
+   "r2": 0.6819156408309937
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "tsae->dL4+linear",
+   "size": "m64k8G6",
+   "n_params": 38340,
+   "ev": 0.7866065502166748,
+   "l0": 8.0,
+   "r2": 0.31650370359420776
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "tsae->dL4+linear",
+   "size": "m128k16G6",
+   "n_params": 76676,
+   "ev": 0.868084728717804,
+   "l0": 16.0,
+   "r2": 0.4861314594745636
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "tsae->dL4+linear",
+   "size": "m256k32G6",
+   "n_params": 153348,
+   "ev": 0.9168355464935303,
+   "l0": 32.0,
+   "r2": 0.6176831722259521
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "tsae->dL4+linear",
+   "size": "m512k32G6",
+   "n_params": 306692,
+   "ev": 0.9406795501708984,
+   "l0": 32.0,
+   "r2": 0.7334224581718445
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f2",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2412,
+   "r2": 0.6393910646438599
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 1028,
+   "r2": -0.32502031326293945
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "sae->dL4+linear",
+   "size": "m256k8",
+   "n_params": 66820,
+   "ev": 0.8071942925453186,
+   "l0": 8.0,
+   "r2": 0.22026370465755463
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "sae->dL4+linear",
+   "size": "m256k32",
+   "n_params": 66820,
+   "ev": 0.8407902121543884,
+   "l0": 31.9583740234375,
+   "r2": 0.2381620556116104
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "sae->dL4+linear",
+   "size": "m1024k32",
+   "n_params": 267268,
+   "ev": 0.8622754216194153,
+   "l0": 32.0,
+   "r2": 0.36897099018096924
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "spae->dL4+linear",
+   "size": "m256k8G8",
+   "n_params": 69636,
+   "ev": 0.7755301594734192,
+   "l0": 8.0,
+   "r2": 0.22405782341957092
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "spae->dL4+linear",
+   "size": "m256k32G8",
+   "n_params": 69636,
+   "ev": 0.8502875566482544,
+   "l0": 32.0,
+   "r2": 0.27838757634162903
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "spae->dL4+linear",
+   "size": "m1024k32G8",
+   "n_params": 278532,
+   "ev": 0.88804692029953,
+   "l0": 32.0,
+   "r2": 0.4349033832550049
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "tsae->dL4+linear",
+   "size": "m64k8G6",
+   "n_params": 38340,
+   "ev": 0.7866065502166748,
+   "l0": 8.0,
+   "r2": 0.09445926547050476
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "tsae->dL4+linear",
+   "size": "m128k16G6",
+   "n_params": 76676,
+   "ev": 0.868084728717804,
+   "l0": 16.0,
+   "r2": 0.22652561962604523
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "tsae->dL4+linear",
+   "size": "m256k32G6",
+   "n_params": 153348,
+   "ev": 0.9168355464935303,
+   "l0": 32.0,
+   "r2": 0.36164921522140503
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "tsae->dL4+linear",
+   "size": "m512k32G6",
+   "n_params": 306692,
+   "ev": 0.9406795501708984,
+   "l0": 32.0,
+   "r2": 0.5138112902641296
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "f3",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2412,
+   "r2": 0.42987704277038574
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 3084,
+   "r2": -0.08618088811635971
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "sae->dL4+linear",
+   "size": "m256k8",
+   "n_params": 68876,
+   "ev": 0.8071942925453186,
+   "l0": 8.0,
+   "r2": 0.5378980040550232
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "sae->dL4+linear",
+   "size": "m256k32",
+   "n_params": 68876,
+   "ev": 0.8407902121543884,
+   "l0": 31.9583740234375,
+   "r2": 0.5655069947242737
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "sae->dL4+linear",
+   "size": "m1024k32",
+   "n_params": 275468,
+   "ev": 0.8622754216194153,
+   "l0": 32.0,
+   "r2": 0.6656147837638855
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "spae->dL4+linear",
+   "size": "m256k8G8",
+   "n_params": 71692,
+   "ev": 0.7755301594734192,
+   "l0": 8.0,
+   "r2": 0.4811345636844635
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "spae->dL4+linear",
+   "size": "m256k32G8",
+   "n_params": 71692,
+   "ev": 0.8502875566482544,
+   "l0": 32.0,
+   "r2": 0.5606809258460999
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "spae->dL4+linear",
+   "size": "m1024k32G8",
+   "n_params": 286732,
+   "ev": 0.88804692029953,
+   "l0": 32.0,
+   "r2": 0.6643275618553162
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "tsae->dL4+linear",
+   "size": "m64k8G6",
+   "n_params": 38860,
+   "ev": 0.7866065502166748,
+   "l0": 8.0,
+   "r2": 0.38110217452049255
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "tsae->dL4+linear",
+   "size": "m128k16G6",
+   "n_params": 77708,
+   "ev": 0.868084728717804,
+   "l0": 16.0,
+   "r2": 0.5048989653587341
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "tsae->dL4+linear",
+   "size": "m256k32G6",
+   "n_params": 155404,
+   "ev": 0.9168355464935303,
+   "l0": 32.0,
+   "r2": 0.6130735278129578
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "tsae->dL4+linear",
+   "size": "m512k32G6",
+   "n_params": 310796,
+   "ev": 0.9406795501708984,
+   "l0": 32.0,
+   "r2": 0.7156510949134827
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "irrep",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 3124,
+   "r2": 0.6283988356590271
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 257,
+   "r2": -0.35756850242614746
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "sae->dL4+linear",
+   "size": "m256k8",
+   "n_params": 66049,
+   "ev": 0.8071942925453186,
+   "l0": 8.0,
+   "r2": 0.7045537829399109
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "sae->dL4+linear",
+   "size": "m256k32",
+   "n_params": 66049,
+   "ev": 0.8407902121543884,
+   "l0": 31.9583740234375,
+   "r2": 0.6973769664764404
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "sae->dL4+linear",
+   "size": "m1024k32",
+   "n_params": 264193,
+   "ev": 0.8622754216194153,
+   "l0": 32.0,
+   "r2": 0.8701694011688232
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "spae->dL4+linear",
+   "size": "m256k8G8",
+   "n_params": 68865,
+   "ev": 0.7755301594734192,
+   "l0": 8.0,
+   "r2": 0.5695348978042603
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "spae->dL4+linear",
+   "size": "m256k32G8",
+   "n_params": 68865,
+   "ev": 0.8502875566482544,
+   "l0": 32.0,
+   "r2": 0.5616099834442139
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "spae->dL4+linear",
+   "size": "m1024k32G8",
+   "n_params": 275457,
+   "ev": 0.88804692029953,
+   "l0": 32.0,
+   "r2": 0.7874398827552795
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "tsae->dL4+linear",
+   "size": "m64k8G6",
+   "n_params": 38145,
+   "ev": 0.7866065502166748,
+   "l0": 8.0,
+   "r2": 0.3131454586982727
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "tsae->dL4+linear",
+   "size": "m128k16G6",
+   "n_params": 76289,
+   "ev": 0.868084728717804,
+   "l0": 16.0,
+   "r2": 0.37307411432266235
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "tsae->dL4+linear",
+   "size": "m256k32G6",
+   "n_params": 152577,
+   "ev": 0.9168355464935303,
+   "l0": 32.0,
+   "r2": 0.5563896894454956
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "tsae->dL4+linear",
+   "size": "m512k32G6",
+   "n_params": 305153,
+   "ev": 0.9406795501708984,
+   "l0": 32.0,
+   "r2": 0.804240345954895
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "eps",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2145,
+   "r2": 0.9663405418395996
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 514,
+   "r2": -0.04129743576049805
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "sae->dL4+linear",
+   "size": "m256k8",
+   "n_params": 66306,
+   "ev": 0.8071942925453186,
+   "l0": 8.0,
+   "r2": -0.00453418493270874
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "sae->dL4+linear",
+   "size": "m256k32",
+   "n_params": 66306,
+   "ev": 0.8407902121543884,
+   "l0": 31.9583740234375,
+   "r2": -0.0062670111656188965
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "sae->dL4+linear",
+   "size": "m1024k32",
+   "n_params": 265218,
+   "ev": 0.8622754216194153,
+   "l0": 32.0,
+   "r2": -0.01969248056411743
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "spae->dL4+linear",
+   "size": "m256k8G8",
+   "n_params": 69122,
+   "ev": 0.7755301594734192,
+   "l0": 8.0,
+   "r2": 0.002285778522491455
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "spae->dL4+linear",
+   "size": "m256k32G8",
+   "n_params": 69122,
+   "ev": 0.8502875566482544,
+   "l0": 32.0,
+   "r2": 0.0002624392509460449
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "spae->dL4+linear",
+   "size": "m1024k32G8",
+   "n_params": 276482,
+   "ev": 0.88804692029953,
+   "l0": 32.0,
+   "r2": 0.012148231267929077
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "tsae->dL4+linear",
+   "size": "m64k8G6",
+   "n_params": 38210,
+   "ev": 0.7866065502166748,
+   "l0": 8.0,
+   "r2": 0.005291670560836792
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "tsae->dL4+linear",
+   "size": "m128k16G6",
+   "n_params": 76418,
+   "ev": 0.868084728717804,
+   "l0": 16.0,
+   "r2": 0.02094322443008423
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "tsae->dL4+linear",
+   "size": "m256k32G6",
+   "n_params": 152834,
+   "ev": 0.9168355464935303,
+   "l0": 32.0,
+   "r2": 0.03217029571533203
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "tsae->dL4+linear",
+   "size": "m512k32G6",
+   "n_params": 305666,
+   "ev": 0.9406795501708984,
+   "l0": 32.0,
+   "r2": 0.04790470004081726
+  },
+  {
+   "name": "group_D36_L4_d256_long",
+   "layer": 2,
+   "target": "harm",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2234,
+   "r2": 0.015182286500930786
+  }
+ ],
+ "args": {
+  "kind": "group",
+  "run": "group_D36_L4_d256_long",
+  "group": "D36",
+  "freqs": [
+   1
+  ],
+  "d": 64,
+  "n": 60000,
+  "layers": [
+   2
+  ],
+  "targets": [],
+  "sae": [
+   [
+    256,
+    8
+   ],
+   [
+    256,
+    32
+   ],
+   [
+    1024,
+    32
+   ]
+  ],
+  "spae": [
+   [
+    256,
+    8
+   ],
+   [
+    256,
+    32
+   ],
+   [
+    1024,
+    32
+   ]
+  ],
+  "G": 8,
+  "tsae": [
+   [
+    64,
+    8
+   ],
+   [
+    128,
+    16
+   ],
+   [
+    256,
+    32
+   ],
+   [
+    512,
+    32
+   ]
+  ],
+  "G2": 6,
+  "sup_widths": [
+   8
+  ],
+  "n_seq": 6000,
+  "n_train": 40000,
+  "steps": 3000,
+  "seed": 0,
+  "objective": "delta",
+  "out_layer": 4,
+  "out": "projects/group_tracking/results/runs/dictX_D36_L4_d256_delta.json"
+ }
+}

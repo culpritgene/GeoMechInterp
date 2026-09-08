@@ -48,4 +48,37 @@ fresh), identically for all families, until 75% of training.
 
 ## Results
 
-(filled in as runs complete; see the tables below)
+### Synthetic and group models (`dictionary_compare.py`, `results/runs/dictX_*.json`)
+
+Best held-out ridge R² from the codes over the size grid (SAE (m,k) in
+{(256,8),(256,32),(1024,32)}; SpAE same; TsAE (m,k) in {(64,8),(128,16),
+(256,32),(512,32)}), 3000 steps, dead-feature resampling; "supervised" is an
+8-unit cubic-spline probe (~600 params) for reference.
+
+| case | target | linear | SAE | SpAE | TsAE | supervised |
+|---|---|---|---|---|---|---|
+| D36 null (linear circle + nuisance), recon | sign | 0.00 | 0.93 | 0.39 | 0.07 | 0.999 |
+| D36 null, recon | 2nd harmonic | 0.00 | 0.84 | 0.12 | 0.02 | 0.98 |
+| D36 d=64 layer 2, recon | sign | 0.00 | 0.38 | 0.29 | 0.15 | 0.90 |
+| D36 d=64 layer 2, delta | sign | 0.00 | 0.44 | 0.31 | 0.30 | 0.89 |
+| D36 d=256 layer 2, delta | sign | -0.36 | 0.87 | 0.79 | 0.80 | 0.97 |
+| Z36 d=32 layer 2, recon | 2nd harmonic | 0.11 | 0.49 | 0.53 | 0.51 | 0.97 |
+| Z36 d=32 layer 2, delta | 2nd harmonic | 0.11 | 0.58 | 0.82 | 0.81 | 0.98 |
+| Z36 d=32 layer 2, delta | 3rd harmonic | 0.01 | 0.31 | 0.58 | 0.45 | 0.93 |
+
+Reading:
+
+- Second-order codes never beat univariate spline codes in an unsupervised
+  dictionary, and on the product feature (the D36 sign) they are worse than
+  or equal to the SAE. Under reconstruction a tensor-spline dictionary fitted
+  to a linearly embedded latent stays effectively linear (null: 0.07 / 0.02),
+  exactly like the univariate one; only the dense hinge SAE tiles the latent.
+- The one place spline dictionaries lead (Z36 harmonics under the
+  write-prediction objective, +0.24 / +0.28 over the SAE) is a case where the
+  feature is a univariate function of a stored projection, so a surface adds
+  nothing over a curve.
+- Every dictionary remains far below a supervised spline readout. The
+  unsupervised objective, not the code family, decides whether a polynomial
+  feature is exposed; the tensor-spline surface that read the composed sign
+  across two tokens when *supervised* (`probe_pair.py`: 0.99 at 1k params)
+  does not find it when trained to predict the layer's write.
