@@ -446,6 +446,25 @@ MSE) should expose them. Both dictionaries at (m, k) in {(256,8), (256,32),
   size). The gap to a supervised spline readout (400x fewer parameters)
   remains large everywhere.
 
+## 2026-09-08 — Tensor-spline dictionaries and GPT-2 (see `projects/TENSOR_SPLINES.md`)
+- Added a second-order dictionary (`TensorSplineAE`: cubic surfaces on pairs
+  of learned directions, top-k, linear decoder), dead-feature resampling for
+  all families, and a GPT-2 harness (`projects/llm_dictionaries/`) with
+  loss-recovered evaluation by splicing the dictionary output into the model.
+- Synthetic / group models: tensor-spline codes never beat univariate spline
+  codes unsupervised, and on the D36 sign (a product feature) they are no
+  better than the SAE under recon or write-prediction objectives; supervised
+  spline probes stay far ahead (0.89-0.97 vs <= 0.45 at d=64).
+- GPT-2 small, layer 6, matched encoder params (0.6M / 2.4M), k=32: hinge SAE
+  best on both objectives (recon EV 0.80, loss recovered 0.96; delta EV 0.51,
+  0.80); tensor-spline dictionary second (0.73 / 0.94; 0.43 / 0.75) with no
+  dead codes; univariate spline third and losing 18-24% of codes. Layers 3
+  and 9 were launched but the VM was shut down before they finished (partial
+  layer-3 rows in the note).
+- Conclusion for the dictionary line: unsupervised objectives, not code
+  families, decide whether polynomial features are exposed; the spline
+  advantage lives in supervised readouts and the cross-token composition law.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider

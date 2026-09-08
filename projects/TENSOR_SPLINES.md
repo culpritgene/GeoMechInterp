@@ -113,3 +113,39 @@ where the univariate one loses a quarter of its codes), and roughly ties it
 under the write objective. Whatever polynomial structure GPT-2's residual
 carries, it is not what these unsupervised objectives reward, so a code
 family that can express products earns nothing here either.
+
+### GPT-2 layer 3 (partial; the VM was shut down before the run finished)
+
+Clean CE 4.141; mean-ablation baseline 10.540.
+
+| objective | budget | family | codes | EV | dead | loss recovered |
+|---|---|---|---|---|---|---|
+| recon | 0.6M | SAE | 768 | 0.744 | 0% | 0.956 |
+| recon | 0.6M | SpAE | 750 | 0.684 | 0% | 0.880 |
+| recon | 0.6M | TsAE | 384 | 0.660 | 0% | 0.890 |
+
+## Summary
+
+1. Second-order (tensor-spline) codes give an unsupervised dictionary no
+   advantage over univariate spline codes on the synthetic and group models,
+   and on the one genuine product feature (the D36 sign) they are no better
+   than the hinge SAE under either objective. Under reconstruction any spline
+   dictionary fitted to a linearly embedded latent stays effectively linear.
+2. On GPT-2 small (layer 6, matched encoder parameters, top-k 32) the hinge
+   SAE remains the best dictionary on both reconstruction (96% loss
+   recovered at 2.4M) and write prediction (80%); the tensor-spline
+   dictionary is the better spline family (94% / 75%) and keeps its codes
+   alive where the univariate one loses 18-24%.
+3. The spline advantage established elsewhere in this repo is a property of
+   supervised readouts of polynomial features and of the cross-token
+   composition law (two splines vs tens of hinges; the tensor-spline surface
+   reads angle addition and the composed dihedral sign where hinges, bilinear
+   forms and SAE codes fail). Unsupervised dictionaries are limited by their
+   objective before their code family matters; a task-aligned objective
+   (write prediction) lets univariate spline codes lead on harmonic features
+   of small models, but nothing tried here made second-order codes earn their
+   parameters unsupervised.
+4. Open: an objective that rewards product features directly (e.g. predicting
+   the model's logits or attention-head outputs rather than the residual
+   write), and supervised tensor-spline probes on real LLM features with
+   known composition structure (e.g. positional or arithmetic circuits).
