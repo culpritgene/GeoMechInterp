@@ -405,6 +405,15 @@ MSE) should expose them. Both dictionaries at (m, k) in {(256,8), (256,32),
   comparison with a transcoder objective (predict the layer-4 residual from
   the layer-2 residual through the dictionary), which rewards the features
   the model uses downstream.
+- Transcoder objective (dictionary predicts the layer-4 residual from the
+  layer-2 residual; `--objective next_layer`): helps the SAE, not the spline
+  dictionary. D36 d=256 sign readout: SAE 0.74 / 0.66 / 0.86 at (256,8) /
+  (256,32) / (1024,32) (reconstruction: 0.49 / 0.36 / 0.76), SpAE 0.52 /
+  0.53 / 0.77, supervised 8-spline probe 0.97 with ~600 params vs 266k for
+  the best dictionary. D36 d=64: SAE 0.13 / 0.26 / 0.44, SpAE 0.10 / 0.16 /
+  0.31, supervised 0.91. Predicting the next residual is dominated by what
+  the stream carries forward linearly (EV 0.75-0.90), so the sign computed
+  in between stays a minor component of the objective.
 
 ### Open questions / next
 
