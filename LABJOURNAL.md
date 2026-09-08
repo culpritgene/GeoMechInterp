@@ -379,6 +379,33 @@ learns about the geometry (an interpolating map vs a table), even though it
 did not change probe linearity. Quality models for later rungs should use
 the coordinate format, or be tested on held-out positions.
 
+## 2026-09-08 — Unsupervised dictionaries: top-k SAE vs top-k spline autoencoder (`dictionary_compare.py`)
+Hypothesis tested: the SAE misses polynomial features because its readout is
+linear over first-order (hinge) codes, so a dictionary with univariate
+cubic-spline codes (SpAE: h_j = phi_j(w_j . x), top-k on |h|, linear decoder,
+MSE) should expose them. Both dictionaries at (m, k) in {(256,8), (256,32),
+(1024,32)}, ridge readout, same splits; supervised 8-spline probe as reference.
+- Refuted in its simple form. In trained models both dictionaries reconstruct
+  equally well (EV 0.99-1.00 on group residuals) and read the polynomial
+  features equally badly: D36 d=256 layer 2 sign 0.76 (SAE) vs 0.68 (SpAE)
+  vs 0.96 supervised; D36 d=64 sign 0.35 vs 0.15 vs 0.89; Z36 d=32 2nd
+  harmonic 0.47 vs 0.53 vs 0.96, 3rd harmonic 0.21 vs 0.26 vs 0.89. Path
+  model (single_ring d=256, layer 4): EV only 0.45-0.75 for both and position
+  readouts 0.51-0.70 vs 0.63 linear vs 0.72 supervised.
+- Null controls: the dense SAE (256 features, 32 active) reads the D36
+  null's quadratic sign form at 0.93 and 2nd harmonic at 0.78 by tiling the
+  latent into arcs (3%-dense SAEs: 0.04-0.46), but the same setting reads the
+  Z36 null's 2nd harmonic at only 0.05; the SpAE reads neither (0.015 /
+  0.005) while reconstructing the linear latent at EV 0.93-0.98: the
+  reconstruction objective on a linearly embedded latent is solved by
+  near-linear response curves, so cubic capacity goes unused.
+- Reading: the missing ingredient is the objective, not the code's degree.
+  Reconstruction is indifferent to the features the model computes with;
+  supervision is what made the spline probes work. Next: the same
+  comparison with a transcoder objective (predict the layer-4 residual from
+  the layer-2 residual through the dictionary), which rewards the features
+  the model uses downstream.
+
 ### Open questions / next
 
 - Probe the remaining 13 shapes and more seeds; try spline probes on wider
