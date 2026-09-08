@@ -82,3 +82,34 @@ Reading:
   feature is exposed; the tensor-spline surface that read the composed sign
   across two tokens when *supervised* (`probe_pair.py`: 0.99 at 1k params)
   does not find it when trained to predict the layer's write.
+
+### GPT-2 small on text (`projects/llm_dictionaries/llm_dictionaries.py`, `results/gpt2_L6.json`)
+
+Residual stream after block 6, 500k training tokens and 60k held-out tokens
+of WikiText-103, top-k = 32 for every dictionary, 6000 steps, resampling.
+Clean CE 4.141; mean-ablation baseline 9.252 (recon); skip-block-7 baseline
+4.259 (delta).
+
+| objective | encoder budget | family | codes | EV | dead | spliced CE | loss recovered |
+|---|---|---|---|---|---|---|---|
+| recon | 0.6M | SAE | 768 | 0.711 | 0% | 4.458 | 0.938 |
+| recon | 0.6M | SpAE | 750 | 0.653 | 0.1% | 4.615 | 0.907 |
+| recon | 0.6M | TsAE | 384 | 0.630 | 0% | 4.649 | 0.901 |
+| recon | 2.4M | SAE | 3072 | 0.795 | 0% | 4.337 | 0.962 |
+| recon | 2.4M | SpAE | 3000 | 0.710 | 18% | 4.561 | 0.918 |
+| recon | 2.4M | TsAE | 1536 | 0.733 | 0.1% | 4.451 | 0.939 |
+| delta | 0.6M | SAE | 768 | 0.396 | 0% | 4.176 | 0.701 |
+| delta | 0.6M | SpAE | 750 | 0.353 | 0% | 4.176 | 0.705 |
+| delta | 0.6M | TsAE | 384 | 0.319 | 0% | 4.178 | 0.684 |
+| delta | 2.4M | SAE | 3072 | 0.510 | 0% | 4.165 | 0.799 |
+| delta | 2.4M | SpAE | 3000 | 0.438 | 24% | 4.170 | 0.753 |
+| delta | 2.4M | TsAE | 1536 | 0.427 | 0% | 4.171 | 0.749 |
+
+Reading (layer 6): on real text the hinge SAE is the best dictionary at
+matched encoder parameters on both objectives (EV and loss recovered). The
+tensor-spline dictionary is the better of the two spline families at the
+larger budget (recon 0.94 vs 0.92 loss recovered, with almost no dead codes
+where the univariate one loses a quarter of its codes), and roughly ties it
+under the write objective. Whatever polynomial structure GPT-2's residual
+carries, it is not what these unsupervised objectives reward, so a code
+family that can express products earns nothing here either.
