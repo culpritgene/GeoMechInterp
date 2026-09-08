@@ -38,3 +38,4 @@ projects/*/results/logs/
 !projects/*/results/*.png
 !projects/*/results/**/*.csv
 !projects/*/results/**/*.json
+projects/llm_dictionaries/results/smoke*.json
