@@ -1,0 +1,230 @@
+{
+ "name": "single_ring_flat_L6_d256",
+ "kind": "path",
+ "rows": [
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 771,
+   "r2": 0.6292464137077332
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "sae->dL6+linear",
+   "size": "m256k8",
+   "n_params": 66563,
+   "ev": 0.34900587797164917,
+   "l0": 7.9932861328125,
+   "r2": 0.43491992354393005
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "sae->dL6+linear",
+   "size": "m256k32",
+   "n_params": 66563,
+   "ev": 0.43316417932510376,
+   "l0": 31.89892578125,
+   "r2": 0.48278868198394775
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "sae->dL6+linear",
+   "size": "m1024k32",
+   "n_params": 266243,
+   "ev": 0.5937983393669128,
+   "l0": 31.958251953125,
+   "r2": 0.6634219884872437
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "spae->dL6+linear",
+   "size": "m256k8G8",
+   "n_params": 69379,
+   "ev": 0.29846882820129395,
+   "l0": 8.0,
+   "r2": 0.2963103652000427
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "spae->dL6+linear",
+   "size": "m256k32G8",
+   "n_params": 69379,
+   "ev": 0.4144980311393738,
+   "l0": 32.0,
+   "r2": 0.43457522988319397
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "spae->dL6+linear",
+   "size": "m1024k32G8",
+   "n_params": 277507,
+   "ev": 0.5310102701187134,
+   "l0": 32.0,
+   "r2": 0.5007542967796326
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "pos",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2323,
+   "r2": 0.7321179509162903
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "linear",
+   "size": "-",
+   "n_params": 771,
+   "r2": 0.22029496729373932
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "sae->dL6+linear",
+   "size": "m256k8",
+   "n_params": 66563,
+   "ev": 0.34900587797164917,
+   "l0": 7.9932861328125,
+   "r2": 0.09497072547674179
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "sae->dL6+linear",
+   "size": "m256k32",
+   "n_params": 66563,
+   "ev": 0.43316417932510376,
+   "l0": 31.89892578125,
+   "r2": 0.1272115707397461
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "sae->dL6+linear",
+   "size": "m1024k32",
+   "n_params": 266243,
+   "ev": 0.5937983393669128,
+   "l0": 31.958251953125,
+   "r2": 0.2735218107700348
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "spae->dL6+linear",
+   "size": "m256k8G8",
+   "n_params": 69379,
+   "ev": 0.29846882820129395,
+   "l0": 8.0,
+   "r2": 0.0696132555603981
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "spae->dL6+linear",
+   "size": "m256k32G8",
+   "n_params": 69379,
+   "ev": 0.4144980311393738,
+   "l0": 32.0,
+   "r2": 0.11451355367898941
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "spae->dL6+linear",
+   "size": "m1024k32G8",
+   "n_params": 277507,
+   "ev": 0.5310102701187134,
+   "l0": 32.0,
+   "r2": 0.19090287387371063
+  },
+  {
+   "name": "single_ring_flat_L6_d256",
+   "layer": 4,
+   "target": "dir",
+   "probe": "spline1L (supervised)",
+   "size": 8,
+   "n_params": 2323,
+   "r2": 0.29588446021080017
+  }
+ ],
+ "args": {
+  "kind": "path",
+  "run": "single_ring_flat_L6_d256",
+  "group": "D36",
+  "freqs": [
+   1
+  ],
+  "d": 64,
+  "n": 60000,
+  "layers": [
+   4
+  ],
+  "targets": [
+   "pos",
+   "dir"
+  ],
+  "sae": [
+   [
+    256,
+    8
+   ],
+   [
+    256,
+    32
+   ],
+   [
+    1024,
+    32
+   ]
+  ],
+  "spae": [
+   [
+    256,
+    8
+   ],
+   [
+    256,
+    32
+   ],
+   [
+    1024,
+    32
+   ]
+  ],
+  "G": 8,
+  "sup_widths": [
+   8
+  ],
+  "n_seq": 6000,
+  "n_train": 40000,
+  "steps": 3000,
+  "seed": 0,
+  "objective": "delta",
+  "out_layer": 6,
+  "out": "projects/group_tracking/results/runs/dictD_path_single_ring_flat_L6_d256.json"
+ }
+}

@@ -430,6 +430,21 @@ MSE) should expose them. Both dictionaries at (m, k) in {(256,8), (256,32),
   advantage of splines is a property of supervised readouts of polynomial
   features and of the composition law across tokens; unsupervised feature
   discovery is limited by the objective first.
+- Layer-difference objective (`--objective delta`: dictionary predicts
+  resid[4] - resid[2], i.e. what layers 2-4 write). Z36 d=32: the spline
+  dictionary's advantage on harmonics grows: 2nd harmonic 0.81 (SpAE 1024/32)
+  vs 0.57 (SAE) [next_layer: 0.76 vs 0.59; recon: 0.53 vs 0.47], 3rd harmonic
+  0.57 vs 0.29 [0.46 vs 0.29; 0.26 vs 0.21], with EV 0.99 vs 0.97; supervised
+  8-spline probe 0.98 / 0.90. D36 d=256 sign: SpAE 0.85 vs SAE 0.87 (level;
+  recon 0.68 vs 0.76), supervised 0.97. D36 d=64: no change (0.30 vs 0.38).
+  Path model (layers 4 -> 6): the write is hard to predict (EV 0.3-0.6) and
+  both dictionaries read position below the linear probe.
+- Net: a write-prediction objective is the right one for unsupervised
+  dictionaries in these models, and under it cubic codes expose polynomial
+  features of the state better than hinge codes when those features are
+  what the next layers compute (Z36 harmonics: +0.25-0.28 R² at matched
+  size). The gap to a supervised spline readout (400x fewer parameters)
+  remains large everywhere.
 
 ### Open questions / next
 

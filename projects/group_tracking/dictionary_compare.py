@@ -119,9 +119,14 @@ def main(a):
         Xtr, Xva, Xte = X[tr][: a.n_train], X[va], X[te]; d = X.shape[1]
         dicts = []
         Ytr = None
-        if a.objective == "next_layer":     # transcoder: predict the residual at --out_layer from the layer-l residual
-            Yall = feats[a.out_layer].to(device); Yall = (Yall - Yall[tr].mean(0)) / (Yall[tr].std(0) + 1e-6); Ytr = Yall[tr][: a.n_train]
-        tag = "" if Ytr is None else f"->L{a.out_layer}"
+        if a.objective in ("next_layer", "delta"):
+            # transcoder: predict the residual at --out_layer (next_layer) or what the layers in between
+            # WRITE, i.e. resid[out] - resid[layer] (delta), from the layer-l residual
+            Yall = feats[a.out_layer].to(device)
+            if a.objective == "delta":
+                Yall = Yall - feats[layer].to(device)
+            Yall = (Yall - Yall[tr].mean(0)) / (Yall[tr].std(0) + 1e-6); Ytr = Yall[tr][: a.n_train]
+        tag = "" if Ytr is None else (f"->L{a.out_layer}" if a.objective == "next_layer" else f"->dL{a.out_layer}")
         for m, k in a.sae:
             sae, ev, l0 = (train_sae(Xtr, m, k, steps=a.steps) if Ytr is None else train_dict(HingeAE(d, m, k, Ytr.shape[1]).to(device), Xtr, Ytr, a.steps))
             dicts.append((f"sae{tag}+linear", f"m{m}k{k}", sae, ev, l0, n_params(sae.enc)))
@@ -158,7 +163,7 @@ if __name__ == "__main__":
     ap.add_argument("--G", type=int, default=8)
     ap.add_argument("--sup_widths", nargs="+", type=int, default=[8])
     ap.add_argument("--n_seq", type=int, default=6000); ap.add_argument("--n_train", type=int, default=40000); ap.add_argument("--steps", type=int, default=3000); ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--objective", default="recon", choices=["recon", "next_layer"], help="recon: autoencoder; next_layer: transcoder predicting the residual at --out_layer")
+    ap.add_argument("--objective", default="recon", choices=["recon", "next_layer", "delta"], help="recon: autoencoder; next_layer: transcoder predicting the residual at --out_layer; delta: transcoder predicting resid[out_layer] - resid[layer]")
     ap.add_argument("--out_layer", type=int, default=4)
     ap.add_argument("--out", default=None)
     main(ap.parse_args())
