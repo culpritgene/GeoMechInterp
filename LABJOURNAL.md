@@ -414,6 +414,22 @@ MSE) should expose them. Both dictionaries at (m, k) in {(256,8), (256,32),
   0.31, supervised 0.91. Predicting the next residual is dominated by what
   the stream carries forward linearly (EV 0.75-0.90), so the sign computed
   in between stays a minor component of the objective.
+- Transcoder objective, Z36 d=32 (layer 2 -> 4): here spline codes DO pay
+  off. 2nd harmonic of the element: SpAE 0.69 / 0.76 at (256,32) / (1024,32)
+  vs SAE 0.44 / 0.59; 3rd harmonic 0.32 / 0.46 vs 0.19 / 0.29; full irrep
+  0.66 / 0.73 vs 0.52 / 0.60; transcoder EV 0.99 vs 0.975. Supervised
+  8-spline probe: 0.98 / 0.90 / 0.96. Path model (layer 4 -> 6): both
+  dictionaries lose information (EV 0.38-0.69) and read position below the
+  linear probe except the largest SAE (0.75 vs 0.63 linear).
+- Conclusion for the "fair dictionary" question: cubic codes help an
+  unsupervised dictionary only when the training objective rewards the
+  polynomial feature (next-layer prediction in a model whose later layers
+  compute harmonics of the state), never under reconstruction, and even then
+  the gain (+0.15-0.25 R²) leaves the dictionary far behind a supervised
+  spline readout with 400x fewer parameters. The parameter-efficiency
+  advantage of splines is a property of supervised readouts of polynomial
+  features and of the composition law across tokens; unsupervised feature
+  discovery is limited by the objective first.
 
 ### Open questions / next
 
